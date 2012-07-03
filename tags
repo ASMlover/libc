@@ -1,0 +1,73 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+COUNTOF	.\test\test.c	34;"	d	language:C	file:
+ErrorCode	.\inc\error.h	/^enum ErrorCode {$/;"	g	language:C++
+Error_DividendIsZero	.\inc\error.h	/^  Error_DividendIsZero  = 1, $/;"	e	language:C++	enum:ErrorCode
+Error_Unknown	.\inc\error.h	/^  Error_Unknown         = 0, $/;"	e	language:C++	enum:ErrorCode
+IS_CLOSE2ZERO	.\src\arith.c	33;"	d	language:C	file:
+NELEMS	.\src\atom.c	9;"	d	language:C	file:
+TestFunc	.\test\test.c	/^struct TestFunc {$/;"	s	language:C	file:
+__ARITH_HEADER_H__	.\inc\arith.h	30;"	d	language:C++
+__ATOM_HEADER_H__	.\inc\atom.h	2;"	d	language:C++
+__ERROR_HEADER_H__	.\inc\error.h	30;"	d	language:C++
+__STACK_HEADER_H__	.\inc\stack.h	30;"	d	language:C++
+__TEST_HEADER_H__	.\test\test.h	30;"	d	language:C++
+arith_ceiling	.\inc\arith.h	/^extern int arith_ceiling(int x, int y);$/;"	p	language:C++	signature:(int x, int y)
+arith_ceiling	.\src\arith.c	/^int arith_ceiling(int x, int y)$/;"	f	language:C	signature:(int x, int y)
+arith_div	.\inc\arith.h	/^extern int arith_div(int x, int y);$/;"	p	language:C++	signature:(int x, int y)
+arith_div	.\src\arith.c	/^int arith_div(int x, int y)$/;"	f	language:C	signature:(int x, int y)
+arith_floor	.\inc\arith.h	/^extern int arith_floor(int x, int y);$/;"	p	language:C++	signature:(int x, int y)
+arith_floor	.\src\arith.c	/^int arith_floor(int x, int y)$/;"	f	language:C	signature:(int x, int y)
+arith_max	.\inc\arith.h	/^extern int arith_max(int x, int y);$/;"	p	language:C++	signature:(int x, int y)
+arith_max	.\src\arith.c	/^int arith_max(int x, int y)$/;"	f	language:C	signature:(int x, int y)
+arith_min	.\inc\arith.h	/^extern int arith_min(int x, int y);$/;"	p	language:C++	signature:(int x, int y)
+arith_min	.\src\arith.c	/^int arith_min(int x, int y)$/;"	f	language:C	signature:(int x, int y)
+arith_mod	.\inc\arith.h	/^extern int arith_mod(int x, int y);$/;"	p	language:C++	signature:(int x, int y)
+arith_mod	.\src\arith.c	/^int arith_mod(int x, int y)$/;"	f	language:C	signature:(int x, int y)
+atom_int	.\inc\atom.h	/^extern const char* atom_int(long n);$/;"	p	language:C++	signature:(long n)
+atom_length	.\inc\atom.h	/^extern int atom_length(const char* str);$/;"	p	language:C++	signature:(const char* str)
+atom_new	.\inc\atom.h	/^extern const char* atom_new(const char* str, int len);$/;"	p	language:C++	signature:(const char* str, int len)
+atom_new	.\src\atom.c	/^const char* atom_new(const char* str, int len)$/;"	f	language:C	signature:(const char* str, int len)
+atom_string	.\inc\atom.h	/^extern const char* atom_string(const char* str);$/;"	p	language:C++	signature:(const char* str)
+cb	.\test\test.c	/^  func_callback cb;$/;"	m	language:C	struct:TestFunc	file:
+cmd	.\test\test.c	/^  char* cmd;$/;"	m	language:C	struct:TestFunc	file:
+count	.\src\stack.c	/^  int count;$/;"	m	language:C	struct:lStack	file:
+error	.\inc\error.h	/^extern void error(const char* file, const char* func, int line, int err_code);$/;"	p	language:C++	signature:(const char* file, const char* func, int line, int err_code)
+error	.\src\error.c	/^void error(const char* file, const char* func, int line, int err_code)$/;"	f	language:C	signature:(const char* file, const char* func, int line, int err_code)
+func_callback	.\test\test.c	/^typedef void (*func_callback)(void);$/;"	t	language:C	file:
+g_errors	.\src\error.c	/^static const char* g_errors[] = {$/;"	v	language:C	file:
+g_sBuckets	.\src\atom.c	/^static struct lAtom* g_sBuckets[2048];$/;"	v	language:C	typeref:struct:lAtom	file:
+g_sFuncs	.\test\test.c	/^static struct TestFunc g_sFuncs[] = {$/;"	v	language:C	typeref:struct:TestFunc	file:
+g_sScatter	.\src\atom.c	/^static unsigned long g_sScatter[] = {$/;"	v	language:C	file:
+head	.\src\stack.c	/^  struct lStackNode* head;$/;"	m	language:C	struct:lStack	typeref:struct:lStack::lStackNode	file:
+lAtom	.\src\atom.c	/^struct lAtom {$/;"	s	language:C	file:
+lStack	.\src\stack.c	/^struct lStack {$/;"	s	language:C	file:
+lStackNode	.\src\stack.c	/^struct lStackNode {$/;"	s	language:C	file:
+len	.\src\atom.c	/^  int   len;$/;"	m	language:C	struct:lAtom	file:
+main	.\main.c	/^main(int argc, char* argv[], char* envp[])$/;"	f	language:C	signature:(int argc, char* argv[], char* envp[])
+next	.\src\atom.c	/^  struct lAtom* next;$/;"	m	language:C	struct:lAtom	typeref:struct:lAtom::lAtom	file:
+next	.\src\stack.c	/^  struct lStackNode* next;$/;"	m	language:C	struct:lStackNode	typeref:struct:lStackNode::lStackNode	file:
+stack_clear	.\src\stack.c	/^static void stack_clear(struct lStack* self)$/;"	f	language:C	file:	signature:(struct lStack* self)
+stack_empty	.\inc\stack.h	/^extern int stack_empty(int S);$/;"	p	language:C++	signature:(int S)
+stack_empty	.\src\stack.c	/^int stack_empty(int S)$/;"	f	language:C	signature:(int S)
+stack_free	.\inc\stack.h	/^extern void stack_free(int* S);$/;"	p	language:C++	signature:(int* S)
+stack_free	.\src\stack.c	/^void stack_free(int* S)$/;"	f	language:C	signature:(int* S)
+stack_new	.\inc\stack.h	/^extern int stack_new(void);$/;"	p	language:C++	signature:(void)
+stack_new	.\src\stack.c	/^int stack_new(void)$/;"	f	language:C	signature:(void)
+stack_pop	.\inc\stack.h	/^extern void* stack_pop(int S);$/;"	p	language:C++	signature:(int S)
+stack_pop	.\src\stack.c	/^void* stack_pop(int S)$/;"	f	language:C	signature:(int S)
+stack_push	.\inc\stack.h	/^extern void stack_push(int S, void* x);$/;"	p	language:C++	signature:(int S, void* x)
+stack_push	.\src\stack.c	/^void stack_push(int S, void* x)$/;"	f	language:C	signature:(int S, void* x)
+str	.\src\atom.c	/^  char* str;$/;"	m	language:C	struct:lAtom	file:
+test_arith	.\test\test.h	/^extern void test_arith(void);$/;"	p	language:C++	signature:(void)
+test_arith	.\test\test_arith.c	/^void test_arith(void)$/;"	f	language:C	signature:(void)
+test_main	.\test\test.c	/^void test_main(const char* cmd)$/;"	f	language:C	signature:(const char* cmd)
+test_main	.\test\test.h	/^extern void test_main(const char* cmd);$/;"	p	language:C++	signature:(const char* cmd)
+test_stack	.\test\test.h	/^extern void test_stack(void);$/;"	p	language:C++	signature:(void)
+test_stack	.\test\test_stack.c	/^void test_stack(void)$/;"	f	language:C	signature:(void)
+test_unknown	.\test\test.c	/^static void test_unknown(void)$/;"	f	language:C	file:	signature:(void)
+x	.\src\stack.c	/^  void* x;$/;"	m	language:C	struct:lStackNode	file:
