@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012 ASMlove. All rights reserved.
+ * Copyright (c) 2012 ASMlover. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -42,6 +42,8 @@ static void test_unknown(void)
           "  arith      display testcases of arith\n"
           "  stack      display testcases of stack\n"
           "  atom       display testcases of atom\n"
+          "  except     display testcases of exception\n"
+          "  mem        display testcases of memory\n"
          );
 }
 
@@ -59,6 +61,8 @@ static struct TestFunc g_sFuncs[] = {
   { "arith",   test_arith   }, 
   { "stack",   test_stack   }, 
   { "atom",    test_atom    }, 
+  { "except",  test_except  }, 
+  { "mem",     test_memory  }, 
 };
 
 

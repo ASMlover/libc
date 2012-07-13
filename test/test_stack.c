@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012 ASMlove. All rights reserved.
+ * Copyright (c) 2012 ASMlover. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -30,6 +30,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "../inc/stack.h"
+#include "../inc/memory.h"
 
 #include "test.h"
 
@@ -52,7 +53,7 @@ void test_stack(void)
   srand((unsigned int)time(0));
   for (i = 0; i < 10; ++i)
   {
-    double* d = (double*)malloc(sizeof(double));
+    double* d = (double*)ALLOC(sizeof(double));
     *d = rand() % 1000 * 8.012;
     stack_push(S, d);
     fprintf(stdout, "\t\tpush data [0x%08x][%lf]\n", d, *d);
@@ -62,7 +63,7 @@ void test_stack(void)
   {
     double* d = stack_pop(S);
     fprintf(stdout, "\t\tpop data [0x%08x][%lf]\n", d, *d);
-    free(d);
+    FREE(d);
   }
   fprintf(stdout, "\tafter pop elements, stack %s empty\n", stack_empty(S) ? "is" : "is not");
 

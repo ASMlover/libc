@@ -28,28 +28,24 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include "../inc/atom.h"
+#include "../inc/except.h"
 
 #include "test.h"
 
-
-void test_atom(void)
+static void edit(int argc, char* argv[])
 {
-  char* s = "test_atom";
-  char* v;
+  fprintf(stdout, "argc = %d, argv[0] = %s\n", argc, argv[0]);
+}
+
+void test_except(void)
+{
+  char* argv[1] = {0};
   fprintf(stdout, "call function : %s\n", __func__);
 
-  fprintf(stdout, "test function atom_new ===>\n");
-  v = (char*)atom_new(s, strlen(s));
-  fprintf(stdout, "\tcall atom_new(s, strlen(s)) = %s\n", v);
-
-  fprintf(stdout, "\ntest function atom_length ===>\n");
-  fprintf(stdout, "\tcall atom_length(v) = %d\n", atom_length(v));
-
-  fprintf(stdout, "\ntest function atom_int ===>\n");
-  fprintf(stdout, "\tcall atom_int(100) = %s\n", atom_int(100));
-
-  fprintf(stdout, "\ntest function atom_string ===>\n");
-  fprintf(stdout, "\tcall atom_string(\"Hello, world!\") = %s\n", atom_string("Hello, world!"));
+  TRY
+    edit(0, argv);
+  ELSE
+    fprintf(stderr, "An internal error has occurred.\n");
+    RERAISE;
+  END_TRY;
 }

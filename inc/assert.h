@@ -26,30 +26,16 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "../inc/atom.h"
+#ifndef __ASSERT_HEADER_H__
+#define __ASSERT_HEADER_H__
 
-#include "test.h"
+#undef assert
+#ifdef NDEBUG
+  #define assert(e) ((void)0)
+#else
+  #include "except.h"
+  extern void assert(int e);
+  #define assert(e) ((void)((e) || (RAISE(lassert_failed), 0)))
+#endif
 
-
-void test_atom(void)
-{
-  char* s = "test_atom";
-  char* v;
-  fprintf(stdout, "call function : %s\n", __func__);
-
-  fprintf(stdout, "test function atom_new ===>\n");
-  v = (char*)atom_new(s, strlen(s));
-  fprintf(stdout, "\tcall atom_new(s, strlen(s)) = %s\n", v);
-
-  fprintf(stdout, "\ntest function atom_length ===>\n");
-  fprintf(stdout, "\tcall atom_length(v) = %d\n", atom_length(v));
-
-  fprintf(stdout, "\ntest function atom_int ===>\n");
-  fprintf(stdout, "\tcall atom_int(100) = %s\n", atom_int(100));
-
-  fprintf(stdout, "\ntest function atom_string ===>\n");
-  fprintf(stdout, "\tcall atom_string(\"Hello, world!\") = %s\n", atom_string("Hello, world!"));
-}
+#endif  /* __ASSERT_HEADER_H__ */

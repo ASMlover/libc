@@ -26,30 +26,11 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "../inc/atom.h"
+#include "../inc/assert.h"
 
-#include "test.h"
+const struct lExcept lassert_failed = { "Assertion Failed" };
 
-
-void test_atom(void)
+void (assert)(int e) 
 {
-  char* s = "test_atom";
-  char* v;
-  fprintf(stdout, "call function : %s\n", __func__);
-
-  fprintf(stdout, "test function atom_new ===>\n");
-  v = (char*)atom_new(s, strlen(s));
-  fprintf(stdout, "\tcall atom_new(s, strlen(s)) = %s\n", v);
-
-  fprintf(stdout, "\ntest function atom_length ===>\n");
-  fprintf(stdout, "\tcall atom_length(v) = %d\n", atom_length(v));
-
-  fprintf(stdout, "\ntest function atom_int ===>\n");
-  fprintf(stdout, "\tcall atom_int(100) = %s\n", atom_int(100));
-
-  fprintf(stdout, "\ntest function atom_string ===>\n");
-  fprintf(stdout, "\tcall atom_string(\"Hello, world!\") = %s\n", atom_string("Hello, world!"));
+  assert(e);
 }

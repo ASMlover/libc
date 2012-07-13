@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012 ASMlove. All rights reserved.
+ * Copyright (c) 2012 ASMlover. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -26,11 +26,13 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
+#include "../inc/assert.h"
+#include "../inc/memory.h"
+
 #include "../inc/atom.h"
 
 
@@ -112,7 +114,7 @@ const char* atom_new(const char* str, int len)
     }
   }
 
-  atom = (struct lAtom*)calloc(sizeof(*atom) + len + 1, sizeof(char));
+  atom = (struct lAtom*)CALLOC(sizeof(*atom) + len + 1, sizeof(char));
   atom->len = len;
   atom->str = (char*)(atom + 1);
   if (len > 0)

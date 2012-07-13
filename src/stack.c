@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012 ASMlove. All rights reserved.
+ * Copyright (c) 2012 ASMlover. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -26,9 +26,10 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "../inc/assert.h"
+#include "../inc/memory.h"
 
 #include "../inc/stack.h"
 
@@ -49,7 +50,7 @@ static void stack_clear(struct lStack* self)
   for (t = self->head; NULL != t; t = n)
   {
     n = t->next;
-    free(t);
+    FREE(t);
   }
   self->count = 0;
 }
@@ -60,7 +61,7 @@ int stack_new(void)
   struct lStack* self;
   size_t size = sizeof(struct lStack);
 
-  self = (struct lStack*)calloc(size, sizeof(char));
+  self = (struct lStack*)CALLOC(size, sizeof(char));
   return (int)self;
 }
 
@@ -68,8 +69,7 @@ void stack_free(int* S)
 {
   assert(0 != *S);
   stack_clear((struct lStack*)*S);
-  free((struct lStack*)*S);
-  *S = 0;
+  FREE((struct lStack*)*S);
 }
 
 int stack_empty(int S)
@@ -84,7 +84,7 @@ void stack_push(int S, void* x)
   size_t size = sizeof(struct lStackNode);
 
   assert(0 != S);
-  t = (struct lStackNode*)calloc(size, sizeof(char));
+  t = (struct lStackNode*)CALLOC(size, sizeof(char));
   t->x = x;
   t->next = ((struct lStack*)S)->head;
   ((struct lStack*)S)->head = t;
@@ -102,7 +102,7 @@ void* stack_pop(int S)
   ((struct lStack*)S)->head = t->next;
   --((struct lStack*)S)->count;
   x = t->x;
-  free(t);
+  FREE(t);
 
   return x;
 }
