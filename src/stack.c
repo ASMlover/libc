@@ -67,9 +67,14 @@ int stack_new(void)
 
 void stack_free(int* S)
 {
+#ifdef __GNUC__
+  #undef FREE
+  #define FREE(ptr) (free((void*)(ptr)), (ptr) = 0)
+#endif
+
   assert(0 != *S);
   stack_clear((struct lStack*)*S);
-  FREE((struct lStack*)*S);
+  FREE(*S);
 }
 
 int stack_empty(int S)

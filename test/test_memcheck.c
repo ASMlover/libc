@@ -27,56 +27,53 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include "../inc/memory.h"
+#include "../inc/mem_check.h"
 
 #include "test.h"
 
 
-typedef struct _TestMemory {
-  int id;
-  char name[32];
-} TestMemory;
 
-void test_memory(void)
+typedef struct _TestMemCheck {
+  int   id;
+  char  name[32];
+} TestMemCheck;
+
+void test_memcheck(void)
 {
   fprintf(stdout, "call function : %s\n", __func__);
-
-  fprintf(stdout, "test function ALLOC ===>\n");
+  
+  fprintf(stdout, "test function MEM_ALLOC ===>\n");
   {
-    TestMemory* tm = (TestMemory*)ALLOC(sizeof(TestMemory));
-    fprintf(stdout, "\tcall ALLOC success, object is id = %d, name = '%s'\n", tm->id, tm->name);
-    tm->id = 100;
-    strcpy(tm->name, "TestMemory");
-    fprintf(stdout, "\tafter set vairable, object is id = %d, name = '%s'\n", tm->id, tm->name);
-    FREE(tm);
-
-    /*
-    ERROR 
-    tm = (TestMemory*)ALLOC(0L);
-    */
+    TestMemCheck* tmc = (TestMemCheck*)MEM_ALLOC(sizeof(TestMemCheck));
+    fprintf(stdout, "\tcall MEM_ALLOC success, object is id = %d, name = '%s'\n", tmc->id, tmc->name);
+    tmc->id = rand() % 1000;
+    strcpy(tmc->name, "MEM_ALLOC TestMemCheck");
+    fprintf(stdout, "\tafter set variable, object is id = %d, name = '%s'\n", tmc->id, tmc->name);
+    MEM_FREE(tmc);
   }
 
-  fprintf(stdout, "\ntest function CALLOC ===>\n");
+  fprintf(stdout, "test function MEM_CALLOC ===>\n");
   {
-    TestMemory* tm = (TestMemory*)CALLOC(1, sizeof(TestMemory));
-    fprintf(stdout, "\tcall CALLOC success, object is id = %d, name = '%s'\n", tm->id, tm->name);
-    tm->id = 100;
-    strcpy(tm->name, "TestMemory");
-    fprintf(stdout, "\tafter set vairable, object is id = %d, name = '%s'\n", tm->id, tm->name);
-    FREE(tm);
+    TestMemCheck* tmc = (TestMemCheck*)MEM_CALLOC(1, sizeof(TestMemCheck));
+    fprintf(stdout, "\tcall MEM_CALLOC success, object is id = %d, name = '%s'\n", tmc->id, tmc->name);
+    tmc->id = rand() % 1000;
+    strcpy(tmc->name, "MEM_CALLOC TestMemCheck");
+    fprintf(stdout, "\tafter set variable, object is id = %d, name = '%s'\n", tmc->id, tmc->name);
+    MEM_FREE(tmc);
   }
 
-  fprintf(stdout, "\ntest function FREE ===>\n");
+  fprintf(stdout, "\ntest function MEM_FREE ===>\n");
   {
-    TestMemory* tm = (TestMemory*)ALLOC(sizeof(TestMemory));
-    FREE(tm);
-    fprintf(stdout, "\tafter free tm, it's pointer address is 0x%p\n", tm);
+    TestMemCheck* tmc = (TestMemCheck*)MEM_ALLOC(sizeof(TestMemCheck));
+    MEM_FREE(tmc);
+    fprintf(stdout, "\tafter free tm, it's pointer address is 0x%p\n", tmc);
   }
-
-  fprintf(stdout, "\ntest function REALLOC ===>\n");
+  
+  fprintf(stdout, "\ntest function MEM_REALLOC ===>\n");
   {
-    int* p = (int*)ALLOC(sizeof(int) * 10);
+    int* p = (int*)MEM_ALLOC(sizeof(int) * 10);
     int  i;
 
     for (i = 0; i < 10; ++i)
@@ -86,7 +83,7 @@ void test_memory(void)
       fprintf(stdout, "[%02d] = %03d\t", i + 1, p[i]);
     fprintf(stdout, "\n");
 
-    p = (int*)REALLOC(p, sizeof(int) * 20);
+    p = (int*)MEM_REALLOC(p, sizeof(int) * 20);
     fprintf(stdout, "\tafter create the 'p' array, it's value is: \n");
     for (i = 0; i < 20; ++i)
       fprintf(stdout, "[%02d] = %03d\t", i + 1, p[i]);
@@ -98,6 +95,6 @@ void test_memory(void)
     for (i = 0; i < 20; ++i)
       fprintf(stdout, "[%02d] = %03d\t", i + 1, p[i]);
 
-    FREE(p);
-  }
+    MEM_FREE(p);
+  }  
 }

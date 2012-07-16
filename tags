@@ -4,8 +4,8 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-ALLOC	.\inc\memory.h	13;"	d	language:C++
-CALLOC	.\inc\memory.h	14;"	d	language:C++
+ALLOC	.\inc\memory.h	41;"	d	language:C++
+CALLOC	.\inc\memory.h	42;"	d	language:C++
 COUNTOF	.\test\test.c	34;"	d	language:C	file:
 ELSE	.\inc\except.h	108;"	d	language:C++
 ELSE	.\inc\except.h	74;"	d	language:C++
@@ -22,14 +22,24 @@ Error_DividendIsZero	.\inc\error.h	/^  Error_DividendIsZero  = 1, $/;"	e	languag
 Error_Unknown	.\inc\error.h	/^  Error_Unknown         = 0, $/;"	e	language:C++	enum:ErrorCode
 FINALLY	.\inc\except.h	113;"	d	language:C++
 FINALLY	.\inc\except.h	79;"	d	language:C++
-FREE	.\inc\memory.h	17;"	d	language:C++
+FREE	.\inc\memory.h	45;"	d	language:C++
+FREE	.\src\stack.c	71;"	d	language:C	file:
+FREE	.\src\stack.c	72;"	d	language:C	file:
 IS_CLOSE2ZERO	.\src\arith.c	33;"	d	language:C	file:
+LDESCRIPTORS	.\src\mem_check.c	54;"	d	language:C	file:
+LHASH	.\src\mem_check.c	53;"	d	language:C	file:
+LHASHTABLE_LEN_DEF	.\src\mem_check.c	52;"	d	language:C	file:
+LNALLOC	.\src\mem_check.c	55;"	d	language:C	file:
+MEM_ALLOC	.\inc\mem_check.h	41;"	d	language:C++
+MEM_CALLOC	.\inc\mem_check.h	42;"	d	language:C++
+MEM_FREE	.\inc\mem_check.h	43;"	d	language:C++
+MEM_REALLOC	.\inc\mem_check.h	44;"	d	language:C++
 NELEMS	.\src\atom.c	39;"	d	language:C	file:
-NEW	.\inc\memory.h	15;"	d	language:C++
-NEW0	.\inc\memory.h	16;"	d	language:C++
+NEW	.\inc\memory.h	43;"	d	language:C++
+NEW0	.\inc\memory.h	44;"	d	language:C++
 RAISE	.\inc\except.h	58;"	d	language:C++
 RAISE	.\inc\except.h	93;"	d	language:C++
-REALLOC	.\inc\memory.h	18;"	d	language:C++
+REALLOC	.\inc\memory.h	46;"	d	language:C++
 RERAISE	.\inc\except.h	59;"	d	language:C++
 RERAISE	.\inc\except.h	94;"	d	language:C++
 RETURN	.\inc\except.h	60;"	d	language:C++
@@ -37,17 +47,25 @@ RETURN	.\inc\except.h	95;"	d	language:C++
 TRY	.\inc\except.h	61;"	d	language:C++
 TRY	.\inc\except.h	96;"	d	language:C++
 TestFunc	.\test\test.c	/^struct TestFunc {$/;"	s	language:C	file:
+TestMemCheck	.\test\test_memcheck.c	/^} TestMemCheck;$/;"	t	language:C	typeref:struct:_TestMemCheck	file:
 TestMemory	.\test\test_memory.c	/^} TestMemory;$/;"	t	language:C	typeref:struct:_TestMemory	file:
+_CRT_WIDE	.\src\except.c	83;"	d	language:C	file:
+_TestMemCheck	.\test\test_memcheck.c	/^typedef struct _TestMemCheck {$/;"	s	language:C	file:
 _TestMemory	.\test\test_memory.c	/^typedef struct _TestMemory {$/;"	s	language:C	file:
 __ARITH_HEADER_H__	.\inc\arith.h	30;"	d	language:C++
 __ASSERT_HEADER_H__	.\inc\assert.h	30;"	d	language:C++
 __ATOM_HEADER_H__	.\inc\atom.h	30;"	d	language:C++
+__CRT_WIDE	.\src\except.c	82;"	d	language:C	file:
 __ERROR_HEADER_H__	.\inc\error.h	30;"	d	language:C++
 __EXCEPT_HEADER_H__	.\inc\except.h	30;"	d	language:C++
-__MEMORY_HEADER_H__	.\inc\memory.h	2;"	d	language:C++
+__MEMORY_CHECK_HEADER_H__	.\inc\mem_check.h	30;"	d	language:C++
+__MEMORY_HEADER_H__	.\inc\memory.h	30;"	d	language:C++
 __STACK_HEADER_H__	.\inc\stack.h	30;"	d	language:C++
 __TEST_HEADER_H__	.\test\test.h	30;"	d	language:C++
-_assert	.\src\except.c	/^  _CRTIMP __cdecl void _assert(void*, void*, unsigned int);$/;"	p	language:C	file:	signature:(void*, void*, unsigned int)
+__func__	.\inc\error.h	33;"	d	language:C++
+__func__	.\test\test.h	33;"	d	language:C++
+_assert	.\src\except.c	/^    _CRTIMP void __cdecl _assert(const char*, const char*, unsigned int);$/;"	p	language:C	file:	signature:(const char*, const char*, unsigned int)
+_wassert	.\src\except.c	/^    _CRTIMP void __cdecl _wassert(const wchar_t*, const wchar_t*, unsigned int);$/;"	p	language:C	file:	signature:(const wchar_t*, const wchar_t*, unsigned int)
 arith_ceiling	.\inc\arith.h	/^extern int arith_ceiling(int x, int y);$/;"	p	language:C++	signature:(int x, int y)
 arith_ceiling	.\src\arith.c	/^int arith_ceiling(int x, int y)$/;"	f	language:C	signature:(int x, int y)
 arith_div	.\inc\arith.h	/^extern int arith_div(int x, int y);$/;"	p	language:C++	signature:(int x, int y)
@@ -65,8 +83,9 @@ assert	.\inc\assert.h	32;"	d	language:C++
 assert	.\inc\assert.h	34;"	d	language:C++
 assert	.\inc\assert.h	38;"	d	language:C++
 assert	.\src\assert.c	/^void (assert)(int e) $/;"	f	language:C	signature:(int e)
-assert	.\src\except.c	82;"	d	language:C	file:
-assert	.\src\except.c	83;"	d	language:C	file:
+assert	.\src\except.c	92;"	d	language:C	file:
+assert	.\src\except.c	95;"	d	language:C	file:
+assert	.\src\except.c	97;"	d	language:C	file:
 atom_int	.\inc\atom.h	/^extern const char* atom_int(long n);$/;"	p	language:C++	signature:(long n)
 atom_int	.\src\atom.c	/^const char* atom_int(long n)$/;"	f	language:C	signature:(long n)
 atom_length	.\inc\atom.h	/^extern int atom_length(const char* str);$/;"	p	language:C++	signature:(const char* str)
@@ -78,6 +97,7 @@ atom_string	.\src\atom.c	/^const char* atom_string(const char* str)$/;"	f	langua
 cb	.\test\test.c	/^  func_callback cb;$/;"	m	language:C	struct:TestFunc	file:
 cmd	.\test\test.c	/^  char* cmd;$/;"	m	language:C	struct:TestFunc	file:
 count	.\src\stack.c	/^  int count;$/;"	m	language:C	struct:lStack	file:
+dalloc	.\src\mem_check.c	/^static struct lDescriptor* dalloc(void* ptr, long bytes, const char* file, int line)$/;"	f	language:C	file:	signature:(void* ptr, long bytes, const char* file, int line)
 edit	.\test\test_except.c	/^static void edit(int argc, char* argv[])$/;"	f	language:C	file:	signature:(int argc, char* argv[])
 env	.\inc\except.h	/^  jmp_buf              env;$/;"	m	language:C++	struct:lExceptFrame
 error	.\inc\error.h	/^extern void error(const char* file, const char* func, int line, int err_code);$/;"	p	language:C++	signature:(const char* file, const char* func, int line, int err_code)
@@ -92,14 +112,20 @@ except_raise	.\inc\except.h	/^extern void except_raise(const struct lExcept* e, 
 except_raise	.\src\except.c	/^void except_raise(const struct lExcept* e, const char* file, int line)$/;"	f	language:C	signature:(const struct lExcept* e, const char* file, int line)
 exception	.\inc\except.h	/^  struct lExcept*      exception;$/;"	m	language:C++	struct:lExceptFrame	typeref:struct:lExceptFrame::lExcept
 file	.\inc\except.h	/^  const char*          file;$/;"	m	language:C++	struct:lExceptFrame
+file	.\src\mem_check.c	/^  const char*         file;$/;"	m	language:C	struct:lDescriptor	file:
+find	.\src\mem_check.c	/^static struct lDescriptor* find(const void* ptr)$/;"	f	language:C	file:	signature:(const void* ptr)
+free	.\src\mem_check.c	/^  struct lDescriptor* free;$/;"	m	language:C	struct:lDescriptor	typeref:struct:lDescriptor::lDescriptor	file:
 func_callback	.\test\test.c	/^typedef void (*func_callback)(void);$/;"	t	language:C	file:
 g_errors	.\src\error.c	/^static const char* g_errors[] = {$/;"	v	language:C	file:
 g_sBuckets	.\src\atom.c	/^static struct lAtom* g_sBuckets[2048];$/;"	v	language:C	typeref:struct:lAtom	file:
 g_sFuncs	.\test\test.c	/^static struct TestFunc g_sFuncs[] = {$/;"	v	language:C	typeref:struct:TestFunc	file:
 g_sScatter	.\src\atom.c	/^static unsigned long g_sScatter[] = {$/;"	v	language:C	file:
 head	.\src\stack.c	/^  struct lStackNode* head;$/;"	m	language:C	struct:lStack	typeref:struct:lStack::lStackNode	file:
+id	.\test\test_memcheck.c	/^  int   id;$/;"	m	language:C	struct:_TestMemCheck	file:
 id	.\test\test_memory.c	/^  int id;$/;"	m	language:C	struct:_TestMemory	file:
+lAlign	.\src\mem_check.c	/^union lAlign {$/;"	u	language:C	file:
 lAtom	.\src\atom.c	/^struct lAtom {$/;"	s	language:C	file:
+lDescriptor	.\src\mem_check.c	/^struct lDescriptor {$/;"	s	language:C	file:
 lExcept	.\inc\except.h	/^struct lExcept { const char* reason; };$/;"	s	language:C++
 lExceptFrame	.\inc\except.h	/^struct lExceptFrame {$/;"	s	language:C++
 lStack	.\src\stack.c	/^struct lStack {$/;"	s	language:C	file:
@@ -108,9 +134,20 @@ lassert_failed	.\src\assert.c	/^const struct lExcept lassert_failed = { "Asserti
 len	.\src\atom.c	/^  int   len;$/;"	m	language:C	struct:lAtom	file:
 lexcept_index	.\src\except.c	/^int lexcept_index = -1;$/;"	v	language:C
 lexcept_stack	.\src\except.c	/^struct lExceptFrame* lexcept_stack = NULL;$/;"	v	language:C	typeref:struct:lExceptFrame
+lfreelist	.\src\mem_check.c	/^static struct lDescriptor lfreelist = {&lfreelist};$/;"	v	language:C	typeref:struct:lDescriptor	file:
 line	.\inc\except.h	/^  int                  line;$/;"	m	language:C++	struct:lExceptFrame
+line	.\src\mem_check.c	/^  int                 line;$/;"	m	language:C	struct:lDescriptor	file:
+lmemcheck_failed	.\src\mem_check.c	/^const struct lExcept lmemcheck_failed = { "Memory check failed" };$/;"	v	language:C	typeref:struct:lExcept
 lmemory_failed	.\src\memory.c	/^const struct lExcept lmemory_failed = { "Allocation Failed" };$/;"	v	language:C	typeref:struct:lExcept
 main	.\main.c	/^main(int argc, char* argv[], char* envp[])$/;"	f	language:C	signature:(int argc, char* argv[], char* envp[])
+mem_alloc	.\inc\mem_check.h	/^extern void* mem_alloc(long bytes, const char* file, int line);$/;"	p	language:C++	signature:(long bytes, const char* file, int line)
+mem_alloc	.\src\mem_check.c	/^void* mem_alloc(long bytes, const char* file, int line)$/;"	f	language:C	signature:(long bytes, const char* file, int line)
+mem_calloc	.\inc\mem_check.h	/^extern void* mem_calloc(long count, long elem_bytes, const char* file, int line);$/;"	p	language:C++	signature:(long count, long elem_bytes, const char* file, int line)
+mem_calloc	.\src\mem_check.c	/^void* mem_calloc(long count, long elem_bytes, const char* file, int line)$/;"	f	language:C	signature:(long count, long elem_bytes, const char* file, int line)
+mem_free	.\inc\mem_check.h	/^extern void mem_free(void* ptr, const char* file, int line);$/;"	p	language:C++	signature:(void* ptr, const char* file, int line)
+mem_free	.\src\mem_check.c	/^void mem_free(void* ptr, const char* file, int line)$/;"	f	language:C	signature:(void* ptr, const char* file, int line)
+mem_realloc	.\inc\mem_check.h	/^extern void* mem_realloc(void* ptr, long bytes, const char* file, int line);$/;"	p	language:C++	signature:(void* ptr, long bytes, const char* file, int line)
+mem_realloc	.\src\mem_check.c	/^void* mem_realloc(void* ptr, long bytes, const char* file, int line)$/;"	f	language:C	signature:(void* ptr, long bytes, const char* file, int line)
 memory_alloc	.\inc\memory.h	/^extern void* memory_alloc(long bytes, const char* file, int line);$/;"	p	language:C++	signature:(long bytes, const char* file, int line)
 memory_alloc	.\src\memory.c	/^void* memory_alloc(long bytes, const char* file, int line)$/;"	f	language:C	signature:(long bytes, const char* file, int line)
 memory_calloc	.\inc\memory.h	/^extern void* memory_calloc(long count, long elem_bytes, const char* file, int line);$/;"	p	language:C++	signature:(long count, long elem_bytes, const char* file, int line)
@@ -119,11 +156,17 @@ memory_free	.\inc\memory.h	/^extern void memory_free(void* ptr, const char* file
 memory_free	.\src\memory.c	/^void memory_free(void* ptr, const char* file, int line)$/;"	f	language:C	signature:(void* ptr, const char* file, int line)
 memory_realloc	.\inc\memory.h	/^extern void* memory_realloc(void* ptr, long bytes, const char* file, int line);$/;"	p	language:C++	signature:(void* ptr, long bytes, const char* file, int line)
 memory_realloc	.\src\memory.c	/^void* memory_realloc(void* ptr, long bytes, const char* file, int line)$/;"	f	language:C	signature:(void* ptr, long bytes, const char* file, int line)
+name	.\test\test_memcheck.c	/^  char  name[32];$/;"	m	language:C	struct:_TestMemCheck	file:
 name	.\test\test_memory.c	/^  char name[32];$/;"	m	language:C	struct:_TestMemory	file:
 next	.\src\atom.c	/^  struct lAtom* next;$/;"	m	language:C	struct:lAtom	typeref:struct:lAtom::lAtom	file:
+next	.\src\mem_check.c	/^  struct lDescriptor* next;$/;"	m	language:C	struct:lDescriptor	typeref:struct:lDescriptor::lDescriptor	file:
 next	.\src\stack.c	/^  struct lStackNode* next;$/;"	m	language:C	struct:lStackNode	typeref:struct:lStackNode::lStackNode	file:
+pad	.\src\mem_check.c	/^  char    pad[MAXALIGN];$/;"	m	language:C	union:lAlign	file:
 prev	.\inc\except.h	/^  struct lExceptFrame* prev;$/;"	m	language:C++	struct:lExceptFrame	typeref:struct:lExceptFrame::lExceptFrame
+ptr	.\src\mem_check.c	/^  const void*         ptr;$/;"	m	language:C	struct:lDescriptor	file:
 reason	.\inc\except.h	/^struct lExcept { const char* reason; };$/;"	m	language:C++	struct:lExcept
+s_lhashtable	.\src\mem_check.c	/^static struct lDescriptor* s_lhashtable[LHASHTABLE_LEN_DEF];$/;"	v	language:C	typeref:struct:lDescriptor	file:
+size	.\src\mem_check.c	/^  long                size;$/;"	m	language:C	struct:lDescriptor	file:
 stack_clear	.\src\stack.c	/^static void stack_clear(struct lStack* self)$/;"	f	language:C	file:	signature:(struct lStack* self)
 stack_empty	.\inc\stack.h	/^extern int stack_empty(int S);$/;"	p	language:C++	signature:(int S)
 stack_empty	.\src\stack.c	/^int stack_empty(int S)$/;"	f	language:C	signature:(int S)
@@ -144,6 +187,8 @@ test_except	.\test\test.h	/^extern void test_except(void);$/;"	p	language:C++	si
 test_except	.\test\test_except.c	/^void test_except(void)$/;"	f	language:C	signature:(void)
 test_main	.\test\test.c	/^void test_main(const char* cmd)$/;"	f	language:C	signature:(const char* cmd)
 test_main	.\test\test.h	/^extern void test_main(const char* cmd);$/;"	p	language:C++	signature:(const char* cmd)
+test_memcheck	.\test\test.h	/^extern void test_memcheck(void);$/;"	p	language:C++	signature:(void)
+test_memcheck	.\test\test_memcheck.c	/^void test_memcheck(void)$/;"	f	language:C	signature:(void)
 test_memory	.\test\test.h	/^extern void test_memory(void);$/;"	p	language:C++	signature:(void)
 test_memory	.\test\test_memory.c	/^void test_memory(void)$/;"	f	language:C	signature:(void)
 test_stack	.\test\test.h	/^extern void test_stack(void);$/;"	p	language:C++	signature:(void)

@@ -29,6 +29,9 @@
 #ifndef __ERROR_HEADER_H__
 #define __ERROR_HEADER_H__
 
+#if _WIN32 || _WIN64
+  #define __func__  __FUNCTION__
+#endif
 
 enum ErrorCode {
   Error_Unknown         = 0, 

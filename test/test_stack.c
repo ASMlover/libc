@@ -56,17 +56,17 @@ void test_stack(void)
     double* d = (double*)ALLOC(sizeof(double));
     *d = rand() % 1000 * 8.012;
     stack_push(S, d);
-    fprintf(stdout, "\t\tpush data [0x%08x][%lf]\n", d, *d);
+    fprintf(stdout, "\t\tpush data [0x%p][%lf]\n", d, *d);
   }
   fprintf(stdout, "\tafter push 10 elements, stack %s empty\n", stack_empty(S) ? "is" : "is not");
   while (!stack_empty(S))
   {
     double* d = stack_pop(S);
-    fprintf(stdout, "\t\tpop data [0x%08x][%lf]\n", d, *d);
+    fprintf(stdout, "\t\tpop data [0x%p][%lf]\n", d, *d);
     FREE(d);
   }
   fprintf(stdout, "\tafter pop elements, stack %s empty\n", stack_empty(S) ? "is" : "is not");
 
   stack_free(&S);
-  fprintf(stdout, "\nafter call function stack_free, S = %d\n", S);
+  fprintf(stdout, "\nafter call function stack_free, S = 0x%p\n", (void*)S);
 }

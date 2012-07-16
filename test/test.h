@@ -29,6 +29,10 @@
 #ifndef __TEST_HEADER_H__
 #define __TEST_HEADER_H__
 
+#if _WIN32 || _WIN64
+  #define __func__  __FUNCTION__
+#endif
+
 extern void test_main(const char* cmd);
 
 extern void test_arith(void);
@@ -36,5 +40,6 @@ extern void test_stack(void);
 extern void test_atom(void);
 extern void test_except(void);
 extern void test_memory(void);
+extern void test_memcheck(void);
 
 #endif  /* __TEST_HEADER_H__ */

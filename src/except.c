@@ -78,9 +78,24 @@ void except_raise(const struct lExcept* e, const char* file, int line)
 
 
 #if _WIN32 || _WIN64
-  _CRTIMP __cdecl void _assert(void*, void*, unsigned int);
-  #define assert
-  #define assert(e) ((e) || (_assert(#e, __FILE__, __LINE__), 0))
+  #ifndef _CRT_WIDE
+    #define __CRT_WIDE(_String) L ## _String
+    #define _CRT_WIDE(_String) __CRT_WIDE(_String)
+  #endif
+  
+  #if _UNICODE || UNICODE
+    _CRTIMP void __cdecl _wassert(const wchar_t*, const wchar_t*, unsigned int);
+  #else
+    _CRTIMP void __cdecl _assert(const char*, const char*, unsigned int);
+  #endif
+
+  #undef assert
+
+  #if _UNICODE || UNICODE
+    #define assert(e) ((e) || (_wassert(_CRT_WIDE(#e), _CRT_WIDE(__FILE__), __LINE__), 0))
+  #else
+    #define assert(e) ((e) || (_assert((#e), __FILE__, __LINE__), 0))
+  #endif
 
 int lexcept_index = -1;
 void except_init(void)

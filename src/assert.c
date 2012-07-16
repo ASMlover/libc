@@ -26,6 +26,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+#include "../inc/except.h"
 #include "../inc/assert.h"
 
 const struct lExcept lassert_failed = { "Assertion Failed" };
