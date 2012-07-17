@@ -41,5 +41,6 @@ extern void test_atom(void);
 extern void test_except(void);
 extern void test_memory(void);
 extern void test_memcheck(void);
+extern void test_arena(void);
 
 #endif  /* __TEST_HEADER_H__ */

@@ -45,6 +45,7 @@ static void test_unknown(void)
           "  except     display testcases of exception\n"
           "  mem        display testcases of memory\n"
           "  memchk     display testcases of mem_check\n"
+          "  arena      display testcases of arena\n"
          );
 }
 
@@ -65,6 +66,7 @@ static struct TestFunc g_sFuncs[] = {
   { "except",  test_except    }, 
   { "mem",     test_memory    }, 
   { "memchk",  test_memcheck  }, 
+  { "arena",   test_arena     }, 
 };
 
 
