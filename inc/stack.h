@@ -29,8 +29,8 @@
 #ifndef __STACK_HEADER_H__
 #define __STACK_HEADER_H__
 
-extern int stack_new(void);
-extern void stack_free(int* S);
+extern int stack_create(void);
+extern void stack_release(int* S);
 extern int stack_empty(int S);
 extern void stack_push(int S, void* x);
 extern void* stack_pop(int S);

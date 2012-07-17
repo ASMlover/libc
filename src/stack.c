@@ -56,7 +56,7 @@ static void stack_clear(struct lStack* self)
 }
 
 
-int stack_new(void)
+int stack_create(void)
 {
   struct lStack* self;
   size_t size = sizeof(struct lStack);
@@ -65,7 +65,7 @@ int stack_new(void)
   return (int)self;
 }
 
-void stack_free(int* S)
+void stack_release(int* S)
 {
 #ifdef __GNUC__
   #undef FREE

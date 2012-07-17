@@ -42,7 +42,7 @@ void test_stack(void)
   fprintf(stdout, "call function : %s\n", __func__);
 
   fprintf(stdout, "test function stack_new ===>\n");
-  S = stack_new();
+  S = stack_create();
   if (0 == S)
     fprintf(stdout, "\tcreate new stack object failed\n");
   else
@@ -67,6 +67,6 @@ void test_stack(void)
   }
   fprintf(stdout, "\tafter pop elements, stack %s empty\n", stack_empty(S) ? "is" : "is not");
 
-  stack_free(&S);
+  stack_release(&S);
   fprintf(stdout, "\nafter call function stack_free, S = 0x%p\n", (void*)S);
 }
