@@ -43,5 +43,6 @@ extern void test_memory(void);
 extern void test_memcheck(void);
 extern void test_arena(void);
 extern void test_list(void);
+extern void test_slist(void);
 
 #endif  /* __TEST_HEADER_H__ */

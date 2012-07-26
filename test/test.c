@@ -47,6 +47,7 @@ static void test_unknown(void)
           "  memchk     display testcases of mem_check\n"
           "  arena      display testcases of arena\n"
           "  list       display testcases of list\n"
+          "  slist      display testcases of slist\n"
          );
 }
 
@@ -69,6 +70,7 @@ static struct TestFunc g_sFuncs[] = {
   { "memchk",  test_memcheck  }, 
   { "arena",   test_arena     }, 
   { "list",    test_list      }, 
+  { "slist",   test_slist     }, 
 };
 
 

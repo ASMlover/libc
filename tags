@@ -14,6 +14,7 @@ ELSE	.\inc\except.h	74;"	d	language:C++
 END_TRY	.\inc\except.h	119;"	d	language:C++
 END_TRY	.\inc\except.h	85;"	d	language:C++
 ERROR_LEN	.\inc\list.h	32;"	d	language:C++
+ERROR_LEN	.\inc\slist.h	32;"	d	language:C++
 EXCEPT	.\inc\except.h	103;"	d	language:C++
 EXCEPT	.\inc\except.h	69;"	d	language:C++
 EXCEPT_ENTERED	.\inc\except.h	/^  EXCEPT_ENTERED    = 0, $/;"	e	language:C++	enum:__anon1
@@ -47,7 +48,9 @@ REALLOC	.\inc\memory.h	46;"	d	language:C++
 RERAISE	.\inc\except.h	59;"	d	language:C++
 RERAISE	.\inc\except.h	94;"	d	language:C++
 RESULT_FAIL	.\inc\list.h	34;"	d	language:C++
+RESULT_FAIL	.\inc\slist.h	34;"	d	language:C++
 RESULT_OK	.\inc\list.h	33;"	d	language:C++
+RESULT_OK	.\inc\slist.h	33;"	d	language:C++
 RETURN	.\inc\except.h	60;"	d	language:C++
 RETURN	.\inc\except.h	95;"	d	language:C++
 TRY	.\inc\except.h	61;"	d	language:C++
@@ -70,6 +73,7 @@ __EXCEPT_HEADER_H__	.\inc\except.h	30;"	d	language:C++
 __LIST_HEADER_H__	.\inc\list.h	30;"	d	language:C++
 __MEMORY_CHECK_HEADER_H__	.\inc\mem_check.h	30;"	d	language:C++
 __MEMORY_HEADER_H__	.\inc\memory.h	30;"	d	language:C++
+__SLIST_HEADER_H__	.\inc\slist.h	30;"	d	language:C++
 __STACK_HEADER_H__	.\inc\stack.h	30;"	d	language:C++
 __TEST_HEADER_H__	.\test\test.h	30;"	d	language:C++
 __func__	.\inc\error.h	33;"	d	language:C++
@@ -123,6 +127,7 @@ cmd	.\test\test.c	/^  char* cmd;$/;"	m	language:C	struct:TestFunc	file:
 count	.\src\stack.c	/^  int count;$/;"	m	language:C	struct:lStack	file:
 dalloc	.\src\mem_check.c	/^static struct lDescriptor* dalloc(void* ptr, long bytes, const char* file, int line)$/;"	f	language:C	file:	signature:(void* ptr, long bytes, const char* file, int line)
 data	.\src\list.c	/^  void*             data;$/;"	m	language:C	struct:lListNode	file:
+data	.\src\slist.c	/^  void*              data;$/;"	m	language:C	struct:lSlistNode	file:
 edit	.\test\test_except.c	/^static void edit(int argc, char* argv[])$/;"	f	language:C	file:	signature:(int argc, char* argv[])
 env	.\inc\except.h	/^  jmp_buf              env;$/;"	m	language:C++	struct:lExceptFrame
 error	.\inc\error.h	/^extern void error(const char* file, const char* func, int line, int err_code);$/;"	p	language:C++	signature:(const char* file, const char* func, int line, int err_code)
@@ -145,6 +150,7 @@ g_errors	.\src\error.c	/^static const char* g_errors[] = {$/;"	v	language:C	file
 g_sBuckets	.\src\atom.c	/^static struct lAtom* g_sBuckets[2048];$/;"	v	language:C	typeref:struct:lAtom	file:
 g_sFuncs	.\test\test.c	/^static struct TestFunc g_sFuncs[] = {$/;"	v	language:C	typeref:struct:TestFunc	file:
 g_sScatter	.\src\atom.c	/^static unsigned long g_sScatter[] = {$/;"	v	language:C	file:
+head	.\src\slist.c	/^  struct lSlistNode* head;$/;"	m	language:C	struct:lSlist	typeref:struct:lSlist::lSlistNode	file:
 head	.\src\stack.c	/^  struct lStackNode* head;$/;"	m	language:C	struct:lStack	typeref:struct:lStack::lStackNode	file:
 id	.\test\test_arena.c	/^  int id;$/;"	m	language:C	struct:_TestArena	file:
 id	.\test\test_memcheck.c	/^  int   id;$/;"	m	language:C	struct:_TestMemCheck	file:
@@ -160,6 +166,9 @@ lHeader	.\src\arena.c	/^union lHeader {$/;"	u	language:C	file:
 lList	.\src\list.c	/^struct lList {$/;"	s	language:C	file:
 lListIter	.\inc\list.h	/^typedef void** lListIter;$/;"	t	language:C++
 lListNode	.\src\list.c	/^struct lListNode {$/;"	s	language:C	file:
+lSlist	.\src\slist.c	/^struct lSlist {$/;"	s	language:C	file:
+lSlistIter	.\inc\slist.h	/^typedef void** lSlistIter;$/;"	t	language:C++
+lSlistNode	.\src\slist.c	/^struct lSlistNode {$/;"	s	language:C	file:
 lStack	.\src\stack.c	/^struct lStack {$/;"	s	language:C	file:
 lStackNode	.\src\stack.c	/^struct lStackNode {$/;"	s	language:C	file:
 larena_createfailed	.\src\arena.c	/^const struct lExcept larena_createfailed = { "Arena creation failed" };$/;"	v	language:C	typeref:struct:lExcept
@@ -238,6 +247,7 @@ name	.\test\test_memory.c	/^  char name[32];$/;"	m	language:C	struct:_TestMemory
 next	.\src\atom.c	/^  struct lAtom* next;$/;"	m	language:C	struct:lAtom	typeref:struct:lAtom::lAtom	file:
 next	.\src\list.c	/^  struct lListNode* next;$/;"	m	language:C	struct:lListNode	typeref:struct:lListNode::lListNode	file:
 next	.\src\mem_check.c	/^  struct lDescriptor* next;$/;"	m	language:C	struct:lDescriptor	typeref:struct:lDescriptor::lDescriptor	file:
+next	.\src\slist.c	/^  struct lSlistNode* next;$/;"	m	language:C	struct:lSlistNode	typeref:struct:lSlistNode::lSlistNode	file:
 next	.\src\stack.c	/^  struct lStackNode* next;$/;"	m	language:C	struct:lStackNode	typeref:struct:lStackNode::lStackNode	file:
 node	.\src\list.c	/^  struct lListNode node;$/;"	m	language:C	struct:lList	typeref:struct:lList::lListNode	file:
 pad	.\src\arena.c	/^  char pad[MAXALIGN];$/;"	m	language:C	union:lAlign	file:
@@ -250,6 +260,41 @@ reason	.\inc\except.h	/^struct lExcept { const char* reason; };$/;"	m	language:C
 s_lhashtable	.\src\mem_check.c	/^static struct lDescriptor* s_lhashtable[LHASHTABLE_LEN_DEF];$/;"	v	language:C	typeref:struct:lDescriptor	file:
 size	.\src\list.c	/^  int              size;$/;"	m	language:C	struct:lList	file:
 size	.\src\mem_check.c	/^  long                size;$/;"	m	language:C	struct:lDescriptor	file:
+size	.\src\slist.c	/^  int                size;$/;"	m	language:C	struct:lSlist	file:
+slist_back	.\inc\slist.h	/^extern void* slist_back(void* L);$/;"	p	language:C++	signature:(void* L)
+slist_back	.\src\slist.c	/^void* slist_back(void* L)$/;"	f	language:C	signature:(void* L)
+slist_begin	.\inc\slist.h	/^extern lSlistIter slist_begin(void* L);$/;"	p	language:C++	signature:(void* L)
+slist_begin	.\src\slist.c	/^lSlistIter slist_begin(void* L)$/;"	f	language:C	signature:(void* L)
+slist_clear	.\inc\slist.h	/^extern void slist_clear(void* L, void (*destroy)(void*));$/;"	p	language:C++	signature:(void* L, void (*destroy)(void*))
+slist_clear	.\src\slist.c	/^void slist_clear(void* L, void (*destroy)(void*))$/;"	f	language:C	signature:(void* L, void (*destroy)(void*))
+slist_create	.\inc\slist.h	/^extern void* slist_create(void);$/;"	p	language:C++	signature:(void)
+slist_create	.\src\slist.c	/^void* slist_create(void)$/;"	f	language:C	signature:(void)
+slist_element_destory	.\test\test_slist.c	/^static void slist_element_destory(void* x)$/;"	f	language:C	file:	signature:(void* x)
+slist_element_destory_double	.\test\test_slist.c	/^static void slist_element_destory_double(void* x, void* arg)$/;"	f	language:C	file:	signature:(void* x, void* arg)
+slist_element_show_double	.\test\test_slist.c	/^static void slist_element_show_double(void* x, void* arg)$/;"	f	language:C	file:	signature:(void* x, void* arg)
+slist_empty	.\inc\slist.h	/^extern int slist_empty(void* L);$/;"	p	language:C++	signature:(void* L)
+slist_empty	.\src\slist.c	/^int slist_empty(void* L)$/;"	f	language:C	signature:(void* L)
+slist_end	.\inc\slist.h	/^extern lSlistIter slist_end(void* L);$/;"	p	language:C++	signature:(void* L)
+slist_end	.\src\slist.c	/^lSlistIter slist_end(void* L)$/;"	f	language:C	signature:(void* L)
+slist_for_each	.\inc\slist.h	/^extern void slist_for_each(void* L, void (*visit)(void*, void*), void* arg);$/;"	p	language:C++	signature:(void* L, void (*visit)(void*, void*), void* arg)
+slist_for_each	.\src\slist.c	/^void slist_for_each(void* L, void (*visit)(void*, void*), void* arg)$/;"	f	language:C	signature:(void* L, void (*visit)(void*, void*), void* arg)
+slist_front	.\inc\slist.h	/^extern void* slist_front(void* L);$/;"	p	language:C++	signature:(void* L)
+slist_front	.\src\slist.c	/^void* slist_front(void* L)$/;"	f	language:C	signature:(void* L)
+slist_iter_next	.\inc\slist.h	/^extern lSlistIter slist_iter_next(lSlistIter iter);$/;"	p	language:C++	signature:(lSlistIter iter)
+slist_iter_next	.\src\slist.c	/^lSlistIter slist_iter_next(lSlistIter iter)$/;"	f	language:C	signature:(lSlistIter iter)
+slist_new_node	.\src\slist.c	/^static inline struct lSlistNode* slist_new_node(void* x)$/;"	f	language:C	file:	signature:(void* x)
+slist_object_elements_show_double	.\test\test_slist.c	/^static void slist_object_elements_show_double(void* L)$/;"	f	language:C	file:	signature:(void* L)
+slist_object_show	.\test\test_slist.c	/^static void slist_object_show(void* L)$/;"	f	language:C	file:	signature:(void* L)
+slist_pop_front	.\inc\slist.h	/^extern void* slist_pop_front(void* L);$/;"	p	language:C++	signature:(void* L)
+slist_pop_front	.\src\slist.c	/^void* slist_pop_front(void* L)$/;"	f	language:C	signature:(void* L)
+slist_push_back	.\inc\slist.h	/^extern int slist_push_back(void* L, void* x);$/;"	p	language:C++	signature:(void* L, void* x)
+slist_push_back	.\src\slist.c	/^int slist_push_back(void* L, void* x)$/;"	f	language:C	signature:(void* L, void* x)
+slist_push_front	.\inc\slist.h	/^extern int slist_push_front(void* L, void* x);$/;"	p	language:C++	signature:(void* L, void* x)
+slist_push_front	.\src\slist.c	/^int slist_push_front(void* L, void* x)$/;"	f	language:C	signature:(void* L, void* x)
+slist_release	.\inc\slist.h	/^extern void slist_release(void** L);$/;"	p	language:C++	signature:(void** L)
+slist_release	.\src\slist.c	/^void slist_release(void** L)$/;"	f	language:C	signature:(void** L)
+slist_size	.\inc\slist.h	/^extern int slist_size(void* L);$/;"	p	language:C++	signature:(void* L)
+slist_size	.\src\slist.c	/^int slist_size(void* L)$/;"	f	language:C	signature:(void* L)
 stack_clear	.\src\stack.c	/^static void stack_clear(struct lStack* self)$/;"	f	language:C	file:	signature:(struct lStack* self)
 stack_create	.\inc\stack.h	/^extern int stack_create(void);$/;"	p	language:C++	signature:(void)
 stack_create	.\src\stack.c	/^int stack_create(void)$/;"	f	language:C	signature:(void)
@@ -262,6 +307,7 @@ stack_push	.\src\stack.c	/^void stack_push(int S, void* x)$/;"	f	language:C	sign
 stack_release	.\inc\stack.h	/^extern void stack_release(int* S);$/;"	p	language:C++	signature:(int* S)
 stack_release	.\src\stack.c	/^void stack_release(int* S)$/;"	f	language:C	signature:(int* S)
 str	.\src\atom.c	/^  char* str;$/;"	m	language:C	struct:lAtom	file:
+tail	.\src\slist.c	/^  struct lSlistNode* tail;$/;"	m	language:C	struct:lSlist	typeref:struct:lSlist::lSlistNode	file:
 test_arena	.\test\test.h	/^extern void test_arena(void);$/;"	p	language:C++	signature:(void)
 test_arena	.\test\test_arena.c	/^void test_arena(void)$/;"	f	language:C	signature:(void)
 test_arith	.\test\test.h	/^extern void test_arith(void);$/;"	p	language:C++	signature:(void)
@@ -278,6 +324,8 @@ test_memcheck	.\test\test.h	/^extern void test_memcheck(void);$/;"	p	language:C+
 test_memcheck	.\test\test_memcheck.c	/^void test_memcheck(void)$/;"	f	language:C	signature:(void)
 test_memory	.\test\test.h	/^extern void test_memory(void);$/;"	p	language:C++	signature:(void)
 test_memory	.\test\test_memory.c	/^void test_memory(void)$/;"	f	language:C	signature:(void)
+test_slist	.\test\test.h	/^extern void test_slist(void);$/;"	p	language:C++	signature:(void)
+test_slist	.\test\test_slist.c	/^void test_slist(void)$/;"	f	language:C	signature:(void)
 test_stack	.\test\test.h	/^extern void test_stack(void);$/;"	p	language:C++	signature:(void)
 test_stack	.\test\test_stack.c	/^void test_stack(void)$/;"	f	language:C	signature:(void)
 test_unknown	.\test\test.c	/^static void test_unknown(void)$/;"	f	language:C	file:	signature:(void)
