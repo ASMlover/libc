@@ -28,6 +28,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include "../inc/config.h"
 #include "../inc/assert.h"
 #include "../inc/memory.h"
 
