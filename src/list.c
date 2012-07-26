@@ -149,7 +149,7 @@ void* list_erase(void* L, lListIter pos)
 {
   struct lListNode* prev;
   struct lListNode* next;
-  void*  ret_data;
+  void*  erase_data;
 
   if (NULL == L || NULL == pos)
     return NULL;
@@ -157,11 +157,11 @@ void* list_erase(void* L, lListIter pos)
   next = ((struct lListNode*)pos)->next;
   prev->next = next;
   next->prev = prev;
-  ret_data   = ((struct lListNode*)pos)->data;
+  erase_data = ((struct lListNode*)pos)->data;
   FREE(pos);
   --((struct lList*)L)->size;
 
-  return ret_data;
+  return erase_data;
 }
 
 lListIter list_begin(void* L)
