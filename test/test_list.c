@@ -170,7 +170,7 @@ void test_list(void)
   }
   list_object_show(L);
 
-  fprintf(stdout, "\ntest function - list_push_front ===>\n");
+  fprintf(stdout, "\ntest function - list_pop_front ===>\n");
   {
     int i;
     srand((unsigned int)time(0));
