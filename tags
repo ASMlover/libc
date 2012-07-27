@@ -13,8 +13,7 @@ ELSE	.\inc\except.h	108;"	d	language:C++
 ELSE	.\inc\except.h	74;"	d	language:C++
 END_TRY	.\inc\except.h	119;"	d	language:C++
 END_TRY	.\inc\except.h	85;"	d	language:C++
-ERROR_LEN	.\inc\list.h	32;"	d	language:C++
-ERROR_LEN	.\inc\slist.h	32;"	d	language:C++
+ERROR_LEN	.\inc\config.h	36;"	d	language:C++
 EXCEPT	.\inc\except.h	103;"	d	language:C++
 EXCEPT	.\inc\except.h	69;"	d	language:C++
 EXCEPT_ENTERED	.\inc\except.h	/^  EXCEPT_ENTERED    = 0, $/;"	e	language:C++	enum:__anon1
@@ -47,10 +46,9 @@ RAISE	.\inc\except.h	93;"	d	language:C++
 REALLOC	.\inc\memory.h	46;"	d	language:C++
 RERAISE	.\inc\except.h	59;"	d	language:C++
 RERAISE	.\inc\except.h	94;"	d	language:C++
-RESULT_FAIL	.\inc\list.h	34;"	d	language:C++
-RESULT_FAIL	.\inc\slist.h	34;"	d	language:C++
-RESULT_OK	.\inc\list.h	33;"	d	language:C++
-RESULT_OK	.\inc\slist.h	33;"	d	language:C++
+RESULT_FAIL	.\inc\config.h	/^  RESULT_FAIL = 1, $/;"	e	language:C++	enum:RESULT_TYPE
+RESULT_OK	.\inc\config.h	/^  RESULT_OK   = 0, $/;"	e	language:C++	enum:RESULT_TYPE
+RESULT_TYPE	.\inc\config.h	/^enum RESULT_TYPE {$/;"	g	language:C++
 RETURN	.\inc\except.h	60;"	d	language:C++
 RETURN	.\inc\except.h	95;"	d	language:C++
 TRY	.\inc\except.h	61;"	d	language:C++
@@ -67,14 +65,18 @@ __ARENA_HEADER_H__	.\inc\arena.h	30;"	d	language:C++
 __ARITH_HEADER_H__	.\inc\arith.h	30;"	d	language:C++
 __ASSERT_HEADER_H__	.\inc\assert.h	30;"	d	language:C++
 __ATOM_HEADER_H__	.\inc\atom.h	30;"	d	language:C++
+__CONFIG_HEADER_H__	.\inc\config.h	30;"	d	language:C++
 __CRT_WIDE	.\src\except.c	82;"	d	language:C	file:
 __ERROR_HEADER_H__	.\inc\error.h	30;"	d	language:C++
 __EXCEPT_HEADER_H__	.\inc\except.h	30;"	d	language:C++
+__GETWORD_HEADER_H__	.\test\getword.h	2;"	d	language:C++
 __LIST_HEADER_H__	.\inc\list.h	30;"	d	language:C++
 __MEMORY_CHECK_HEADER_H__	.\inc\mem_check.h	30;"	d	language:C++
 __MEMORY_HEADER_H__	.\inc\memory.h	30;"	d	language:C++
 __SLIST_HEADER_H__	.\inc\slist.h	30;"	d	language:C++
 __STACK_HEADER_H__	.\inc\stack.h	30;"	d	language:C++
+__TABLE_HEADER_H__	.\inc\table.h	30;"	d	language:C++
+__TABLE_HEADER_H__	.\inc\table_ex.h	30;"	d	language:C++
 __TEST_HEADER_H__	.\test\test.h	30;"	d	language:C++
 __func__	.\inc\error.h	33;"	d	language:C++
 __func__	.\test\test.h	33;"	d	language:C++
@@ -124,6 +126,10 @@ avail_beg	.\src\arena.c	/^  char* avail_beg;$/;"	m	language:C	struct:lArena	file
 avail_end	.\src\arena.c	/^  char* avail_end;$/;"	m	language:C	struct:lArena	file:
 cb	.\test\test.c	/^  func_callback cb;$/;"	m	language:C	struct:TestFunc	file:
 cmd	.\test\test.c	/^  char* cmd;$/;"	m	language:C	struct:TestFunc	file:
+compare	.\src\table.c	/^  int (*compare)(const void* x, const void* y);$/;"	m	language:C	struct:lTable	file:
+compare	.\src\table_ex.c	/^  int (*compare)(const void* x, const void* y);$/;"	m	language:C	struct:lTable	file:
+compare_def	.\src\table.c	/^static int compare_def(const void* x, const void* y)$/;"	f	language:C	file:	signature:(const void* x, const void* y)
+compare_def	.\src\table_ex.c	/^static int compare_def(const void* x, const void* y)$/;"	f	language:C	file:	signature:(const void* x, const void* y)
 count	.\src\stack.c	/^  int count;$/;"	m	language:C	struct:lStack	file:
 dalloc	.\src\mem_check.c	/^static struct lDescriptor* dalloc(void* ptr, long bytes, const char* file, int line)$/;"	f	language:C	file:	signature:(void* ptr, long bytes, const char* file, int line)
 data	.\src\list.c	/^  void*             data;$/;"	m	language:C	struct:lListNode	file:
@@ -150,11 +156,20 @@ g_errors	.\src\error.c	/^static const char* g_errors[] = {$/;"	v	language:C	file
 g_sBuckets	.\src\atom.c	/^static struct lAtom* g_sBuckets[2048];$/;"	v	language:C	typeref:struct:lAtom	file:
 g_sFuncs	.\test\test.c	/^static struct TestFunc g_sFuncs[] = {$/;"	v	language:C	typeref:struct:TestFunc	file:
 g_sScatter	.\src\atom.c	/^static unsigned long g_sScatter[] = {$/;"	v	language:C	file:
+getword	.\test\getword.c	/^int getword(FILE* stream, char* buf, int size, int (*first)(int), int (*rest)(int))$/;"	f	language:C	signature:(FILE* stream, char* buf, int size, int (*first)(int), int (*rest)(int))
+getword	.\test\getword.h	/^extern int getword(FILE* stream, char* buf, int size, int (*first)(int), int (*rest)(int));$/;"	p	language:C++	signature:(FILE* stream, char* buf, int size, int (*first)(int), int (*rest)(int))
+hash_value	.\src\table.c	/^  unsigned int (*hash_value)(const void* key);$/;"	m	language:C	struct:lTable	file:
+hash_value	.\src\table_ex.c	/^  unsigned int (*hash_value)(const void* key);$/;"	m	language:C	struct:lTable	file:
+hash_value_def	.\src\table.c	/^static unsigned int hash_value_def(const void* key)$/;"	f	language:C	file:	signature:(const void* key)
+hash_value_def	.\src\table_ex.c	/^static unsigned int hash_value_def(const void* key)$/;"	f	language:C	file:	signature:(const void* key)
 head	.\src\slist.c	/^  struct lSlistNode* head;$/;"	m	language:C	struct:lSlist	typeref:struct:lSlist::lSlistNode	file:
 head	.\src\stack.c	/^  struct lStackNode* head;$/;"	m	language:C	struct:lStack	typeref:struct:lStack::lStackNode	file:
 id	.\test\test_arena.c	/^  int id;$/;"	m	language:C	struct:_TestArena	file:
 id	.\test\test_memcheck.c	/^  int   id;$/;"	m	language:C	struct:_TestMemCheck	file:
 id	.\test\test_memory.c	/^  int id;$/;"	m	language:C	struct:_TestMemory	file:
+inline	.\inc\config.h	33;"	d	language:C++
+key	.\src\table.c	/^  const void*        key;$/;"	m	language:C	struct:lTableNode	file:
+key	.\src\table_ex.c	/^  const void*        key;$/;"	m	language:C	struct:lTableNode	file:
 lAlign	.\src\arena.c	/^union lAlign {$/;"	u	language:C	file:
 lAlign	.\src\mem_check.c	/^union lAlign {$/;"	u	language:C	file:
 lArena	.\src\arena.c	/^struct lArena {$/;"	s	language:C	file:
@@ -171,6 +186,11 @@ lSlistIter	.\inc\slist.h	/^typedef void** lSlistIter;$/;"	t	language:C++
 lSlistNode	.\src\slist.c	/^struct lSlistNode {$/;"	s	language:C	file:
 lStack	.\src\stack.c	/^struct lStack {$/;"	s	language:C	file:
 lStackNode	.\src\stack.c	/^struct lStackNode {$/;"	s	language:C	file:
+lTable	.\src\table.c	/^struct lTable {$/;"	s	language:C	file:
+lTable	.\src\table_ex.c	/^struct lTable {$/;"	s	language:C	file:
+lTableIter	.\inc\table.h	/^typedef void** lTableIter;$/;"	t	language:C++
+lTableNode	.\src\table.c	/^struct lTableNode {$/;"	s	language:C	file:
+lTableNode	.\src\table_ex.c	/^struct lTableNode {$/;"	s	language:C	file:
 larena_createfailed	.\src\arena.c	/^const struct lExcept larena_createfailed = { "Arena creation failed" };$/;"	v	language:C	typeref:struct:lExcept
 larena_failed	.\src\arena.c	/^const struct lExcept larena_failed       = { "Arena allocation failed" };$/;"	v	language:C	typeref:struct:lExcept
 lassert_failed	.\src\assert.c	/^const struct lExcept lassert_failed = { "Assertion Failed" };$/;"	v	language:C	typeref:struct:lExcept
@@ -249,18 +269,24 @@ next	.\src\list.c	/^  struct lListNode* next;$/;"	m	language:C	struct:lListNode	
 next	.\src\mem_check.c	/^  struct lDescriptor* next;$/;"	m	language:C	struct:lDescriptor	typeref:struct:lDescriptor::lDescriptor	file:
 next	.\src\slist.c	/^  struct lSlistNode* next;$/;"	m	language:C	struct:lSlistNode	typeref:struct:lSlistNode::lSlistNode	file:
 next	.\src\stack.c	/^  struct lStackNode* next;$/;"	m	language:C	struct:lStackNode	typeref:struct:lStackNode::lStackNode	file:
+next	.\src\table.c	/^  struct lTableNode* next;$/;"	m	language:C	struct:lTableNode	typeref:struct:lTableNode::lTableNode	file:
+next	.\src\table_ex.c	/^  struct lTableNode* next;$/;"	m	language:C	struct:lTableNode	typeref:struct:lTableNode::lTableNode	file:
 node	.\src\list.c	/^  struct lListNode node;$/;"	m	language:C	struct:lList	typeref:struct:lList::lListNode	file:
+node	.\src\table.c	/^  struct lTableNode   node;$/;"	m	language:C	struct:lTable	typeref:struct:lTable::lTableNode	file:
 pad	.\src\arena.c	/^  char pad[MAXALIGN];$/;"	m	language:C	union:lAlign	file:
 pad	.\src\mem_check.c	/^  char    pad[MAXALIGN];$/;"	m	language:C	union:lAlign	file:
 prev	.\inc\except.h	/^  struct lExceptFrame* prev;$/;"	m	language:C++	struct:lExceptFrame	typeref:struct:lExceptFrame::lExceptFrame
 prev	.\src\arena.c	/^  struct lArena* prev;$/;"	m	language:C	struct:lArena	typeref:struct:lArena::lArena	file:
 prev	.\src\list.c	/^  struct lListNode* prev;$/;"	m	language:C	struct:lListNode	typeref:struct:lListNode::lListNode	file:
+prev	.\src\table.c	/^  struct lTableNode* prev;$/;"	m	language:C	struct:lTableNode	typeref:struct:lTableNode::lTableNode	file:
 ptr	.\src\mem_check.c	/^  const void*         ptr;$/;"	m	language:C	struct:lDescriptor	file:
 reason	.\inc\except.h	/^struct lExcept { const char* reason; };$/;"	m	language:C++	struct:lExcept
 s_lhashtable	.\src\mem_check.c	/^static struct lDescriptor* s_lhashtable[LHASHTABLE_LEN_DEF];$/;"	v	language:C	typeref:struct:lDescriptor	file:
 size	.\src\list.c	/^  int              size;$/;"	m	language:C	struct:lList	file:
 size	.\src\mem_check.c	/^  long                size;$/;"	m	language:C	struct:lDescriptor	file:
 size	.\src\slist.c	/^  int                size;$/;"	m	language:C	struct:lSlist	file:
+size	.\src\table.c	/^  int size;$/;"	m	language:C	struct:lTable	file:
+size	.\src\table_ex.c	/^  int size;$/;"	m	language:C	struct:lTable	file:
 slist_back	.\inc\slist.h	/^extern void* slist_back(void* L);$/;"	p	language:C++	signature:(void* L)
 slist_back	.\src\slist.c	/^void* slist_back(void* L)$/;"	f	language:C	signature:(void* L)
 slist_begin	.\inc\slist.h	/^extern lSlistIter slist_begin(void* L);$/;"	p	language:C++	signature:(void* L)
@@ -306,7 +332,59 @@ stack_push	.\inc\stack.h	/^extern void stack_push(int S, void* x);$/;"	p	languag
 stack_push	.\src\stack.c	/^void stack_push(int S, void* x)$/;"	f	language:C	signature:(int S, void* x)
 stack_release	.\inc\stack.h	/^extern void stack_release(int* S);$/;"	p	language:C++	signature:(int* S)
 stack_release	.\src\stack.c	/^void stack_release(int* S)$/;"	f	language:C	signature:(int* S)
+storage	.\src\table.c	/^  int storage;$/;"	m	language:C	struct:lTable	file:
+storage	.\src\table_ex.c	/^  int storage;$/;"	m	language:C	struct:lTable	file:
 str	.\src\atom.c	/^  char* str;$/;"	m	language:C	struct:lAtom	file:
+table_begin	.\inc\table.h	/^extern lTableIter table_begin(void* T);$/;"	p	language:C++	signature:(void* T)
+table_begin	.\src\table.c	/^lTableIter table_begin(void* T)$/;"	f	language:C	signature:(void* T)
+table_clear	.\inc\table.h	/^extern void table_clear(void* T);$/;"	p	language:C++	signature:(void* T)
+table_clear	.\inc\table_ex.h	/^extern void table_clear(void* T);$/;"	p	language:C++	signature:(void* T)
+table_clear	.\src\table.c	/^void table_clear(void* T)$/;"	f	language:C	signature:(void* T)
+table_clear	.\src\table_ex.c	/^void table_clear(void* T)$/;"	f	language:C	signature:(void* T)
+table_create	.\inc\table.h	/^extern void* table_create(int count, $/;"	p	language:C++	signature:(int count, int (*compare)(const void*, const void*), unsigned int (*hash_value)(const void*))
+table_create	.\inc\table_ex.h	/^extern void* table_create(int count, $/;"	p	language:C++	signature:(int count, int (*compare)(const void*, const void*), unsigned int (*hash_value)(const void*))
+table_create	.\src\table.c	/^void* table_create(int count, $/;"	f	language:C	signature:(int count, int (*compare)(const void*, const void*), unsigned int (*hash_value)(const void*))
+table_create	.\src\table_ex.c	/^void* table_create(int count, $/;"	f	language:C	signature:(int count, int (*compare)(const void*, const void*), unsigned int (*hash_value)(const void*))
+table_empty	.\inc\table.h	/^extern int table_empty(void* T);$/;"	p	language:C++	signature:(void* T)
+table_empty	.\inc\table_ex.h	/^extern int table_empty(void* T);$/;"	p	language:C++	signature:(void* T)
+table_empty	.\src\table.c	/^int table_empty(void* T)$/;"	f	language:C	signature:(void* T)
+table_empty	.\src\table_ex.c	/^int table_empty(void* T)$/;"	f	language:C	signature:(void* T)
+table_end	.\inc\table.h	/^extern lTableIter table_end(void* T);$/;"	p	language:C++	signature:(void* T)
+table_end	.\src\table.c	/^lTableIter table_end(void* T)$/;"	f	language:C	signature:(void* T)
+table_for_each	.\inc\table.h	/^extern void table_for_each(void* T, void (*visit)(const void*, void*, void*), void* arg);$/;"	p	language:C++	signature:(void* T, void (*visit)(const void*, void*, void*), void* arg)
+table_for_each	.\inc\table_ex.h	/^extern void table_for_each(void* T, void (*visit)(const void*, void*, void*), void* arg);$/;"	p	language:C++	signature:(void* T, void (*visit)(const void*, void*, void*), void* arg)
+table_for_each	.\src\table.c	/^void table_for_each(void* T, void (*visit)(const void*, void*, void*), void* arg)$/;"	f	language:C	signature:(void* T, void (*visit)(const void*, void*, void*), void* arg)
+table_for_each	.\src\table_ex.c	/^void table_for_each(void* T, void (*visit)(const void*, void*, void*), void* arg)$/;"	f	language:C	signature:(void* T, void (*visit)(const void*, void*, void*), void* arg)
+table_get	.\inc\table.h	/^extern void* table_get(void* T, const void* key);$/;"	p	language:C++	signature:(void* T, const void* key)
+table_get	.\inc\table_ex.h	/^extern void* table_get(void* T, const void* key);$/;"	p	language:C++	signature:(void* T, const void* key)
+table_get	.\src\table.c	/^void* table_get(void* T, const void* key)$/;"	f	language:C	signature:(void* T, const void* key)
+table_get	.\src\table_ex.c	/^void* table_get(void* T, const void* key)$/;"	f	language:C	signature:(void* T, const void* key)
+table_insert	.\inc\table.h	/^extern int table_insert(void* T, const void* key, void* x);$/;"	p	language:C++	signature:(void* T, const void* key, void* x)
+table_insert	.\inc\table_ex.h	/^extern int table_insert(void* T, const void* key, void* x);$/;"	p	language:C++	signature:(void* T, const void* key, void* x)
+table_insert	.\src\table.c	/^int table_insert(void* T, const void* key, void* x)$/;"	f	language:C	signature:(void* T, const void* key, void* x)
+table_insert	.\src\table_ex.c	/^int table_insert(void* T, const void* key, void* x)$/;"	f	language:C	signature:(void* T, const void* key, void* x)
+table_iter_key	.\inc\table.h	/^extern const void* table_iter_key(lTableIter iter);$/;"	p	language:C++	signature:(lTableIter iter)
+table_iter_key	.\src\table.c	/^const void* table_iter_key(lTableIter iter)$/;"	f	language:C	signature:(lTableIter iter)
+table_iter_next	.\inc\table.h	/^extern lTableIter table_iter_next(lTableIter iter);$/;"	p	language:C++	signature:(lTableIter iter)
+table_iter_next	.\src\table.c	/^lTableIter table_iter_next(lTableIter iter)$/;"	f	language:C	signature:(lTableIter iter)
+table_iter_value	.\inc\table.h	/^extern void* table_iter_value(lTableIter iter);$/;"	p	language:C++	signature:(lTableIter iter)
+table_iter_value	.\src\table.c	/^void* table_iter_value(lTableIter iter)$/;"	f	language:C	signature:(lTableIter iter)
+table_release	.\inc\table.h	/^extern void table_release(void** T);$/;"	p	language:C++	signature:(void** T)
+table_release	.\inc\table_ex.h	/^extern void table_release(void** T);$/;"	p	language:C++	signature:(void** T)
+table_release	.\src\table.c	/^void table_release(void** T)$/;"	f	language:C	signature:(void** T)
+table_release	.\src\table_ex.c	/^void table_release(void** T)$/;"	f	language:C	signature:(void** T)
+table_remove	.\inc\table.h	/^extern void* table_remove(void* T, const void* key);$/;"	p	language:C++	signature:(void* T, const void* key)
+table_remove	.\inc\table_ex.h	/^extern void* table_remove(void* T, const void* key);$/;"	p	language:C++	signature:(void* T, const void* key)
+table_remove	.\src\table.c	/^void* table_remove(void* T, const void* key)$/;"	f	language:C	signature:(void* T, const void* key)
+table_remove	.\src\table_ex.c	/^void* table_remove(void* T, const void* key)$/;"	f	language:C	signature:(void* T, const void* key)
+table_size	.\inc\table.h	/^extern int table_size(void* T);$/;"	p	language:C++	signature:(void* T)
+table_size	.\inc\table_ex.h	/^extern int table_size(void* T);$/;"	p	language:C++	signature:(void* T)
+table_size	.\src\table.c	/^int table_size(void* T)$/;"	f	language:C	signature:(void* T)
+table_size	.\src\table_ex.c	/^int table_size(void* T)$/;"	f	language:C	signature:(void* T)
+table_to_array	.\inc\table_ex.h	/^extern void** table_to_array(void* T, void* end);$/;"	p	language:C++	signature:(void* T, void* end)
+table_to_array	.\src\table_ex.c	/^void** table_to_array(void* T, void* end)$/;"	f	language:C	signature:(void* T, void* end)
+tables	.\src\table.c	/^  struct lTableNode** tables;$/;"	m	language:C	struct:lTable	typeref:struct:lTable::lTableNode	file:
+tables	.\src\table_ex.c	/^  struct lTableNode** tables;$/;"	m	language:C	struct:lTable	typeref:struct:lTable::lTableNode	file:
 tail	.\src\slist.c	/^  struct lSlistNode* tail;$/;"	m	language:C	struct:lSlist	typeref:struct:lSlist::lSlistNode	file:
 test_arena	.\test\test.h	/^extern void test_arena(void);$/;"	p	language:C++	signature:(void)
 test_arena	.\test\test_arena.c	/^void test_arena(void)$/;"	f	language:C	signature:(void)
@@ -328,5 +406,11 @@ test_slist	.\test\test.h	/^extern void test_slist(void);$/;"	p	language:C++	sign
 test_slist	.\test\test_slist.c	/^void test_slist(void)$/;"	f	language:C	signature:(void)
 test_stack	.\test\test.h	/^extern void test_stack(void);$/;"	p	language:C++	signature:(void)
 test_stack	.\test\test_stack.c	/^void test_stack(void)$/;"	f	language:C	signature:(void)
+test_table	.\test\test.h	/^extern void test_table(void);$/;"	p	language:C++	signature:(void)
+test_table	.\test\test_table.c	/^void test_table(void)$/;"	f	language:C	signature:(void)
 test_unknown	.\test\test.c	/^static void test_unknown(void)$/;"	f	language:C	file:	signature:(void)
+timestamp	.\src\table.c	/^  unsigned int timestamp;$/;"	m	language:C	struct:lTable	file:
+timestamp	.\src\table_ex.c	/^  unsigned int timestamp;$/;"	m	language:C	struct:lTable	file:
+value	.\src\table.c	/^  void*              value;$/;"	m	language:C	struct:lTableNode	file:
+value	.\src\table_ex.c	/^  void*              value;$/;"	m	language:C	struct:lTableNode	file:
 x	.\src\stack.c	/^  void* x;$/;"	m	language:C	struct:lStackNode	file:

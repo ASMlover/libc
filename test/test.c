@@ -48,6 +48,7 @@ static void test_unknown(void)
           "  arena      display testcases of arena\n"
           "  list       display testcases of list\n"
           "  slist      display testcases of slist\n"
+          "  table      display testcases of table\n"
          );
 }
 
@@ -71,6 +72,7 @@ static struct TestFunc g_sFuncs[] = {
   { "arena",   test_arena     }, 
   { "list",    test_list      }, 
   { "slist",   test_slist     }, 
+  { "table",   test_table     }, 
 };
 
 

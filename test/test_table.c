@@ -26,24 +26,35 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef __TEST_HEADER_H__
-#define __TEST_HEADER_H__
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include "../inc/assert.h"
+#include "../inc/table.h"
 
-#if _WIN32 || _WIN64
-  #define __func__  __FUNCTION__
-#endif
+#include "test.h"
 
-extern void test_main(const char* cmd);
 
-extern void test_arith(void);
-extern void test_stack(void);
-extern void test_atom(void);
-extern void test_except(void);
-extern void test_memory(void);
-extern void test_memcheck(void);
-extern void test_arena(void);
-extern void test_list(void);
-extern void test_slist(void);
-extern void test_table(void);
+void test_table(void)
+{
+  int i;
+  void* T = table_create(100, NULL, NULL);
+  fprintf(stdout, "call function : %s\n", __func__);
 
-#endif  /* __TEST_HEADER_H__ */
+  srand((unsigned int)time(0));
+  for (i = 0; i < 5; ++i)
+  {
+    double* d = (double*)malloc(sizeof(double));
+    *d = (i + 1) * rand() % 5000 * 0.123;
+    fprintf(stdout, "{key=>0x%p, value=>0x%p} => %.3f\n", i, d, *d);
+    table_insert(T, i, d);
+  }
+
+  {
+    double* d = table_get(T, 3);
+    if (NULL != d)
+      fprintf(stdout, "{key=>3, value=>0x%p} => %.3f\n", d, *d);
+  }
+
+  table_release(&T);
+}
