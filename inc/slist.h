@@ -29,10 +29,6 @@
 #ifndef __SLIST_HEADER_H__
 #define __SLIST_HEADER_H__
 
-#define ERROR_LEN   (-1)
-#define RESULT_OK   (0)
-#define RESULT_FAIL (1)
-
 typedef void** lSlistIter;
 
 extern void* slist_create(void);

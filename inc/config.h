@@ -33,4 +33,11 @@
   #define inline  __inline
 #endif
 
+#define ERROR_LEN   (-1)
+enum RESULT_TYPE {
+  RESULT_OK   = 0, 
+  RESULT_FAIL = 1, 
+};
+
+
 #endif  /* __CONFIG_HEADER_H__ */

@@ -29,10 +29,6 @@
 #ifndef __LIST_HEADER_H__
 #define __LIST_HEADER_H__
 
-#define ERROR_LEN   (-1)
-#define RESULT_OK   (0)
-#define RESULT_FAIL (1)
-
 typedef void** lListIter;
 
 extern void* list_create(void);
