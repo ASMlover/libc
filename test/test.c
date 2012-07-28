@@ -83,7 +83,11 @@ void test_main(const char* cmd)
 
   for (i = 0; i < COUNTOF(g_sFuncs); ++i)
   {
+#if _WIN32 || _WIN64
     if (0 == stricmp(s, g_sFuncs[i].cmd))
+#else
+    if (0 == strcasecmp(s, g_sFuncs[i].cmd))
+#endif
     {
       g_sFuncs[i].cb();
       called = 1;

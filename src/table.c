@@ -150,7 +150,7 @@ void table_clear(void* T)
     {
       node = (struct lTableNode*)beg;
       beg  = table_iter_next(beg);
-      table_erase(T, node);
+      table_remove(T, node->key);
       /*
       i = ((struct lTable*)T)->hash_value(node->key) % ((struct lTable*)T)->storage;
       table_erase((struct lTable*)T, node);
