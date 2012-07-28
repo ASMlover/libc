@@ -62,7 +62,35 @@ static int compare_def(const void* x, const void* y)
 
 static unsigned int hash_value_def(const void* key)
 {
-  return (unsigned int)key >> 2;
+  unsigned int hash = 1315423911;
+
+  hash ^= ((hash << 5) + (unsigned int)key + (hash >> 2));
+  return (hash & 0xFFFFFFF);
+}
+
+/*
+static unsigned int get_hash_value(const char* key)
+{
+  unsigned int hash = 1315423911;
+
+  while ('\0' != *key)
+    hash ^= ((hash << 5) + *key++ + (hash >> 2));
+
+  return (hash & 0x7FFFFFFF);
+}
+*/
+
+
+
+
+static void table_erase(struct lTable* T, struct lTableNode* pos)
+{
+  struct lTableNode* prev = pos->prev;
+  struct lTableNode* next = pos->next;
+  prev->next = next;
+  next->prev = prev;
+  FREE(pos);
+  --T->size;
 }
 
 
@@ -104,25 +132,30 @@ int table_size(void* T)
 
 int table_empty(void* T)
 {
-  return (NULL != T ? (0 == ((struct lTable*)T)->size) : 0);
+  return (table_begin(T) == table_end(T));
 }
 
 void table_clear(void* T)
 {
   lTableIter beg = table_begin(T);
   lTableIter end = table_end(T);
-  lTableIter node;
+  struct lTableNode* node;
 
   if (NULL == T || NULL == beg)
     return;
   if (((struct lTable*)T)->size > 0)
   {
+    /* int i; */
     while (beg != end)
     {
-      node = beg;
+      node = (struct lTableNode*)beg;
       beg  = table_iter_next(beg);
-      fprintf(stdout, "destroy element => 0x%p\n", node);
-      FREE(node);
+      table_erase(T, node);
+      /*
+      i = ((struct lTable*)T)->hash_value(node->key) % ((struct lTable*)T)->storage;
+      table_erase((struct lTable*)T, node);
+      ((struct lTable*)T)->tables[i] = NULL;
+      */
     }
     ((struct lTable*)T)->size = 0;
   }
@@ -189,7 +222,7 @@ void* table_get(void* T, const void* key)
   int i;
   struct lTableNode* node;
 
-  if (NULL == T || NULL == key)
+  if (NULL == T)
     return NULL;
   i = ((struct lTable*)T)->hash_value(key) % ((struct lTable*)T)->storage;
   node = ((struct lTable*)T)->tables[i];
