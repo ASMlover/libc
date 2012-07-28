@@ -26,8 +26,6 @@ Error_Unknown	.\inc\error.h	/^  Error_Unknown         = 0, $/;"	e	language:C++	e
 FINALLY	.\inc\except.h	113;"	d	language:C++
 FINALLY	.\inc\except.h	79;"	d	language:C++
 FREE	.\inc\memory.h	45;"	d	language:C++
-FREE	.\src\stack.c	71;"	d	language:C	file:
-FREE	.\src\stack.c	72;"	d	language:C	file:
 IS_CLOSE2ZERO	.\src\arith.c	33;"	d	language:C	file:
 LDESCRIPTORS	.\src\mem_check.c	54;"	d	language:C	file:
 LHASH	.\src\mem_check.c	53;"	d	language:C	file:
@@ -309,16 +307,16 @@ slist_release	.\src\slist.c	/^void slist_release(void** L)$/;"	f	language:C	sign
 slist_size	.\inc\slist.h	/^extern int slist_size(void* L);$/;"	p	language:C++	signature:(void* L)
 slist_size	.\src\slist.c	/^int slist_size(void* L)$/;"	f	language:C	signature:(void* L)
 stack_clear	.\src\stack.c	/^static void stack_clear(struct lStack* self)$/;"	f	language:C	file:	signature:(struct lStack* self)
-stack_create	.\inc\stack.h	/^extern int stack_create(void);$/;"	p	language:C++	signature:(void)
-stack_create	.\src\stack.c	/^int stack_create(void)$/;"	f	language:C	signature:(void)
-stack_empty	.\inc\stack.h	/^extern int stack_empty(int S);$/;"	p	language:C++	signature:(int S)
-stack_empty	.\src\stack.c	/^int stack_empty(int S)$/;"	f	language:C	signature:(int S)
-stack_pop	.\inc\stack.h	/^extern void* stack_pop(int S);$/;"	p	language:C++	signature:(int S)
-stack_pop	.\src\stack.c	/^void* stack_pop(int S)$/;"	f	language:C	signature:(int S)
-stack_push	.\inc\stack.h	/^extern void stack_push(int S, void* x);$/;"	p	language:C++	signature:(int S, void* x)
-stack_push	.\src\stack.c	/^void stack_push(int S, void* x)$/;"	f	language:C	signature:(int S, void* x)
-stack_release	.\inc\stack.h	/^extern void stack_release(int* S);$/;"	p	language:C++	signature:(int* S)
-stack_release	.\src\stack.c	/^void stack_release(int* S)$/;"	f	language:C	signature:(int* S)
+stack_create	.\inc\stack.h	/^extern void* stack_create(void);$/;"	p	language:C++	signature:(void)
+stack_create	.\src\stack.c	/^void* stack_create(void)$/;"	f	language:C	signature:(void)
+stack_empty	.\inc\stack.h	/^extern int stack_empty(void* S);$/;"	p	language:C++	signature:(void* S)
+stack_empty	.\src\stack.c	/^int stack_empty(void* S)$/;"	f	language:C	signature:(void* S)
+stack_pop	.\inc\stack.h	/^extern void* stack_pop(void* S);$/;"	p	language:C++	signature:(void* S)
+stack_pop	.\src\stack.c	/^void* stack_pop(void* S)$/;"	f	language:C	signature:(void* S)
+stack_push	.\inc\stack.h	/^extern void stack_push(void* S, void* x);$/;"	p	language:C++	signature:(void* S, void* x)
+stack_push	.\src\stack.c	/^void stack_push(void* S, void* x)$/;"	f	language:C	signature:(void* S, void* x)
+stack_release	.\inc\stack.h	/^extern void stack_release(void** S);$/;"	p	language:C++	signature:(void** S)
+stack_release	.\src\stack.c	/^void stack_release(void** S)$/;"	f	language:C	signature:(void** S)
 storage	.\src\table.c	/^  int storage;$/;"	m	language:C	struct:lTable	file:
 str	.\src\atom.c	/^  char* str;$/;"	m	language:C	struct:lAtom	file:
 table_begin	.\inc\table.h	/^extern lTableIter table_begin(void* T);$/;"	p	language:C++	signature:(void* T)

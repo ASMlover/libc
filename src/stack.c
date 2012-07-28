@@ -28,6 +28,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include "../inc/config.h"
 #include "../inc/assert.h"
 #include "../inc/memory.h"
 
@@ -56,39 +57,33 @@ static void stack_clear(struct lStack* self)
 }
 
 
-int stack_create(void)
+void* stack_create(void)
 {
   struct lStack* self;
   size_t size = sizeof(struct lStack);
 
   self = (struct lStack*)CALLOC(size, sizeof(char));
-  return (int)self;
+  return (void*)self;
 }
 
-void stack_release(int* S)
+void stack_release(void** S)
 {
-#ifdef __GNUC__
-  #undef FREE
-  #define FREE(ptr) (free((void*)(ptr)), (ptr) = 0)
-#endif
-
-  assert(0 != *S);
+  assert(NULL != *S);
   stack_clear((struct lStack*)*S);
   FREE(*S);
 }
 
-int stack_empty(int S)
+int stack_empty(void* S)
 {
-  assert(0 != S);
-  return (0 == ((struct lStack*)S)->count);
+  return (NULL != S ? (0 == ((struct lStack*)S)->count) : ERROR_LEN);
 }
 
-void stack_push(int S, void* x)
+void stack_push(void* S, void* x)
 {
   struct lStackNode* t;
   size_t size = sizeof(struct lStackNode);
 
-  assert(0 != S);
+  assert(NULL != S);
   t = (struct lStackNode*)CALLOC(size, sizeof(char));
   t->x = x;
   t->next = ((struct lStack*)S)->head;
@@ -96,7 +91,7 @@ void stack_push(int S, void* x)
   ++((struct lStack*)S)->count;
 }
 
-void* stack_pop(int S)
+void* stack_pop(void* S)
 {
   void* x;
   struct lStackNode* t;

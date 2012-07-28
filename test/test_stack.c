@@ -37,16 +37,17 @@
 
 void test_stack(void)
 {
-  int S, i;
+  void* S; 
+  int i;
 
   fprintf(stdout, "call function : %s\n", __func__);
 
   fprintf(stdout, "test function stack_new ===>\n");
   S = stack_create();
-  if (0 == S)
+  if (NULL == S)
     fprintf(stdout, "\tcreate new stack object failed\n");
   else
-    fprintf(stdout, "\tcreate new stack object success, S = 0x%08x\n", S);
+    fprintf(stdout, "\tcreate new stack object success, S = 0x%p\n", S);
 
   fprintf(stdout, "\ntest function stack_empty/stack_push/stack_pop ===>\n");
   fprintf(stdout, "\tnow the stack %s empty\n", stack_empty(S) ? "is" : "is not");
