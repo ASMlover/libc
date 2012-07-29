@@ -33,6 +33,8 @@
   #define inline  __inline
 #endif
 
+#define COUNTOF(x)  (sizeof(x) / sizeof(*x))
+
 #define ERROR_LEN   (-1)
 enum RESULT_TYPE {
   RESULT_OK   = 0, 

@@ -28,10 +28,9 @@
  */
 #include <stdio.h>
 #include <string.h>
+#include "../inc/config.h"
 #include "test.h"
 
-
-#define COUNTOF(x)  (sizeof(x) / sizeof(*x))
 
 static void test_unknown(void)
 {
