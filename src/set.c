@@ -266,8 +266,6 @@ void* set_union(void* S, void* T)
 
     return union_S;
   }
-
-  return NULL;
 }
 
 void* set_inter(void* S, void* T)
@@ -284,7 +282,7 @@ void* set_inter(void* S, void* T)
         ((struct lSet*)S)->hash_value);
   }
   else if (set_size(S) < set_size(T))
-    set_inter(T, S);
+    return set_inter(T, S);
   else
   {
     lSetIter beg, end = set_end(T);
@@ -301,8 +299,6 @@ void* set_inter(void* S, void* T)
 
     return inter_S;
   }
-
-  return NULL;
 }
 
 void* set_minus(void* S, void* T)
@@ -331,8 +327,6 @@ void* set_minus(void* S, void* T)
 
     return minus_S;
   }
-
-  return NULL;
 }
 
 void* set_diff(void* S, void* T)
@@ -368,6 +362,4 @@ void* set_diff(void* S, void* T)
 
     return diff_S;
   }
-
-  return NULL;
 }
