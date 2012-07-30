@@ -277,7 +277,7 @@ void table_for_each(void* T, void (*visit)(const void*, void*, void*), void* arg
   lTableIter beg = table_begin(T);
   lTableIter end = table_end(T);
 
-  if (NULL == T || NULL == beg)
+  if (NULL == T || NULL != visit || NULL == beg)
     return;
   stamp = ((struct lTable*)T)->timestamp;
   for ( ; beg != end; beg = table_iter_next(beg))
