@@ -41,5 +41,10 @@ enum RESULT_TYPE {
   RESULT_FAIL = 1, 
 };
 
+enum EXISTS_TYPE {
+  EXISTS_NO   = 0, 
+  EXISTS_YES  = 1, 
+};
+
 
 #endif  /* __CONFIG_HEADER_H__ */
