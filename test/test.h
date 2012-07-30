@@ -45,5 +45,6 @@ extern void test_arena(void);
 extern void test_list(void);
 extern void test_slist(void);
 extern void test_table(void);
+extern void test_set(void);
 
 #endif  /* __TEST_HEADER_H__ */

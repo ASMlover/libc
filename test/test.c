@@ -48,6 +48,7 @@ static void test_unknown(void)
           "  list       display testcases of list\n"
           "  slist      display testcases of slist\n"
           "  table      display testcases of table\n"
+          "  set        display testcases of set\n"
          );
 }
 
@@ -72,6 +73,7 @@ static struct TestFunc g_sFuncs[] = {
   { "list",    test_list      }, 
   { "slist",   test_slist     }, 
   { "table",   test_table     }, 
+  { "set",     test_set       }, 
 };
 
 
