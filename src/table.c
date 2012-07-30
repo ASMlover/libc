@@ -103,6 +103,7 @@ void* table_create(int count,
   int i;
   static int primes[] = {509, 509, 1021, 2053, 4093, 8191, 16381, 32771, 65521, INT_MAX};
 
+  assert(count > 0);
   for (i = 1; primes[i] < count; ++i)
   {}
   object = CALLOC(1, sizeof(*object) + primes[i - 1] * sizeof(struct lTableNode*));
