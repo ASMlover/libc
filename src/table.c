@@ -162,6 +162,20 @@ void table_clear(void* T)
   }
 }
 
+int table_find(void* T, const void* key)
+{
+  int i;
+  struct lTableNode* node;
+
+  if (NULL == T)
+    return EXISTS_NO;
+  i = ((struct lTable*)T)->hash_value(key) % ((struct lTable*)T)->storage;
+  node = ((struct lTable*)T)->tables[i];
+
+  if (NULL != node && (0 == ((struct lTable*)T)->compare(key, node->key)))
+    return EXISTS_YES;
+  return EXISTS_NO;
+}
 
 int table_insert(void* T, const void* key, void* x)
 {
@@ -228,7 +242,8 @@ void* table_get(void* T, const void* key)
   i = ((struct lTable*)T)->hash_value(key) % ((struct lTable*)T)->storage;
   node = ((struct lTable*)T)->tables[i];
 
-  return (NULL != node ? node->value : NULL);
+  return ((NULL != node && (0 == ((struct lTable*)T)->compare(key, node->key))) 
+      ? node->value : NULL);
 }
 
 lTableIter table_begin(void* T)

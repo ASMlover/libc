@@ -40,6 +40,7 @@ extern int table_size(void* T);
 extern int table_empty(void* T);
 extern void table_clear(void* T);
 
+extern int table_find(void* T, const void* key);
 extern int table_insert(void* T, const void* key, void* x);
 extern void* table_remove(void* T, const void* key);
 extern void* table_get(void* T, const void* key);
