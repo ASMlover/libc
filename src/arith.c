@@ -45,7 +45,7 @@ int arith_min(int x, int y)
 int arith_div(int x, int y)
 {
   if (0 == y)
-   error(__FILE__, __func__, __LINE__, Error_DividendIsZero);
+   error(Error_DividendIsZero);
 
   if (IS_CLOSE2ZERO && ((x < 0) != (y < 0)) && (0 != x % y))
     return x / y - 1;
@@ -56,7 +56,7 @@ int arith_div(int x, int y)
 int arith_mod(int x, int y)
 {
   if (0 == y)
-    error(__FILE__, __func__, __LINE__, Error_DividendIsZero);
+    error(Error_DividendIsZero);
 
   if (IS_CLOSE2ZERO && ((x < 0) != (y <0)) && (0 != x % y))
     return x % y + y;

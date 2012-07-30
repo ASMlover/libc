@@ -35,7 +35,7 @@ static const char* g_errors[] = {
   "error [the dividend is zero]", 
 };
 
-void error(const char* file, const char* func, int line, int err_code)
+void _error(const char* file, const char* func, int line, int err_code)
 {
   if (NULL != file && NULL != func && err_code >= 0)
     fprintf(stdout, "%s - %s (%d) : %s\n", file, func, line, g_errors[err_code]);

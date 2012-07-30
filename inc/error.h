@@ -38,6 +38,7 @@ enum ErrorCode {
   Error_DividendIsZero  = 1, 
 };
 
-extern void error(const char* file, const char* func, int line, int err_code);
+extern void _error(const char* file, const char* func, int line, int err_code);
+#define error(err_code) _error(__FILE__, __func__, __LINE__, (err_code))
 
 #endif  /* __ERROR_HEADER_H__ */

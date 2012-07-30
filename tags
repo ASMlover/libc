@@ -81,6 +81,8 @@ __TEST_HEADER_H__	.\test\test.h	30;"	d	language:C++
 __func__	.\inc\error.h	33;"	d	language:C++
 __func__	.\test\test.h	33;"	d	language:C++
 _assert	.\src\except.c	/^    _CRTIMP void __cdecl _assert(const char*, const char*, unsigned int);$/;"	p	language:C	file:	signature:(const char*, const char*, unsigned int)
+_error	.\inc\error.h	/^extern void _error(const char* file, const char* func, int line, int err_code);$/;"	p	language:C++	signature:(const char* file, const char* func, int line, int err_code)
+_error	.\src\error.c	/^void _error(const char* file, const char* func, int line, int err_code)$/;"	f	language:C	signature:(const char* file, const char* func, int line, int err_code)
 _wassert	.\src\except.c	/^    _CRTIMP void __cdecl _wassert(const wchar_t*, const wchar_t*, unsigned int);$/;"	p	language:C	file:	signature:(const wchar_t*, const wchar_t*, unsigned int)
 align	.\src\arena.c	/^  union lAlign  align;$/;"	m	language:C	union:lHeader	typeref:union:lHeader::lAlign	file:
 arena	.\src\arena.c	/^  struct lArena arena;$/;"	m	language:C	union:lHeader	typeref:struct:lHeader::lArena	file:
@@ -136,8 +138,7 @@ data	.\src\list.c	/^  void*             data;$/;"	m	language:C	struct:lListNode	
 data	.\src\slist.c	/^  void*              data;$/;"	m	language:C	struct:lSlistNode	file:
 edit	.\test\test_except.c	/^static void edit(int argc, char* argv[])$/;"	f	language:C	file:	signature:(int argc, char* argv[])
 env	.\inc\except.h	/^  jmp_buf              env;$/;"	m	language:C++	struct:lExceptFrame
-error	.\inc\error.h	/^extern void error(const char* file, const char* func, int line, int err_code);$/;"	p	language:C++	signature:(const char* file, const char* func, int line, int err_code)
-error	.\src\error.c	/^void error(const char* file, const char* func, int line, int err_code)$/;"	f	language:C	signature:(const char* file, const char* func, int line, int err_code)
+error	.\inc\error.h	42;"	d	language:C++
 except_init	.\inc\except.h	/^  extern void except_init(void);$/;"	p	language:C++	signature:(void)
 except_init	.\src\except.c	/^void except_init(void)$/;"	f	language:C	signature:(void)
 except_pop	.\inc\except.h	/^  extern void except_pop(void);$/;"	p	language:C++	signature:(void)
