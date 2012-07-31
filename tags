@@ -64,6 +64,7 @@ _TestMemCheck	.\test\test_memcheck.c	/^typedef struct _TestMemCheck {$/;"	s	lang
 _TestMemory	.\test\test_memory.c	/^typedef struct _TestMemory {$/;"	s	language:C	file:
 __ARENA_HEADER_H__	.\inc\arena.h	30;"	d	language:C++
 __ARITH_HEADER_H__	.\inc\arith.h	30;"	d	language:C++
+__ARRAY_HEADER_H__	.\inc\array.h	30;"	d	language:C++
 __ASSERT_HEADER_H__	.\inc\assert.h	30;"	d	language:C++
 __ATOM_HEADER_H__	.\inc\atom.h	30;"	d	language:C++
 __CONFIG_HEADER_H__	.\inc\config.h	30;"	d	language:C++
@@ -108,6 +109,47 @@ arith_min	.\inc\arith.h	/^extern int arith_min(int x, int y);$/;"	p	language:C++
 arith_min	.\src\arith.c	/^int arith_min(int x, int y)$/;"	f	language:C	signature:(int x, int y)
 arith_mod	.\inc\arith.h	/^extern int arith_mod(int x, int y);$/;"	p	language:C++	signature:(int x, int y)
 arith_mod	.\src\arith.c	/^int arith_mod(int x, int y)$/;"	f	language:C	signature:(int x, int y)
+array_back	.\inc\array.h	/^extern void* array_back(void* A);$/;"	p	language:C++	signature:(void* A)
+array_back	.\src\array.c	/^void* array_back(void* A)$/;"	f	language:C	signature:(void* A)
+array_begin	.\inc\array.h	/^extern lArrayIter array_begin(void* A);$/;"	p	language:C++	signature:(void* A)
+array_begin	.\src\array.c	/^lArrayIter array_begin(void* A)$/;"	f	language:C	signature:(void* A)
+array_clear	.\inc\array.h	/^extern void array_clear(void* A);$/;"	p	language:C++	signature:(void* A)
+array_clear	.\src\array.c	/^void array_clear(void* A)$/;"	f	language:C	signature:(void* A)
+array_copy	.\inc\array.h	/^extern void* array_copy(void* A, int copy_len);$/;"	p	language:C++	signature:(void* A, int copy_len)
+array_copy	.\src\array.c	/^void* array_copy(void* A, int copy_len)$/;"	f	language:C	signature:(void* A, int copy_len)
+array_create	.\inc\array.h	/^extern void* array_create(int storage);$/;"	p	language:C++	signature:(int storage)
+array_create	.\src\array.c	/^void* array_create(int storage)$/;"	f	language:C	signature:(int storage)
+array_empty	.\inc\array.h	/^extern int array_empty(void* A);$/;"	p	language:C++	signature:(void* A)
+array_empty	.\src\array.c	/^int array_empty(void* A)$/;"	f	language:C	signature:(void* A)
+array_end	.\inc\array.h	/^extern lArrayIter array_end(void* A);$/;"	p	language:C++	signature:(void* A)
+array_end	.\src\array.c	/^lArrayIter array_end(void* A)$/;"	f	language:C	signature:(void* A)
+array_erase	.\inc\array.h	/^extern lArrayIter array_erase(void* A, lArrayIter pos);$/;"	p	language:C++	signature:(void* A, lArrayIter pos)
+array_erase	.\src\array.c	/^lArrayIter array_erase(void* A, lArrayIter pos)$/;"	f	language:C	signature:(void* A, lArrayIter pos)
+array_for_each	.\inc\array.h	/^extern void array_for_each(void* A, void (*visit)(void*, void*), void* arg);$/;"	p	language:C++	signature:(void* A, void (*visit)(void*, void*), void* arg)
+array_for_each	.\src\array.c	/^void array_for_each(void* A, void (*visit)(void*, void*), void* arg)$/;"	f	language:C	signature:(void* A, void (*visit)(void*, void*), void* arg)
+array_front	.\inc\array.h	/^extern void* array_front(void* A);$/;"	p	language:C++	signature:(void* A)
+array_front	.\src\array.c	/^void* array_front(void* A)$/;"	f	language:C	signature:(void* A)
+array_get	.\inc\array.h	/^extern void* array_get(void* A, int i);$/;"	p	language:C++	signature:(void* A, int i)
+array_get	.\src\array.c	/^void* array_get(void* A, int i)$/;"	f	language:C	signature:(void* A, int i)
+array_grow	.\src\array.c	/^static void array_grow(struct lArray* A)$/;"	f	language:C	file:	signature:(struct lArray* A)
+array_insert	.\inc\array.h	/^extern lArrayIter array_insert(void* A, lArrayIter pos, void* x);$/;"	p	language:C++	signature:(void* A, lArrayIter pos, void* x)
+array_insert	.\src\array.c	/^lArrayIter array_insert(void* A, lArrayIter pos, void* x)$/;"	f	language:C	signature:(void* A, lArrayIter pos, void* x)
+array_iter_next	.\inc\array.h	/^extern lArrayIter array_iter_next(lArrayIter iter);$/;"	p	language:C++	signature:(lArrayIter iter)
+array_iter_next	.\src\array.c	/^lArrayIter array_iter_next(lArrayIter iter)$/;"	f	language:C	signature:(lArrayIter iter)
+array_pop_back	.\inc\array.h	/^extern void* array_pop_back(void* A);$/;"	p	language:C++	signature:(void* A)
+array_pop_back	.\src\array.c	/^void* array_pop_back(void* A)$/;"	f	language:C	signature:(void* A)
+array_push_back	.\inc\array.h	/^extern int array_push_back(void* A, void* x);$/;"	p	language:C++	signature:(void* A, void* x)
+array_push_back	.\src\array.c	/^int array_push_back(void* A, void* x)$/;"	f	language:C	signature:(void* A, void* x)
+array_release	.\inc\array.h	/^extern void array_release(void** A);$/;"	p	language:C++	signature:(void** A)
+array_release	.\src\array.c	/^void array_release(void** A)$/;"	f	language:C	signature:(void** A)
+array_remove	.\inc\array.h	/^extern void* array_remove(void* A, int i);$/;"	p	language:C++	signature:(void* A, int i)
+array_remove	.\src\array.c	/^void* array_remove(void* A, int i)$/;"	f	language:C	signature:(void* A, int i)
+array_resize	.\inc\array.h	/^extern void array_resize(void* A, int storage);$/;"	p	language:C++	signature:(void* A, int storage)
+array_resize	.\src\array.c	/^void array_resize(void* A, int storage)$/;"	f	language:C	signature:(void* A, int storage)
+array_set	.\inc\array.h	/^extern void* array_set(void* A, int i, void* x);$/;"	p	language:C++	signature:(void* A, int i, void* x)
+array_set	.\src\array.c	/^void* array_set(void* A, int i, void* x)$/;"	f	language:C	signature:(void* A, int i, void* x)
+array_size	.\inc\array.h	/^extern int array_size(void* A);$/;"	p	language:C++	signature:(void* A)
+array_size	.\src\array.c	/^int array_size(void* A)$/;"	f	language:C	signature:(void* A)
 assert	.\inc\assert.h	/^  extern void assert(int e);$/;"	p	language:C++	signature:(int e)
 assert	.\inc\assert.h	32;"	d	language:C++
 assert	.\inc\assert.h	34;"	d	language:C++
@@ -126,6 +168,7 @@ atom_string	.\inc\atom.h	/^extern const char* atom_string(const char* str);$/;"	
 atom_string	.\src\atom.c	/^const char* atom_string(const char* str)$/;"	f	language:C	signature:(const char* str)
 avail_beg	.\src\arena.c	/^  char* avail_beg;$/;"	m	language:C	struct:lArena	file:
 avail_end	.\src\arena.c	/^  char* avail_end;$/;"	m	language:C	struct:lArena	file:
+begin	.\src\array.c	/^  void** begin;$/;"	m	language:C	struct:lArray	file:
 cb	.\test\test.c	/^  func_callback cb;$/;"	m	language:C	struct:TestFunc	file:
 cmd	.\test\test.c	/^  char* cmd;$/;"	m	language:C	struct:TestFunc	file:
 compare	.\src\set.c	/^  int (*compare)(const void*, const void*);$/;"	m	language:C	struct:lSet	file:
@@ -137,6 +180,9 @@ dalloc	.\src\mem_check.c	/^static struct lDescriptor* dalloc(void* ptr, long byt
 data	.\src\list.c	/^  void*             data;$/;"	m	language:C	struct:lListNode	file:
 data	.\src\slist.c	/^  void*              data;$/;"	m	language:C	struct:lSlistNode	file:
 edit	.\test\test_except.c	/^static void edit(int argc, char* argv[])$/;"	f	language:C	file:	signature:(int argc, char* argv[])
+elements	.\src\array.c	/^  void** elements;$/;"	m	language:C	struct:lArray	file:
+end	.\src\array.c	/^  void** end;$/;"	m	language:C	struct:lArray	file:
+end_of_storage	.\src\array.c	/^  void** end_of_storage;$/;"	m	language:C	struct:lArray	file:
 env	.\inc\except.h	/^  jmp_buf              env;$/;"	m	language:C++	struct:lExceptFrame
 error	.\inc\error.h	42;"	d	language:C++
 except_init	.\inc\except.h	/^  extern void except_init(void);$/;"	p	language:C++	signature:(void)
@@ -171,6 +217,8 @@ key	.\src\table.c	/^  const void*        key;$/;"	m	language:C	struct:lTableNode
 lAlign	.\src\arena.c	/^union lAlign {$/;"	u	language:C	file:
 lAlign	.\src\mem_check.c	/^union lAlign {$/;"	u	language:C	file:
 lArena	.\src\arena.c	/^struct lArena {$/;"	s	language:C	file:
+lArray	.\src\array.c	/^struct lArray {$/;"	s	language:C	file:
+lArrayIter	.\inc\array.h	/^typedef void** lArrayIter;$/;"	t	language:C++
 lAtom	.\src\atom.c	/^struct lAtom {$/;"	s	language:C	file:
 lDescriptor	.\src\mem_check.c	/^struct lDescriptor {$/;"	s	language:C	file:
 lExcept	.\inc\except.h	/^struct lExcept { const char* reason; };$/;"	s	language:C++
