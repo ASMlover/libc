@@ -42,8 +42,8 @@ extern int array_push_back(void* A, void* x);
 extern void* array_pop_back(void* A);
 extern void* array_set(void* A, int i, void* x);
 extern void* array_get(void* A, int i);
-extern lArrayIter array_insert(void* A, lArrayIter pos, void* x);
-extern lArrayIter array_erase(void* A, lArrayIter pos);
+extern void* array_insert(void* A, lArrayIter pos, void* x);
+extern void* array_erase(void* A, lArrayIter pos);
 extern void* array_remove(void* A, int i);
 
 extern void* array_front(void* A);

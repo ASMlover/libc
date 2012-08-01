@@ -43,20 +43,6 @@ struct lArray {
 };
 
 
-static void array_grow(struct lArray* A)
-{
-  int old_size = A->end - A->begin;
-  int new_size = (0 != old_size ? 2 * old_size : 1);
-  void** new_elements = (void**)CALLOC(new_size, sizeof(void*));
-
-  memcpy(new_elements, A->elements, sizeof(void*) * old_size);
-  FREE(A->elements);
-  A->elements       = new_elements;
-  A->begin          = A->elements;
-  A->end            = A->elements + old_size;
-  A->end_of_storage = A->elements + new_size;
-}
-
 
 
 void* array_create(int storage)
@@ -86,7 +72,7 @@ void array_release(void** A)
 
 int array_size(void* A)
 {
-  return (NULL != A ? (((struct lArray*)A)->end - ((struct lArray*)A)->begin) :ERROR_LEN);
+  return (NULL != A ? (((struct lArray*)A)->end - ((struct lArray*)A)->begin) : ERROR_LEN);
 }
 
 int array_empty(void* A)
@@ -137,37 +123,57 @@ void* array_get(void* A, int i)
   return ((struct lArray*)A)->elements[i];
 }
 
-lArrayIter array_insert(void* A, lArrayIter pos, void* x)
+void* array_insert(void* A, lArrayIter pos, void* x)
 {
-  int n = pos - array_begin(A);
-
   assert(NULL != A);
-  if (((struct lArray*)A)->end >= ((struct lArray*)A)->end_of_storage)
-    array_grow((struct lArray*)A);
-  if (pos == array_end(A))
+  if (((struct lArray*)A)->end < ((struct lArray*)A)->end_of_storage && pos == array_end(A))
   {
     *((struct lArray*)A)->end = x;
     ++((struct lArray*)A)->end;
   }
   else 
   {
-    memmove(pos + 1, pos, (array_end(A) - pos) * sizeof(void*));
-    ++((struct lArray*)A)->end;
-    *pos = x;
+    if (((struct lArray*)A)->end < ((struct lArray*)A)->end_of_storage)
+    {
+      memmove(pos + 1, pos, (array_end(A) - pos) * sizeof(void*));
+      ++((struct lArray*)A)->end;
+      *pos = x;
+    }
+    else
+    {
+      int old_size = ((struct lArray*)A)->end - ((struct lArray*)A)->begin;
+      int new_size = (0 != old_size ? 2 * old_size : 1);
+      void** new_elements = (void**)CALLOC(new_size, sizeof(void*));
+
+      memcpy(new_elements, ((struct lArray*)A)->elements, (pos - ((struct lArray*)A)->begin) * sizeof(void*));
+      *(void**)((char*)new_elements + (pos - ((struct lArray*)A)->begin) * sizeof(void*)) = x;
+      memcpy((char*)new_elements + (pos - ((struct lArray*)A)->begin + 1) * sizeof(void*), 
+        ((struct lArray*)A)->elements + (pos - ((struct lArray*)A)->begin) * sizeof(void*), 
+        (((struct lArray*)A)->end - pos) * sizeof(void*));
+
+      FREE(((struct lArray*)A)->elements);
+      ((struct lArray*)A)->elements       = new_elements;
+      ((struct lArray*)A)->begin          = new_elements;
+      ((struct lArray*)A)->end            = new_elements + old_size + 1;
+      ((struct lArray*)A)->end_of_storage = new_elements + new_size;
+    }
   }
 
-  return (array_begin(A) + n);
+  return x;
 }
 
-lArrayIter array_erase(void* A, lArrayIter pos)
+void* array_erase(void* A, lArrayIter pos)
 {
-  assert(NULL != A);
-  if (pos + 1 <= array_end(A))
+  void* erase_data;
+
+  assert(NULL != A && NULL != pos);
+  erase_data = (pos == array_end(A) ? *(pos - 1) : *pos);
+  if (pos + 1 < array_end(A))
     memmove(pos, pos + 1, (((struct lArray*)A)->end - (pos + 1)) * sizeof(void*));
   --((struct lArray*)A)->end;
   *((struct lArray*)A)->end = NULL;
 
-  return pos;
+  return erase_data;
 }
 
 void* array_remove(void* A, int i)
@@ -186,7 +192,8 @@ void* array_remove(void* A, int i)
 
 void* array_front(void* A)
 {
-  return *array_begin(A);
+  lArrayIter beg = array_begin(A);
+  return (NULL != beg ? *beg : NULL);
 }
 
 void* array_back(void* A)
@@ -245,8 +252,12 @@ void array_resize(void* A, int storage)
   else if (0 == array_size(A))
     ((struct lArray*)A)->elements = CALLOC(storage, sizeof(void*));
   else
-    REALLOC(((struct lArray*)A)->elements, storage * sizeof(void*));
+  {
+    int n = array_size(A);
+    ((struct lArray*)A)->elements = REALLOC(((struct lArray*)A)->elements, storage * sizeof(void*));
+    memset(((struct lArray*)A)->elements + n, 0, (storage - n) * sizeof(void*));
+  }
   ((struct lArray*)A)->begin          = ((struct lArray*)A)->elements;
-  ((struct lArray*)A)->end            = ((struct lArray*)A)->elements;
+  ((struct lArray*)A)->end            = ((struct lArray*)A)->elements + storage;
   ((struct lArray*)A)->end_of_storage = ((struct lArray*)A)->elements + storage;
 }
