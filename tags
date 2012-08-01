@@ -74,6 +74,7 @@ __EXCEPT_HEADER_H__	.\inc\except.h	30;"	d	language:C++
 __LIST_HEADER_H__	.\inc\list.h	30;"	d	language:C++
 __MEMORY_CHECK_HEADER_H__	.\inc\mem_check.h	30;"	d	language:C++
 __MEMORY_HEADER_H__	.\inc\memory.h	30;"	d	language:C++
+__SEQUENCE_HEADER_H__	.\inc\sequence.h	2;"	d	language:C++
 __SET_HEADER_H__	.\inc\set.h	30;"	d	language:C++
 __SLIST_HEADER_H__	.\inc\slist.h	30;"	d	language:C++
 __STACK_HEADER_H__	.\inc\stack.h	30;"	d	language:C++
@@ -229,6 +230,7 @@ lHeader	.\src\arena.c	/^union lHeader {$/;"	u	language:C	file:
 lList	.\src\list.c	/^struct lList {$/;"	s	language:C	file:
 lListIter	.\inc\list.h	/^typedef void** lListIter;$/;"	t	language:C++
 lListNode	.\src\list.c	/^struct lListNode {$/;"	s	language:C	file:
+lSequenceIter	.\inc\sequence.h	/^typedef void** lSequenceIter;$/;"	t	language:C++
 lSet	.\src\set.c	/^struct lSet {$/;"	s	language:C	file:
 lSetIter	.\inc\set.h	/^typedef void** lSetIter;$/;"	t	language:C++
 lSetNode	.\src\set.c	/^struct lSetNode {$/;"	s	language:C	file:
@@ -334,6 +336,42 @@ prev	.\src\table.c	/^  struct lTableNode* prev;$/;"	m	language:C	struct:lTableNo
 ptr	.\src\mem_check.c	/^  const void*         ptr;$/;"	m	language:C	struct:lDescriptor	file:
 reason	.\inc\except.h	/^struct lExcept { const char* reason; };$/;"	m	language:C++	struct:lExcept
 s_lhashtable	.\src\mem_check.c	/^static struct lDescriptor* s_lhashtable[LHASHTABLE_LEN_DEF];$/;"	v	language:C	typeref:struct:lDescriptor	file:
+sequence_back	.\inc\sequence.h	/^extern void* sequence_back(void* S);$/;"	p	language:C++	signature:(void* S)
+sequence_back	.\src\sequence.c	/^void* sequence_back(void* S)$/;"	f	language:C	signature:(void* S)
+sequence_begin	.\inc\sequence.h	/^extern lSequenceIter sequence_begin(void* S);$/;"	p	language:C++	signature:(void* S)
+sequence_begin	.\src\sequence.c	/^lSequenceIter sequence_begin(void* S)$/;"	f	language:C	signature:(void* S)
+sequence_clear	.\inc\sequence.h	/^extern void sequence_clear(void* S);$/;"	p	language:C++	signature:(void* S)
+sequence_clear	.\src\sequence.c	/^void sequence_clear(void* S)$/;"	f	language:C	signature:(void* S)
+sequence_create	.\inc\sequence.h	/^extern void* sequence_create(int storage);$/;"	p	language:C++	signature:(int storage)
+sequence_create	.\src\sequence.c	/^void* sequence_create(int storage)$/;"	f	language:C	signature:(int storage)
+sequence_create_by	.\inc\sequence.h	/^extern void* sequence_create_by(void* x, ...);$/;"	p	language:C++	signature:(void* x, ...)
+sequence_create_by	.\src\sequence.c	/^void* sequence_create_by(void* x, ...)$/;"	f	language:C	signature:(void* x, ...)
+sequence_empty	.\inc\sequence.h	/^extern int sequence_empty(void* S);$/;"	p	language:C++	signature:(void* S)
+sequence_empty	.\src\sequence.c	/^int sequence_empty(void* S)$/;"	f	language:C	signature:(void* S)
+sequence_end	.\inc\sequence.h	/^extern lSequenceIter sequence_end(void* S);$/;"	p	language:C++	signature:(void* S)
+sequence_end	.\src\sequence.c	/^lSequenceIter sequence_end(void* S)$/;"	f	language:C	signature:(void* S)
+sequence_for_each	.\inc\sequence.h	/^extern void sequence_for_each(void* S, void (*visit)(void*, void*), void* arg);$/;"	p	language:C++	signature:(void* S, void (*visit)(void*, void*), void* arg)
+sequence_for_each	.\src\sequence.c	/^void sequence_for_each(void* S, void (*visit)(void*, void*), void* arg)$/;"	f	language:C	signature:(void* S, void (*visit)(void*, void*), void* arg)
+sequence_front	.\inc\sequence.h	/^extern void* sequence_front(void* S);$/;"	p	language:C++	signature:(void* S)
+sequence_front	.\src\sequence.c	/^void* sequence_front(void* S)$/;"	f	language:C	signature:(void* S)
+sequence_get	.\inc\sequence.h	/^extern void* sequence_get(void* S, int i);$/;"	p	language:C++	signature:(void* S, int i)
+sequence_get	.\src\sequence.c	/^void* sequence_get(void* S, int i)$/;"	f	language:C	signature:(void* S, int i)
+sequence_iter_next	.\inc\sequence.h	/^extern lSequenceIter sequence_iter_next(lSequenceIter iter);$/;"	p	language:C++	signature:(lSequenceIter iter)
+sequence_iter_next	.\src\sequence.c	/^lSequenceIter sequence_iter_next(lSequenceIter iter)$/;"	f	language:C	signature:(lSequenceIter iter)
+sequence_pop_back	.\inc\sequence.h	/^extern void* sequence_pop_back(void* S);$/;"	p	language:C++	signature:(void* S)
+sequence_pop_back	.\src\sequence.c	/^void* sequence_pop_back(void* S)$/;"	f	language:C	signature:(void* S)
+sequence_pop_front	.\inc\sequence.h	/^extern void* sequence_pop_front(void* S);$/;"	p	language:C++	signature:(void* S)
+sequence_pop_front	.\src\sequence.c	/^void* sequence_pop_front(void* S)$/;"	f	language:C	signature:(void* S)
+sequence_push_back	.\inc\sequence.h	/^extern void* sequence_push_back(void* S, void* x);$/;"	p	language:C++	signature:(void* S, void* x)
+sequence_push_back	.\src\sequence.c	/^void* sequence_push_back(void* S, void* x)$/;"	f	language:C	signature:(void* S, void* x)
+sequence_push_front	.\inc\sequence.h	/^extern void* sequence_push_front(void* S, void* x);$/;"	p	language:C++	signature:(void* S, void* x)
+sequence_push_front	.\src\sequence.c	/^void* sequence_push_front(void* S, void* x)$/;"	f	language:C	signature:(void* S, void* x)
+sequence_release	.\inc\sequence.h	/^extern void sequence_release(void** S);$/;"	p	language:C++	signature:(void** S)
+sequence_release	.\src\sequence.c	/^void sequence_release(void** S)$/;"	f	language:C	signature:(void** S)
+sequence_set	.\inc\sequence.h	/^extern void* sequence_set(void* S, int i, void* x);$/;"	p	language:C++	signature:(void* S, int i, void* x)
+sequence_set	.\src\sequence.c	/^void* sequence_set(void* S, int i, void* x)$/;"	f	language:C	signature:(void* S, int i, void* x)
+sequence_size	.\inc\sequence.h	/^extern int sequence_size(void* S);$/;"	p	language:C++	signature:(void* S)
+sequence_size	.\src\sequence.c	/^int sequence_size(void* S)$/;"	f	language:C	signature:(void* S)
 set_begin	.\inc\set.h	/^extern lSetIter set_begin(void* S);$/;"	p	language:C++	signature:(void* S)
 set_begin	.\src\set.c	/^lSetIter set_begin(void* S)$/;"	f	language:C	signature:(void* S)
 set_clear	.\inc\set.h	/^extern void set_clear(void* S);$/;"	p	language:C++	signature:(void* S)
