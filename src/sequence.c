@@ -32,96 +32,191 @@
 #include "../inc/config.h"
 #include "../inc/assert.h"
 #include "../inc/memory.h"
-#include "../inc/array.h"
 
 #include "../inc/sequence.h"
 
+
+#define LSEQUENCE_LEN_DEF   (16)
+
+struct lSequence {
+  void** elements;
+  int    storage;
+  int    size;
+  int    head;
+};
+
+
+static void sequence_grow(struct lSequence* S)
+{
+  int old_storage = S->storage;
+  int new_storage = (0 != old_storage ? 2 * old_storage : 1);
+  
+  S->elements = (void**)REALLOC(S->elements, new_storage);
+  memset(S->elements + old_storage, 0, (new_storage - old_storage) * sizeof(void*));
+  S->storage  = new_storage;
+
+  if (S->head > 0)
+  {
+    void** old_elements = &S->elements[S->head];
+    memcpy(old_elements + old_storage, old_elements, ((old_storage - S->head) * sizeof(void*)));
+    S->head += old_storage;
+  }
+}
 
 
 
 void* sequence_create(int storage)
 {
-  return NULL;
+  struct lSequence* object;
+
+  assert(storage >= 0);
+  NEW0(object);
+  if (NULL != object)
+  {
+    storage = (0 != storage ? storage : LSEQUENCE_LEN_DEF);
+    object->elements = (void**)CALLOC(storage, sizeof(void*));
+    object->storage  = storage;
+  }
+
+  return object;
 }
 
 void* sequence_create_by(void* x, ...)
 {
-  return NULL;
+  va_list ap;
+  void*   S = sequence_create(0);
+
+  va_start(ap, x);
+  for ( ; NULL != x; x = va_arg(ap, void*))
+    sequence_push_back(S, x);
+  va_end(ap);
+
+  return S;
 }
 
 void sequence_release(void** S)
 {
+  sequence_clear(*S);
+  FREE(*S);
 }
 
 int sequence_size(void* S)
 {
-  return ERROR_LEN;
+  return (NULL != S ? ((struct lSequence*)S)->size : ERROR_LEN);
 }
 
 int sequence_empty(void* S)
 {
-  return 0;
+  return (NULL != S ? (0 == ((struct lSequence*)S)->size) : 0);
 }
 
 void sequence_clear(void* S)
 {
+  if (NULL == S)
+    return;
+  FREE(((struct lSequence*)S)->elements);
+  ((struct lSequence*)S)->storage = 0;
+  ((struct lSequence*)S)->size    = 0;
+  ((struct lSequence*)S)->head    = 0;
 }
 
 void* sequence_push_front(void* S, void* x)
 {
-  return NULL;
+  assert(NULL != S);
+  if (((struct lSequence*)S)->size >= ((struct lSequence*)S)->storage)
+    sequence_grow((struct lSequence*)S);
+  if (--((struct lSequence*)S)->head < 0)
+    ((struct lSequence*)S)->head = ((struct lSequence*)S)->storage - 1;
+  ++((struct lSequence*)S)->size;
+  ((struct lSequence*)S)->elements[((struct lSequence*)S)->head % ((struct lSequence*)S)->storage] = x;
+
+  return x;
 }
 
 void* sequence_push_back(void* S, void* x)
 {
-  return NULL;
+  int i;
+
+  assert(NULL != S);
+  if (((struct lSequence*)S)->size >= ((struct lSequence*)S)->storage)
+    sequence_grow((struct lSequence*)S);
+  i = ((struct lSequence*)S)->size++;
+  ((struct lSequence*)S)->elements[(((struct lSequence*)S)->head + i) % ((struct lSequence*)S)->storage] = x;
+
+  return x;
 }
 
-void* sequence_pop_front(void* S)
+void* sequence_pop_front(void* P)
 {
-  return NULL;
+  void* pop_data;
+  struct lSequence* S = (struct lSequence*)P;
+
+  assert(NULL != S && S->size > 0);
+  pop_data = S->elements[S->head % S->storage];
+  S->elements[S->head % S->storage] = NULL;
+  S->head = (S->head + 1) % S->storage;
+  --S->size;
+
+  return pop_data;
 }
 
-void* sequence_pop_back(void* S)
+void* sequence_pop_back(void* P)
 {
-  return NULL;
+  void* pop_data;
+  int i;
+  struct lSequence* S = (struct lSequence*)P;
+
+  assert(NULL != S && S->size > 0);
+  i = --S->size;
+  pop_data = S->elements[(S->head + i) % S->storage];
+  S->elements[(S->head + i) % S->storage] = NULL;
+
+  return pop_data;
 }
 
-void* sequence_set(void* S, int i, void* x)
+void* sequence_set(void* P, int i, void* x)
 {
-  return NULL;
+  void* old_x;
+  struct lSequence* S = (struct lSequence*)P;
+
+  assert(NULL != S && i >= 0 && i < S->size);
+  old_x = S->elements[(S->head + i) % S->storage];
+  S->elements[(S->head + i) % S->storage] = x;
+
+  return old_x;
 }
 
-void* sequence_get(void* S, int i)
+void* sequence_get(void* P, int i)
 {
-  return NULL;
+  struct lSequence* S = (struct lSequence*)P;
+
+  assert(NULL != S && i >= 0 && i < S->size);
+  return S->elements[(S->head + i) % S->storage];
 }
 
-lSequenceIter sequence_begin(void* S)
+void* sequence_front(void* P)
 {
-  return NULL;
+  struct lSequence* S = (struct lSequence*)P;
+
+  assert(NULL != S);
+  return (0 < S->size ? S->elements[S->head % S->storage] : NULL);
 }
 
-lSequenceIter sequence_end(void* S)
+void* sequence_back(void* P)
 {
-  return NULL;
+  struct lSequence* S = (struct lSequence*)P;
+
+  assert(NULL != S);
+  return (0 < S->size ? S->elements[(S->head + (S->size - 1)) % S->storage] : NULL);
 }
 
-lSequenceIter sequence_iter_next(lSequenceIter iter)
+void sequence_for_each(void* P, void (*visit)(void*, void*), void* arg)
 {
-  return NULL;
-}
+  int i;
+  struct lSequence* S = (struct lSequence*)P;
 
-void* sequence_front(void* S)
-{
-  return NULL;
-}
-
-void* sequence_back(void* S)
-{
-  return NULL;
-}
-
-void sequence_for_each(void* S, void (*visit)(void*, void*), void* arg)
-{
+  if (NULL == S || NULL == visit)
+    return;
+  for (i = 0; i < S->size; ++i)
+    visit(S->elements[(S->head + i) % S->storage], arg);
 }

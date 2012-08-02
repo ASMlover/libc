@@ -29,8 +29,6 @@
 #ifndef __SEQUENCE_HEADER_H__
 #define __SEQUENCE_HEADER_H__
 
-typedef void** lSequenceIter;
-
 extern void* sequence_create(int storage);
 extern void* sequence_create_by(void* x, ...);
 extern void sequence_release(void** S);
@@ -45,10 +43,6 @@ extern void* sequence_pop_front(void* S);
 extern void* sequence_pop_back(void* S);
 extern void* sequence_set(void* S, int i, void* x);
 extern void* sequence_get(void* S, int i);
-
-extern lSequenceIter sequence_begin(void* S);
-extern lSequenceIter sequence_end(void* S);
-extern lSequenceIter sequence_iter_next(lSequenceIter iter);
 
 extern void* sequence_front(void* S);
 extern void* sequence_back(void* S);
