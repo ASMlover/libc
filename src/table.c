@@ -83,16 +83,6 @@ static unsigned int get_hash_value(const char* key)
 
 
 
-static void table_erase(struct lTable* T, struct lTableNode* pos)
-{
-  struct lTableNode* prev = pos->prev;
-  struct lTableNode* next = pos->next;
-  prev->next = next;
-  next->prev = prev;
-  FREE(pos);
-  --T->size;
-}
-
 
 
 void* table_create(int count, 
