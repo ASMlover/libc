@@ -111,10 +111,13 @@ void* array_pop_back(void* A)
 
 void* array_set(void* A, int i, void* x)
 {
+  void* old_x;
+
   assert(NULL != A && i >= 0 && i < array_size(A));
+  old_x = ((struct lArray*)A)->elements[i];
   ((struct lArray*)A)->elements[i] = x;
 
-  return x;
+  return old_x;
 }
 
 void* array_get(void* A, int i)
