@@ -75,6 +75,7 @@ __EXCEPT_HEADER_H__	.\inc\except.h	30;"	d	language:C++
 __LIST_HEADER_H__	.\inc\list.h	30;"	d	language:C++
 __MEMORY_CHECK_HEADER_H__	.\inc\mem_check.h	30;"	d	language:C++
 __MEMORY_HEADER_H__	.\inc\memory.h	30;"	d	language:C++
+__RING_HEADER_H__	.\inc\ring.h	2;"	d	language:C++
 __SEQUENCE_HEADER_H__	.\inc\sequence.h	30;"	d	language:C++
 __SET_HEADER_H__	.\inc\set.h	30;"	d	language:C++
 __SLIST_HEADER_H__	.\inc\slist.h	30;"	d	language:C++
@@ -182,6 +183,7 @@ compare_def	.\src\table.c	/^static int compare_def(const void* x, const void* y)
 count	.\src\stack.c	/^  int count;$/;"	m	language:C	struct:lStack	file:
 dalloc	.\src\mem_check.c	/^static struct lDescriptor* dalloc(void* ptr, long bytes, const char* file, int line)$/;"	f	language:C	file:	signature:(void* ptr, long bytes, const char* file, int line)
 data	.\src\list.c	/^  void*             data;$/;"	m	language:C	struct:lListNode	file:
+data	.\src\ring.c	/^  void* data;$/;"	m	language:C	struct:lRingNode	file:
 data	.\src\slist.c	/^  void*              data;$/;"	m	language:C	struct:lSlistNode	file:
 edit	.\test\test_except.c	/^static void edit(int argc, char* argv[])$/;"	f	language:C	file:	signature:(int argc, char* argv[])
 elements	.\src\array.c	/^  void** elements;$/;"	m	language:C	struct:lArray	file:
@@ -233,6 +235,8 @@ lHeader	.\src\arena.c	/^union lHeader {$/;"	u	language:C	file:
 lList	.\src\list.c	/^struct lList {$/;"	s	language:C	file:
 lListIter	.\inc\list.h	/^typedef void** lListIter;$/;"	t	language:C++
 lListNode	.\src\list.c	/^struct lListNode {$/;"	s	language:C	file:
+lRing	.\src\ring.c	/^struct lRing {$/;"	s	language:C	file:
+lRingNode	.\src\ring.c	/^struct lRingNode {$/;"	s	language:C	file:
 lSequence	.\src\sequence.c	/^struct lSequence {$/;"	s	language:C	file:
 lSet	.\src\set.c	/^struct lSet {$/;"	s	language:C	file:
 lSetIter	.\inc\set.h	/^typedef void** lSetIter;$/;"	t	language:C++
@@ -322,11 +326,13 @@ name	.\test\test_memory.c	/^  char name[32];$/;"	m	language:C	struct:_TestMemory
 next	.\src\atom.c	/^  struct lAtom* next;$/;"	m	language:C	struct:lAtom	typeref:struct:lAtom::lAtom	file:
 next	.\src\list.c	/^  struct lListNode* next;$/;"	m	language:C	struct:lListNode	typeref:struct:lListNode::lListNode	file:
 next	.\src\mem_check.c	/^  struct lDescriptor* next;$/;"	m	language:C	struct:lDescriptor	typeref:struct:lDescriptor::lDescriptor	file:
+next	.\src\ring.c	/^  struct lRingNode* next;$/;"	m	language:C	struct:lRingNode	typeref:struct:lRingNode::lRingNode	file:
 next	.\src\set.c	/^  struct lSetNode* next;$/;"	m	language:C	struct:lSetNode	typeref:struct:lSetNode::lSetNode	file:
 next	.\src\slist.c	/^  struct lSlistNode* next;$/;"	m	language:C	struct:lSlistNode	typeref:struct:lSlistNode::lSlistNode	file:
 next	.\src\stack.c	/^  struct lStackNode* next;$/;"	m	language:C	struct:lStackNode	typeref:struct:lStackNode::lStackNode	file:
 next	.\src\table.c	/^  struct lTableNode* next;$/;"	m	language:C	struct:lTableNode	typeref:struct:lTableNode::lTableNode	file:
 node	.\src\list.c	/^  struct lListNode node;$/;"	m	language:C	struct:lList	typeref:struct:lList::lListNode	file:
+node	.\src\ring.c	/^  struct lRingNode node;$/;"	m	language:C	struct:lRing	typeref:struct:lRing::lRingNode	file:
 node	.\src\set.c	/^  struct lSetNode   node;$/;"	m	language:C	struct:lSet	typeref:struct:lSet::lSetNode	file:
 node	.\src\table.c	/^  struct lTableNode   node;$/;"	m	language:C	struct:lTable	typeref:struct:lTable::lTableNode	file:
 pad	.\src\arena.c	/^  char pad[MAXALIGN];$/;"	m	language:C	union:lAlign	file:
@@ -334,10 +340,43 @@ pad	.\src\mem_check.c	/^  char    pad[MAXALIGN];$/;"	m	language:C	union:lAlign	f
 prev	.\inc\except.h	/^  struct lExceptFrame* prev;$/;"	m	language:C++	struct:lExceptFrame	typeref:struct:lExceptFrame::lExceptFrame
 prev	.\src\arena.c	/^  struct lArena* prev;$/;"	m	language:C	struct:lArena	typeref:struct:lArena::lArena	file:
 prev	.\src\list.c	/^  struct lListNode* prev;$/;"	m	language:C	struct:lListNode	typeref:struct:lListNode::lListNode	file:
+prev	.\src\ring.c	/^  struct lRingNode* prev;$/;"	m	language:C	struct:lRingNode	typeref:struct:lRingNode::lRingNode	file:
 prev	.\src\set.c	/^  struct lSetNode* prev;$/;"	m	language:C	struct:lSetNode	typeref:struct:lSetNode::lSetNode	file:
 prev	.\src\table.c	/^  struct lTableNode* prev;$/;"	m	language:C	struct:lTableNode	typeref:struct:lTableNode::lTableNode	file:
 ptr	.\src\mem_check.c	/^  const void*         ptr;$/;"	m	language:C	struct:lDescriptor	file:
 reason	.\inc\except.h	/^struct lExcept { const char* reason; };$/;"	m	language:C++	struct:lExcept
+ring_clear	.\inc\ring.h	/^extern void ring_clear(void* R);$/;"	p	language:C++	signature:(void* R)
+ring_clear	.\src\ring.c	/^void ring_clear(void* R)$/;"	f	language:C	signature:(void* R)
+ring_create	.\inc\ring.h	/^extern void* ring_create(void);$/;"	p	language:C++	signature:(void)
+ring_create	.\src\ring.c	/^void* ring_create(void)$/;"	f	language:C	signature:(void)
+ring_create_by	.\inc\ring.h	/^extern void* ring_create_by(void* x, ...);$/;"	p	language:C++	signature:(void* x, ...)
+ring_create_by	.\src\ring.c	/^void* ring_create_by(void* x, ...)$/;"	f	language:C	signature:(void* x, ...)
+ring_empty	.\inc\ring.h	/^extern int ring_empty(void* R);$/;"	p	language:C++	signature:(void* R)
+ring_empty	.\src\ring.c	/^int ring_empty(void* R)$/;"	f	language:C	signature:(void* R)
+ring_erase	.\inc\ring.h	/^extern void* ring_erase(void* R, int i);$/;"	p	language:C++	signature:(void* R, int i)
+ring_erase	.\src\ring.c	/^void* ring_erase(void* R, int i)$/;"	f	language:C	signature:(void* R, int i)
+ring_for_each	.\inc\ring.h	/^extern void ring_for_each(void* R, void (*visit)(void*, void*), void* arg);$/;"	p	language:C++	signature:(void* R, void (*visit)(void*, void*), void* arg)
+ring_for_each	.\src\ring.c	/^void ring_for_each(void* R, void (*visit)(void*, void*), void* arg)$/;"	f	language:C	signature:(void* R, void (*visit)(void*, void*), void* arg)
+ring_get	.\inc\ring.h	/^extern void* ring_get(void* R, int i);$/;"	p	language:C++	signature:(void* R, int i)
+ring_get	.\src\ring.c	/^void* ring_get(void* R, int i)$/;"	f	language:C	signature:(void* R, int i)
+ring_insert	.\inc\ring.h	/^extern void* ring_insert(void* R, int i, void* x);$/;"	p	language:C++	signature:(void* R, int i, void* x)
+ring_insert	.\src\ring.c	/^void* ring_insert(void* R, int i, void* x)$/;"	f	language:C	signature:(void* R, int i, void* x)
+ring_pop_back	.\inc\ring.h	/^extern void* ring_pop_back(void* R);$/;"	p	language:C++	signature:(void* R)
+ring_pop_back	.\src\ring.c	/^void* ring_pop_back(void* R)$/;"	f	language:C	signature:(void* R)
+ring_pop_front	.\inc\ring.h	/^extern void* ring_pop_front(void* R);$/;"	p	language:C++	signature:(void* R)
+ring_pop_front	.\src\ring.c	/^void* ring_pop_front(void* R)$/;"	f	language:C	signature:(void* R)
+ring_push_back	.\inc\ring.h	/^extern void* ring_push_back(void* R, void* x);$/;"	p	language:C++	signature:(void* R, void* x)
+ring_push_back	.\src\ring.c	/^void* ring_push_back(void* R, void* x)$/;"	f	language:C	signature:(void* R, void* x)
+ring_push_front	.\inc\ring.h	/^extern void* ring_push_front(void* R, void* x);$/;"	p	language:C++	signature:(void* R, void* x)
+ring_push_front	.\src\ring.c	/^void* ring_push_front(void* R, void* x)$/;"	f	language:C	signature:(void* R, void* x)
+ring_release	.\inc\ring.h	/^extern void ring_release(void** R);$/;"	p	language:C++	signature:(void** R)
+ring_release	.\src\ring.c	/^void ring_release(void** R)$/;"	f	language:C	signature:(void** R)
+ring_rotate	.\inc\ring.h	/^extern void ring_rotate(void* R, int n);$/;"	p	language:C++	signature:(void* R, int n)
+ring_rotate	.\src\ring.c	/^void ring_rotate(void* R, int n)$/;"	f	language:C	signature:(void* R, int n)
+ring_set	.\inc\ring.h	/^extern void* ring_set(void* R, int i, void* x);$/;"	p	language:C++	signature:(void* R, int i, void* x)
+ring_set	.\src\ring.c	/^void* ring_set(void* R, int i, void* x)$/;"	f	language:C	signature:(void* R, int i, void* x)
+ring_size	.\inc\ring.h	/^extern int ring_size(void* R);$/;"	p	language:C++	signature:(void* R)
+ring_size	.\src\ring.c	/^int ring_size(void* R)$/;"	f	language:C	signature:(void* R)
 s_lhashtable	.\src\mem_check.c	/^static struct lDescriptor* s_lhashtable[LHASHTABLE_LEN_DEF];$/;"	v	language:C	typeref:struct:lDescriptor	file:
 sequence_back	.\inc\sequence.h	/^extern void* sequence_back(void* S);$/;"	p	language:C++	signature:(void* S)
 sequence_back	.\src\sequence.c	/^void* sequence_back(void* P)$/;"	f	language:C	signature:(void* P)
@@ -412,6 +451,7 @@ set_union	.\src\set.c	/^void* set_union(void* S, void* T)$/;"	f	language:C	signa
 sets	.\src\set.c	/^  struct lSetNode** sets;$/;"	m	language:C	struct:lSet	typeref:struct:lSet::lSetNode	file:
 size	.\src\list.c	/^  int              size;$/;"	m	language:C	struct:lList	file:
 size	.\src\mem_check.c	/^  long                size;$/;"	m	language:C	struct:lDescriptor	file:
+size	.\src\ring.c	/^  int              size;$/;"	m	language:C	struct:lRing	file:
 size	.\src\sequence.c	/^  int    size;$/;"	m	language:C	struct:lSequence	file:
 size	.\src\set.c	/^  int size;$/;"	m	language:C	struct:lSet	file:
 size	.\src\slist.c	/^  int                size;$/;"	m	language:C	struct:lSlist	file:
