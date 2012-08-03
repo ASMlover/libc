@@ -198,16 +198,16 @@ void* sequence_front(void* P)
 {
   struct lSequence* S = (struct lSequence*)P;
 
-  assert(NULL != S);
-  return (0 < S->size ? S->elements[S->head % S->storage] : NULL);
+  return ((NULL != S && 0 < S->size) 
+      ? S->elements[S->head % S->storage] : NULL);
 }
 
 void* sequence_back(void* P)
 {
   struct lSequence* S = (struct lSequence*)P;
 
-  assert(NULL != S);
-  return (0 < S->size ? S->elements[(S->head + (S->size - 1)) % S->storage] : NULL);
+  return ((NULL != S && 0 < S->size) 
+      ? S->elements[(S->head + (S->size - 1)) % S->storage] : NULL);
 }
 
 void sequence_for_each(void* P, void (*visit)(void*, void*), void* arg)
