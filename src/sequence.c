@@ -49,10 +49,15 @@ struct lSequence {
 static void sequence_grow(struct lSequence* S)
 {
   int old_storage = S->storage;
-  int new_storage = (0 != old_storage ? 2 * old_storage : 1);
+  int new_storage = (0 != old_storage ? 2 * old_storage : LSEQUENCE_LEN_DEF);
   
-  S->elements = (void**)REALLOC(S->elements, new_storage * sizeof(void*));
-  memset(S->elements + old_storage, 0, (new_storage - old_storage) * sizeof(void*));
+  if (NULL == S->elements)
+    S->elements = (void**)CALLOC(new_storage, sizeof(void*));
+  else
+  {
+    S->elements = (void**)REALLOC(S->elements, new_storage * sizeof(void*));
+    memset(S->elements + old_storage, 0, (new_storage - old_storage) * sizeof(void*));
+  }
   S->storage  = new_storage;
 
   if (S->head > 0)
