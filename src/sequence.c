@@ -51,7 +51,7 @@ static void sequence_grow(struct lSequence* S)
   int old_storage = S->storage;
   int new_storage = (0 != old_storage ? 2 * old_storage : 1);
   
-  S->elements = (void**)REALLOC(S->elements, new_storage);
+  S->elements = (void**)REALLOC(S->elements, new_storage * sizeof(void*));
   memset(S->elements + old_storage, 0, (new_storage - old_storage) * sizeof(void*));
   S->storage  = new_storage;
 
