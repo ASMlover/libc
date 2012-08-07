@@ -48,5 +48,6 @@ extern void test_table(void);
 extern void test_set(void);
 extern void test_array(void);
 extern void test_sequence(void);
+extern void test_ring(void);
 
 #endif  /* __TEST_HEADER_H__ */
