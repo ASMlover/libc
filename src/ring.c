@@ -1,3 +1,31 @@
+/*
+ * Copyright (c) 2012 ASMlover. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *  * Redistributions of source code must retain the above copyright
+ *    notice, this list ofconditions and the following disclaimer.
+ *
+ *  * Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in
+ *    the documentation and/or other materialsprovided with the
+ *    distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+ * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ * COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
@@ -61,25 +89,48 @@ void* ring_create(void)
 
 void* ring_create_by(void* x, ...)
 {
-  return NULL;
+  va_list ap;
+  void* R = ring_create();
+
+  va_start(ap, x);
+  for ( ; NULL != x; x = va_arg(ap, void*))
+    ring_push_back(R, x);
+  va_end(ap);
+
+  return R;
 }
 
 void ring_release(void** R)
 {
+  ring_clear(*R);
+  FREE(*R);
 }
 
 int ring_size(void* R)
 {
-  return ERROR_LEN;
+  return (NULL != R ? ((struct lRing*)R)->size : ERROR_LEN);
 }
 
 int ring_empty(void* R)
 {
-  return 0;
+  return (NULL != R ? (NULL == ((struct lRing*)R)->head) : 0);
 }
 
-void ring_clear(void* R)
+void ring_clear(void* P)
 {
+  struct lRing* R = (struct lRing*)P;
+  struct lRingNode* node;
+
+  if (NULL == R || NULL == R->head)
+    return;
+  while (R->size-- > 0)
+  {
+    node = R->head;
+    R->head = R->head->next;
+    FREE(node);
+  }
+  R->head = NULL;
+  R->size = 0;
 }
 
 void* ring_push_front(void* P, void* x)
@@ -143,7 +194,6 @@ void* ring_pop_back(void* P)
 
 void* ring_insert(void* P, int i, void* x)
 {
-  /** TODO: */
   struct lRing* R = (struct lRing*)P;
   assert(NULL != R && i >= -R->size && i <= R->size);
 
@@ -168,30 +218,147 @@ void* ring_insert(void* P, int i, void* x)
       for (idx = R->size - pos; idx > 0; --idx)
         iter = iter->prev;
     }
+
+    node->prev = iter->prev;
+    node->next = iter;
+    iter->prev->next = node;
+    iter->prev = node;
+    ++R->size;
   }
 
   return x;
 }
 
-void* ring_erase(void* R, int i)
+void* ring_erase(void* P, int i)
 {
-  return NULL;
+  struct lRing* R = (struct lRing*)P;
+  int idx;
+  struct lRingNode* node;
+  void* erase_data;
+
+  if (NULL == R || i < 0 || i >= R->size)
+    return NULL;
+  node = R->head;
+  if (i <= R->size / 2)
+  {
+    for (idx = i; idx > 0; --idx)
+      node = node->next;
+  }
+  else 
+  {
+    for (idx = R->size - i; idx > 0; --idx)
+      node = node->prev;
+  }
+  if (0 == i)
+    R->head = R->head->next;
+
+  erase_data = node->data;
+  node->prev->next = node->next;
+  node->next->prev = node->prev;
+  FREE(node);
+
+  if (0 == --R->size)
+    R->head = NULL;
+
+  return erase_data;
 }
 
-void* ring_get(void* R, int i)
+void* ring_get(void* P, int i)
 {
-  return NULL;
+  struct lRingNode* iter;
+  struct lRing* R = (struct lRing*)P;
+  int idx;
+
+  if (NULL == R || i < 0 || i >= R->size)
+    return NULL;
+  iter = R->head;
+  if (i <= R->size / 2)
+  {
+    for (idx = i; idx > 0; --idx)
+      iter = iter->next;
+  }
+  else
+  {
+    for (idx = R->size - i; idx > 0; --idx)
+      iter = iter->prev;
+  }
+
+  return iter->data;
 }
 
-void* ring_set(void* R, int i, void* x)
+void* ring_set(void* P, int i, void* x)
 {
-  return NULL;
+  int idx;
+  void* old_data;
+  struct lRingNode* iter;
+  struct lRing* R = (struct lRing*)P;
+
+  if (NULL == R || i < 0 || i >= R->size)
+    return NULL;
+  iter = R->head;
+  if (i <= R->size / 2)
+  {
+    for (idx = i; idx > 0; --idx)
+      iter = iter->next;
+  }
+  else
+  {
+    for (idx = R->size - i; idx > 0; --idx)
+      iter = iter->prev;
+  }
+  old_data = iter->data;
+  iter->data = x;
+
+  return old_data;
 }
 
-void ring_for_each(void* R, void (*visit)(void*, void*), void* arg)
+void* ring_front(void* P)
 {
+  struct lRing* R = (struct lRing*)P;
+  return (NULL != R && NULL != R->head ? R->head->data : NULL);
 }
 
-void ring_rotate(void* R, int n)
+void* ring_back(void* P)
 {
+  struct lRing* R = (struct lRing*)P;
+  return (NULL != R && NULL != R->head ? R->head->prev->data : NULL);
+}
+
+void ring_for_each(void* P, void (*visit)(void*, void*), void* arg)
+{
+  struct lRingNode* iter;
+  struct lRing* R = (struct lRing*)P;
+
+  if (NULL == R || NULL == visit)
+    return;
+  else
+  {
+    int i;
+    for (iter = R->head, i = 0; NULL != iter && i < R->size; ++i, iter = iter->next)
+      visit(iter->data, arg);
+  }
+}
+
+void ring_rotate(void* P, int n)
+{
+  int idx, pos;
+  struct lRingNode* iter;
+  struct lRing* R = (struct lRing*)P;
+
+  if (NULL == R || n < -R->size || n > R->size)
+    return;
+  pos = (n >= 0 ? n % R->size : n + R->size);
+
+  iter = R->head;
+  if (pos <= R->size / 2)
+  {
+    for (idx = pos; idx > 0; --idx)
+      iter = iter->next;
+  }
+  else
+  {
+    for (idx = R->size - pos; idx > 0; --idx)
+      iter = iter->prev;
+  }
+  R->head = iter;
 }
