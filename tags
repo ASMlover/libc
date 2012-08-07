@@ -68,6 +68,7 @@ __ARITH_HEADER_H__	.\inc\arith.h	30;"	d	language:C++
 __ARRAY_HEADER_H__	.\inc\array.h	30;"	d	language:C++
 __ASSERT_HEADER_H__	.\inc\assert.h	30;"	d	language:C++
 __ATOM_HEADER_H__	.\inc\atom.h	30;"	d	language:C++
+__BIT_HEADER_H__	.\inc\bit.h	2;"	d	language:C++
 __CONFIG_HEADER_H__	.\inc\config.h	30;"	d	language:C++
 __CRT_WIDE	.\src\except.c	82;"	d	language:C	file:
 __ERROR_HEADER_H__	.\inc\error.h	30;"	d	language:C++
@@ -174,6 +175,42 @@ atom_string	.\src\atom.c	/^const char* atom_string(const char* str)$/;"	f	langua
 avail_beg	.\src\arena.c	/^  char* avail_beg;$/;"	m	language:C	struct:lArena	file:
 avail_end	.\src\arena.c	/^  char* avail_end;$/;"	m	language:C	struct:lArena	file:
 begin	.\src\array.c	/^  void** begin;$/;"	m	language:C	struct:lArray	file:
+bit_clear	.\inc\bit.h	/^extern void bit_clear(void* B);$/;"	p	language:C++	signature:(void* B)
+bit_clear	.\src\bit.c	/^void bit_clear(void* B)$/;"	f	language:C	signature:(void* B)
+bit_clear_range	.\inc\bit.h	/^extern void bit_clear_range(void* B, int beg, int end);$/;"	p	language:C++	signature:(void* B, int beg, int end)
+bit_clear_range	.\src\bit.c	/^void bit_clear_range(void* B, int beg, int end)$/;"	f	language:C	signature:(void* B, int beg, int end)
+bit_count	.\inc\bit.h	/^extern int bit_count(void* B);  \/**!< number of ones in bit set. *\/$/;"	p	language:C++	signature:(void* B)
+bit_count	.\src\bit.c	/^int bit_count(void* B)$/;"	f	language:C	signature:(void* B)
+bit_create	.\inc\bit.h	/^extern void* bit_create(int size);$/;"	p	language:C++	signature:(int size)
+bit_create	.\src\bit.c	/^void* bit_create(int size)$/;"	f	language:C	signature:(int size)
+bit_diff	.\inc\bit.h	/^extern void* bit_diff(void* B1, void* B2);$/;"	p	language:C++	signature:(void* B1, void* B2)
+bit_diff	.\src\bit.c	/^void* bit_diff(void* B1, void* B2)$/;"	f	language:C	signature:(void* B1, void* B2)
+bit_eq	.\inc\bit.h	/^extern int bit_eq(void* B1, void* B2);$/;"	p	language:C++	signature:(void* B1, void* B2)
+bit_eq	.\src\bit.c	/^int bit_eq(void* B1, void* B2)$/;"	f	language:C	signature:(void* B1, void* B2)
+bit_for_each	.\inc\bit.h	/^extern void bit_for_each(void* B, void (*visit)(int, int, void*), void* arg);$/;"	p	language:C++	signature:(void* B, void (*visit)(int, int, void*), void* arg)
+bit_for_each	.\src\bit.c	/^void bit_for_each(void* B, void (*visit)(int, int, void*), void* arg)$/;"	f	language:C	signature:(void* B, void (*visit)(int, int, void*), void* arg)
+bit_get	.\inc\bit.h	/^extern int bit_get(void* B, int i);$/;"	p	language:C++	signature:(void* B, int i)
+bit_get	.\src\bit.c	/^int bit_get(void* B, int i)$/;"	f	language:C	signature:(void* B, int i)
+bit_inter	.\inc\bit.h	/^extern void* bit_inter(void* B1, void* B2);$/;"	p	language:C++	signature:(void* B1, void* B2)
+bit_inter	.\src\bit.c	/^void* bit_inter(void* B1, void* B2)$/;"	f	language:C	signature:(void* B1, void* B2)
+bit_leq	.\inc\bit.h	/^extern int bit_leq(void* B1, void* B2);$/;"	p	language:C++	signature:(void* B1, void* B2)
+bit_leq	.\src\bit.c	/^int bit_leq(void* B1, void* B2)$/;"	f	language:C	signature:(void* B1, void* B2)
+bit_lt	.\inc\bit.h	/^extern int bit_lt(void* B1, void* B2);$/;"	p	language:C++	signature:(void* B1, void* B2)
+bit_lt	.\src\bit.c	/^int bit_lt(void* B1, void* B2)$/;"	f	language:C	signature:(void* B1, void* B2)
+bit_minus	.\inc\bit.h	/^extern void* bit_minus(void* B1, void* B2);$/;"	p	language:C++	signature:(void* B1, void* B2)
+bit_minus	.\src\bit.c	/^void* bit_minus(void* B1, void* B2)$/;"	f	language:C	signature:(void* B1, void* B2)
+bit_not_range	.\inc\bit.h	/^extern void bit_not_range(void* B, int beg, int end);$/;"	p	language:C++	signature:(void* B, int beg, int end)
+bit_not_range	.\src\bit.c	/^void bit_not_range(void* B, int beg, int end)$/;"	f	language:C	signature:(void* B, int beg, int end)
+bit_release	.\inc\bit.h	/^extern void bit_release(void** B);$/;"	p	language:C++	signature:(void** B)
+bit_release	.\src\bit.c	/^void bit_release(void** B)$/;"	f	language:C	signature:(void** B)
+bit_set	.\inc\bit.h	/^extern int bit_set(void* B, int i, int val);$/;"	p	language:C++	signature:(void* B, int i, int val)
+bit_set	.\src\bit.c	/^int bit_set(void* B, int i, int val)$/;"	f	language:C	signature:(void* B, int i, int val)
+bit_set_range	.\inc\bit.h	/^extern void bit_set_range(void* B, int beg, int end);$/;"	p	language:C++	signature:(void* B, int beg, int end)
+bit_set_range	.\src\bit.c	/^void bit_set_range(void* B, int beg, int end)$/;"	f	language:C	signature:(void* B, int beg, int end)
+bit_size	.\inc\bit.h	/^extern int bit_size(void* B);$/;"	p	language:C++	signature:(void* B)
+bit_size	.\src\bit.c	/^int bit_size(void* B)$/;"	f	language:C	signature:(void* B)
+bit_union	.\inc\bit.h	/^extern void* bit_union(void* B1, void* B2);$/;"	p	language:C++	signature:(void* B1, void* B2)
+bit_union	.\src\bit.c	/^void* bit_union(void* B1, void* B2)$/;"	f	language:C	signature:(void* B1, void* B2)
 cb	.\test\test.c	/^  func_callback cb;$/;"	m	language:C	struct:TestFunc	file:
 cmd	.\test\test.c	/^  char* cmd;$/;"	m	language:C	struct:TestFunc	file:
 compare	.\src\set.c	/^  int (*compare)(const void*, const void*);$/;"	m	language:C	struct:lSet	file:

@@ -12,7 +12,8 @@ OBJS 	= main.o\
 				./src/error.o ./src/arith.o ./src/stack.o ./src/atom.o\
 				./src/except.o ./src/assert.o ./src/memory.o ./src/mem_check.o\
 				./src/arena.o ./src/list.o ./src/slist.o ./src/table.o\
-				./src/set.o ./src/array.o ./src/sequence.o ./src/ring.o
+				./src/set.o ./src/array.o ./src/sequence.o ./src/ring.o\
+				./src/bit.o
 RM 		= rm
 
 $(BIN): $(OBJS)
