@@ -141,7 +141,7 @@ int bit_set(void* P, int i, int val)
   int old_bit;
   struct lBit* B = (struct lBit*)P;
 
-  assert(NULL != B && (0 == i || 1 == i) && 0 <= i && i < B->size);
+  assert(NULL != B && (0 == val || 1 == val) && 0 <= i && i < B->size);
   old_bit = ((B->bytes[i / 8] >> (i % 8)) & 1);
   if (1 == val)
     B->bytes[i / 8] |= (1 << (i % 8));
