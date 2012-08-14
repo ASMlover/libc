@@ -77,6 +77,7 @@ __CONFIG_HEADER_H__	.\inc\config.h	30;"	d	language:C++
 __CRT_WIDE	.\src\except.c	82;"	d	language:C	file:
 __ERROR_HEADER_H__	.\inc\error.h	30;"	d	language:C++
 __EXCEPT_HEADER_H__	.\inc\except.h	30;"	d	language:C++
+__FORMAT_HEADER_H__	.\inc\format.h	2;"	d	language:C++
 __LIST_HEADER_H__	.\inc\list.h	30;"	d	language:C++
 __MEMORY_CHECK_HEADER_H__	.\inc\mem_check.h	30;"	d	language:C++
 __MEMORY_HEADER_H__	.\inc\memory.h	30;"	d	language:C++
@@ -250,6 +251,29 @@ exception	.\inc\except.h	/^  struct lExcept*      exception;$/;"	m	language:C++	
 file	.\inc\except.h	/^  const char*          file;$/;"	m	language:C++	struct:lExceptFrame
 file	.\src\mem_check.c	/^  const char*         file;$/;"	m	language:C	struct:lDescriptor	file:
 find	.\src\mem_check.c	/^static struct lDescriptor* find(const void* ptr)$/;"	f	language:C	file:	signature:(const void* ptr)
+format_callback_t	.\inc\format.h	/^typedef void (*format_callback_t)(int code, va_list* app, $/;"	t	language:C++
+format_fmt	.\inc\format.h	/^extern void format_fmt(int (*visit)(int, void*), void* arg, const char* fmt, ...);$/;"	p	language:C++	signature:(int (*visit)(int, void*), void* arg, const char* fmt, ...)
+format_fmt	.\src\format.c	/^void format_fmt(int (*visit)(int, void*), void* arg, const char* fmt, ...)$/;"	f	language:C	signature:(int (*visit)(int, void*), void* arg, const char* fmt, ...)
+format_fprintf	.\inc\format.h	/^extern void format_fprintf(FILE* stream, const char* fmt, ...);$/;"	p	language:C++	signature:(FILE* stream, const char* fmt, ...)
+format_fprintf	.\src\format.c	/^void format_fprintf(FILE* stream, const char* fmt, ...)$/;"	f	language:C	signature:(FILE* stream, const char* fmt, ...)
+format_printf	.\inc\format.h	/^extern void format_printf(const char* fmt, ...);$/;"	p	language:C++	signature:(const char* fmt, ...)
+format_printf	.\src\format.c	/^void format_printf(const char* fmt, ...)$/;"	f	language:C	signature:(const char* fmt, ...)
+format_putd	.\inc\format.h	/^extern void format_putd(const char* s, int len, int (*visit)(int, void*), $/;"	p	language:C++	signature:(const char* s, int len, int (*visit)(int, void*), void* arg, unsigned char flags[256], int width, int precision)
+format_putd	.\src\format.c	/^void format_putd(const char* s, int len, int (*visit)(int, void*), $/;"	f	language:C	signature:(const char* s, int len, int (*visit)(int, void*), void* arg, unsigned char flags[256], int width, int precision)
+format_puts	.\inc\format.h	/^extern void format_puts(const char* s, int len, int (*visit)(int, void*), $/;"	p	language:C++	signature:(const char* s, int len, int (*visit)(int, void*), void* arg, unsigned char flags[256], int width, int precision)
+format_puts	.\src\format.c	/^void format_puts(const char* s, int len, int (*visit)(int, void*), $/;"	f	language:C	signature:(const char* s, int len, int (*visit)(int, void*), void* arg, unsigned char flags[256], int width, int precision)
+format_register	.\inc\format.h	/^extern format_callback_t format_register(int code, format_callback_t cb);$/;"	p	language:C++	signature:(int code, format_callback_t cb)
+format_register	.\src\format.c	/^format_callback_t format_register(int code, format_callback_t convert)$/;"	f	language:C	signature:(int code, format_callback_t convert)
+format_sprintf	.\inc\format.h	/^extern int format_sprintf(char* dest, int count, const char* fmt, ...);$/;"	p	language:C++	signature:(char* dest, int count, const char* fmt, ...)
+format_sprintf	.\src\format.c	/^int format_sprintf(char* dest, int count, const char* fmt, ...)$/;"	f	language:C	signature:(char* dest, int count, const char* fmt, ...)
+format_string	.\inc\format.h	/^extern char* format_string(const char* fmt, ...);$/;"	p	language:C++	signature:(const char* fmt, ...)
+format_string	.\src\format.c	/^char* format_string(const char* fmt, ...)$/;"	f	language:C	signature:(const char* fmt, ...)
+format_vfmt	.\inc\format.h	/^extern void format_vfmt(int (*visit)(int, void*), void* arg, const char* fmt, va_list ap);$/;"	p	language:C++	signature:(int (*visit)(int, void*), void* arg, const char* fmt, va_list ap)
+format_vfmt	.\src\format.c	/^void format_vfmt(int (*visit)(int, void*), void* arg, const char* fmt, va_list ap)$/;"	f	language:C	signature:(int (*visit)(int, void*), void* arg, const char* fmt, va_list ap)
+format_vsprintf	.\inc\format.h	/^extern int format_vsprintf(char* dest, int count, const char* fmt, va_list ap);$/;"	p	language:C++	signature:(char* dest, int count, const char* fmt, va_list ap)
+format_vsprintf	.\src\format.c	/^int format_vsprintf(char* dest, int count, const char* fmt, va_list ap)$/;"	f	language:C	signature:(char* dest, int count, const char* fmt, va_list ap)
+format_vstring	.\inc\format.h	/^extern char* format_vstring(const char* fmt, va_list ap);$/;"	p	language:C++	signature:(const char* fmt, va_list ap)
+format_vstring	.\src\format.c	/^char* format_vstring(const char* fmt, va_list ap)$/;"	f	language:C	signature:(const char* fmt, va_list ap)
 free	.\src\mem_check.c	/^  struct lDescriptor* free;$/;"	m	language:C	struct:lDescriptor	typeref:struct:lDescriptor::lDescriptor	file:
 func_callback	.\test\test.c	/^typedef void (*func_callback)(void);$/;"	t	language:C	file:
 g_errors	.\src\error.c	/^static const char* g_errors[] = {$/;"	v	language:C	file:
