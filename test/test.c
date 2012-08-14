@@ -52,6 +52,7 @@ static void test_unknown(void)
           "  array      display testcases of array\n"
           "  seq        display testcases of sequence\n"
           "  ring       display testcases of ring\n"
+          "  bit        display testcases of bit\n"
          );
 }
 
@@ -80,6 +81,7 @@ static struct TestFunc g_sFuncs[] = {
   { "array",   test_array     }, 
   { "seq",     test_sequence  }, 
   { "ring",    test_ring      }, 
+  { "bit",     test_bit       }, 
 };
 
 
