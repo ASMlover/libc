@@ -46,6 +46,7 @@ NEW	.\inc\memory.h	43;"	d	language:C++
 NEW0	.\inc\memory.h	44;"	d	language:C++
 NUM_OF_BYTES	.\src\bit.c	47;"	d	language:C	file:
 NUM_OF_DWORDS	.\src\bit.c	46;"	d	language:C	file:
+PAD	.\src\format.c	51;"	d	language:C	file:
 RAISE	.\inc\except.h	58;"	d	language:C++
 RAISE	.\inc\except.h	93;"	d	language:C++
 REALLOC	.\inc\memory.h	46;"	d	language:C++
@@ -77,7 +78,7 @@ __CONFIG_HEADER_H__	.\inc\config.h	30;"	d	language:C++
 __CRT_WIDE	.\src\except.c	82;"	d	language:C	file:
 __ERROR_HEADER_H__	.\inc\error.h	30;"	d	language:C++
 __EXCEPT_HEADER_H__	.\inc\except.h	30;"	d	language:C++
-__FORMAT_HEADER_H__	.\inc\format.h	2;"	d	language:C++
+__FORMAT_HEADER_H__	.\inc\format.h	30;"	d	language:C++
 __LIST_HEADER_H__	.\inc\list.h	30;"	d	language:C++
 __MEMORY_CHECK_HEADER_H__	.\inc\mem_check.h	30;"	d	language:C++
 __MEMORY_HEADER_H__	.\inc\memory.h	30;"	d	language:C++
@@ -95,6 +96,7 @@ _error	.\inc\error.h	/^extern void _error(const char* file, const char* func, in
 _error	.\src\error.c	/^void _error(const char* file, const char* func, int line, int err_code)$/;"	f	language:C	signature:(const char* file, const char* func, int line, int err_code)
 _wassert	.\src\except.c	/^    _CRTIMP void __cdecl _wassert(const wchar_t*, const wchar_t*, unsigned int);$/;"	p	language:C	file:	signature:(const wchar_t*, const wchar_t*, unsigned int)
 align	.\src\arena.c	/^  union lAlign  align;$/;"	m	language:C	union:lHeader	typeref:union:lHeader::lAlign	file:
+append_c	.\src\format.c	/^append_c(int c, void* arg)$/;"	f	language:C	file:	signature:(int c, void* arg)
 arena	.\src\arena.c	/^  struct lArena arena;$/;"	m	language:C	union:lHeader	typeref:struct:lHeader::lArena	file:
 arena_alloc	.\inc\arena.h	/^extern void* arena_alloc(int arena, long bytes, const char* file, int line);$/;"	p	language:C++	signature:(int arena, long bytes, const char* file, int line)
 arena_alloc	.\src\arena.c	/^void* arena_alloc(int arena, long bytes, const char* file, int line)$/;"	f	language:C	signature:(int arena, long bytes, const char* file, int line)
@@ -180,6 +182,7 @@ atom_string	.\src\atom.c	/^const char* atom_string(const char* str)$/;"	f	langua
 avail_beg	.\src\arena.c	/^  char* avail_beg;$/;"	m	language:C	struct:lArena	file:
 avail_end	.\src\arena.c	/^  char* avail_end;$/;"	m	language:C	struct:lArena	file:
 begin	.\src\array.c	/^  void** begin;$/;"	m	language:C	struct:lArray	file:
+begin	.\src\format.c	/^  char* begin;$/;"	m	language:C	struct:lFormatBuf	file:
 bit_clear	.\inc\bit.h	/^extern void bit_clear(void* B);$/;"	p	language:C++	signature:(void* B)
 bit_clear	.\src\bit.c	/^void bit_clear(void* B)$/;"	f	language:C	signature:(void* B)
 bit_clear_range	.\inc\bit.h	/^extern void bit_clear_range(void* B, int beg, int end);$/;"	p	language:C++	signature:(void* B, int beg, int end)
@@ -226,6 +229,15 @@ compare	.\src\set.c	/^  int (*compare)(const void*, const void*);$/;"	m	language
 compare	.\src\table.c	/^  int (*compare)(const void* x, const void* y);$/;"	m	language:C	struct:lTable	file:
 compare_def	.\src\set.c	/^static int compare_def(const void* x, const void* y)$/;"	f	language:C	file:	signature:(const void* x, const void* y)
 compare_def	.\src\table.c	/^static int compare_def(const void* x, const void* y)$/;"	f	language:C	file:	signature:(const void* x, const void* y)
+convert_c	.\src\format.c	/^convert_c(int code, va_list* app, int (*visit)(int, void*), $/;"	f	language:C	file:	signature:(int code, va_list* app, int (*visit)(int, void*), void* arg, unsigned char flags[], int width, int precision)
+convert_d	.\src\format.c	/^convert_d(int code, va_list* app, int (*visit)(int, void*), $/;"	f	language:C	file:	signature:(int code, va_list* app, int (*visit)(int, void*), void* arg, unsigned char flags[], int width, int precision)
+convert_f	.\src\format.c	/^convert_f(int code, va_list* app, int (*visit)(int, void*), $/;"	f	language:C	file:	signature:(int code, va_list* app, int (*visit)(int, void*), void* arg, unsigned char flags[], int width, int precision)
+convert_list	.\src\format.c	/^static format_callback_t convert_list[256] = {$/;"	v	language:C	file:
+convert_o	.\src\format.c	/^convert_o(int code, va_list* app, int (*visit)(int, void*), $/;"	f	language:C	file:	signature:(int code, va_list* app, int (*visit)(int, void*), void* arg, unsigned char flags[], int width, int precision)
+convert_p	.\src\format.c	/^convert_p(int code, va_list* app, int (*visit)(int, void*), $/;"	f	language:C	file:	signature:(int code, va_list* app, int (*visit)(int, void*), void* arg, unsigned char flags[], int width, int precision)
+convert_s	.\src\format.c	/^convert_s(int code, va_list* app, int (*visit)(int, void*),$/;"	f	language:C	file:	signature:(int code, va_list* app, int (*visit)(int, void*), void* arg, unsigned char flags[], int width, int precision)
+convert_u	.\src\format.c	/^convert_u(int code, va_list* app, int (*visit)(int, void*), $/;"	f	language:C	file:	signature:(int code, va_list* app, int (*visit)(int, void*), void* arg, unsigned char flags[], int width, int precision)
+convert_x	.\src\format.c	/^convert_x(int code, va_list* app, int (*visit)(int, void*), $/;"	f	language:C	file:	signature:(int code, va_list* app, int (*visit)(int, void*), void* arg, unsigned char flags[], int width, int precision)
 count	.\src\stack.c	/^  int count;$/;"	m	language:C	struct:lStack	file:
 dalloc	.\src\mem_check.c	/^static struct lDescriptor* dalloc(void* ptr, long bytes, const char* file, int line)$/;"	f	language:C	file:	signature:(void* ptr, long bytes, const char* file, int line)
 data	.\src\list.c	/^  void*             data;$/;"	m	language:C	struct:lListNode	file:
@@ -253,27 +265,27 @@ file	.\src\mem_check.c	/^  const char*         file;$/;"	m	language:C	struct:lDe
 find	.\src\mem_check.c	/^static struct lDescriptor* find(const void* ptr)$/;"	f	language:C	file:	signature:(const void* ptr)
 format_callback_t	.\inc\format.h	/^typedef void (*format_callback_t)(int code, va_list* app, $/;"	t	language:C++
 format_fmt	.\inc\format.h	/^extern void format_fmt(int (*visit)(int, void*), void* arg, const char* fmt, ...);$/;"	p	language:C++	signature:(int (*visit)(int, void*), void* arg, const char* fmt, ...)
-format_fmt	.\src\format.c	/^void format_fmt(int (*visit)(int, void*), void* arg, const char* fmt, ...)$/;"	f	language:C	signature:(int (*visit)(int, void*), void* arg, const char* fmt, ...)
+format_fmt	.\src\format.c	/^format_fmt(int (*visit)(int, void*), void* arg, const char* fmt, ...)$/;"	f	language:C	signature:(int (*visit)(int, void*), void* arg, const char* fmt, ...)
 format_fprintf	.\inc\format.h	/^extern void format_fprintf(FILE* stream, const char* fmt, ...);$/;"	p	language:C++	signature:(FILE* stream, const char* fmt, ...)
-format_fprintf	.\src\format.c	/^void format_fprintf(FILE* stream, const char* fmt, ...)$/;"	f	language:C	signature:(FILE* stream, const char* fmt, ...)
+format_fprintf	.\src\format.c	/^format_fprintf(FILE* stream, const char* fmt, ...)$/;"	f	language:C	signature:(FILE* stream, const char* fmt, ...)
 format_printf	.\inc\format.h	/^extern void format_printf(const char* fmt, ...);$/;"	p	language:C++	signature:(const char* fmt, ...)
-format_printf	.\src\format.c	/^void format_printf(const char* fmt, ...)$/;"	f	language:C	signature:(const char* fmt, ...)
+format_printf	.\src\format.c	/^format_printf(const char* fmt, ...)$/;"	f	language:C	signature:(const char* fmt, ...)
 format_putd	.\inc\format.h	/^extern void format_putd(const char* s, int len, int (*visit)(int, void*), $/;"	p	language:C++	signature:(const char* s, int len, int (*visit)(int, void*), void* arg, unsigned char flags[256], int width, int precision)
-format_putd	.\src\format.c	/^void format_putd(const char* s, int len, int (*visit)(int, void*), $/;"	f	language:C	signature:(const char* s, int len, int (*visit)(int, void*), void* arg, unsigned char flags[256], int width, int precision)
+format_putd	.\src\format.c	/^format_putd(const char* s, int len, int (*visit)(int, void*), $/;"	f	language:C	signature:(const char* s, int len, int (*visit)(int, void*), void* arg, unsigned char flags[256], int width, int precision)
 format_puts	.\inc\format.h	/^extern void format_puts(const char* s, int len, int (*visit)(int, void*), $/;"	p	language:C++	signature:(const char* s, int len, int (*visit)(int, void*), void* arg, unsigned char flags[256], int width, int precision)
-format_puts	.\src\format.c	/^void format_puts(const char* s, int len, int (*visit)(int, void*), $/;"	f	language:C	signature:(const char* s, int len, int (*visit)(int, void*), void* arg, unsigned char flags[256], int width, int precision)
+format_puts	.\src\format.c	/^format_puts(const char* s, int len, int (*visit)(int, void*), $/;"	f	language:C	signature:(const char* s, int len, int (*visit)(int, void*), void* arg, unsigned char flags[256], int width, int precision)
 format_register	.\inc\format.h	/^extern format_callback_t format_register(int code, format_callback_t cb);$/;"	p	language:C++	signature:(int code, format_callback_t cb)
-format_register	.\src\format.c	/^format_callback_t format_register(int code, format_callback_t convert)$/;"	f	language:C	signature:(int code, format_callback_t convert)
+format_register	.\src\format.c	/^format_register(int code, format_callback_t convert)$/;"	f	language:C	signature:(int code, format_callback_t convert)
 format_sprintf	.\inc\format.h	/^extern int format_sprintf(char* dest, int count, const char* fmt, ...);$/;"	p	language:C++	signature:(char* dest, int count, const char* fmt, ...)
-format_sprintf	.\src\format.c	/^int format_sprintf(char* dest, int count, const char* fmt, ...)$/;"	f	language:C	signature:(char* dest, int count, const char* fmt, ...)
+format_sprintf	.\src\format.c	/^format_sprintf(char* dest, int count, const char* fmt, ...)$/;"	f	language:C	signature:(char* dest, int count, const char* fmt, ...)
 format_string	.\inc\format.h	/^extern char* format_string(const char* fmt, ...);$/;"	p	language:C++	signature:(const char* fmt, ...)
-format_string	.\src\format.c	/^char* format_string(const char* fmt, ...)$/;"	f	language:C	signature:(const char* fmt, ...)
+format_string	.\src\format.c	/^format_string(const char* fmt, ...)$/;"	f	language:C	signature:(const char* fmt, ...)
 format_vfmt	.\inc\format.h	/^extern void format_vfmt(int (*visit)(int, void*), void* arg, const char* fmt, va_list ap);$/;"	p	language:C++	signature:(int (*visit)(int, void*), void* arg, const char* fmt, va_list ap)
-format_vfmt	.\src\format.c	/^void format_vfmt(int (*visit)(int, void*), void* arg, const char* fmt, va_list ap)$/;"	f	language:C	signature:(int (*visit)(int, void*), void* arg, const char* fmt, va_list ap)
+format_vfmt	.\src\format.c	/^format_vfmt(int (*visit)(int, void*), void* arg, const char* fmt, va_list ap)$/;"	f	language:C	signature:(int (*visit)(int, void*), void* arg, const char* fmt, va_list ap)
 format_vsprintf	.\inc\format.h	/^extern int format_vsprintf(char* dest, int count, const char* fmt, va_list ap);$/;"	p	language:C++	signature:(char* dest, int count, const char* fmt, va_list ap)
-format_vsprintf	.\src\format.c	/^int format_vsprintf(char* dest, int count, const char* fmt, va_list ap)$/;"	f	language:C	signature:(char* dest, int count, const char* fmt, va_list ap)
+format_vsprintf	.\src\format.c	/^format_vsprintf(char* dest, int count, const char* fmt, va_list ap)$/;"	f	language:C	signature:(char* dest, int count, const char* fmt, va_list ap)
 format_vstring	.\inc\format.h	/^extern char* format_vstring(const char* fmt, va_list ap);$/;"	p	language:C++	signature:(const char* fmt, va_list ap)
-format_vstring	.\src\format.c	/^char* format_vstring(const char* fmt, va_list ap)$/;"	f	language:C	signature:(const char* fmt, va_list ap)
+format_vstring	.\src\format.c	/^format_vstring(const char* fmt, va_list ap)$/;"	f	language:C	signature:(const char* fmt, va_list ap)
 free	.\src\mem_check.c	/^  struct lDescriptor* free;$/;"	m	language:C	struct:lDescriptor	typeref:struct:lDescriptor::lDescriptor	file:
 func_callback	.\test\test.c	/^typedef void (*func_callback)(void);$/;"	t	language:C	file:
 g_errors	.\src\error.c	/^static const char* g_errors[] = {$/;"	v	language:C	file:
@@ -292,6 +304,7 @@ id	.\test\test_arena.c	/^  int id;$/;"	m	language:C	struct:_TestArena	file:
 id	.\test\test_memcheck.c	/^  int   id;$/;"	m	language:C	struct:_TestMemCheck	file:
 id	.\test\test_memory.c	/^  int id;$/;"	m	language:C	struct:_TestMemory	file:
 inline	.\inc\config.h	33;"	d	language:C++
+insert_c	.\src\format.c	/^insert_c(int c, void* arg) $/;"	f	language:C	file:	signature:(int c, void* arg)
 key	.\src\table.c	/^  const void*        key;$/;"	m	language:C	struct:lTableNode	file:
 lAlign	.\src\arena.c	/^union lAlign {$/;"	u	language:C	file:
 lAlign	.\src\mem_check.c	/^union lAlign {$/;"	u	language:C	file:
@@ -303,6 +316,7 @@ lBit	.\src\bit.c	/^struct lBit {$/;"	s	language:C	file:
 lDescriptor	.\src\mem_check.c	/^struct lDescriptor {$/;"	s	language:C	file:
 lExcept	.\inc\except.h	/^struct lExcept { const char* reason; };$/;"	s	language:C++
 lExceptFrame	.\inc\except.h	/^struct lExceptFrame {$/;"	s	language:C++
+lFormatBuf	.\src\format.c	/^struct lFormatBuf {$/;"	s	language:C	file:
 lHeader	.\src\arena.c	/^union lHeader {$/;"	u	language:C	file:
 lList	.\src\list.c	/^struct lList {$/;"	s	language:C	file:
 lListIter	.\inc\list.h	/^typedef void** lListIter;$/;"	t	language:C++
@@ -328,6 +342,8 @@ lassert_failed	.\src\assert.c	/^const struct lExcept lassert_failed = { "Asserti
 len	.\src\atom.c	/^  int   len;$/;"	m	language:C	struct:lAtom	file:
 lexcept_index	.\src\except.c	/^int lexcept_index = -1;$/;"	v	language:C
 lexcept_stack	.\src\except.c	/^struct lExceptFrame* lexcept_stack = NULL;$/;"	v	language:C	typeref:struct:lExceptFrame
+lfmt_flags	.\src\format.c	/^static char* lfmt_flags = "-+ 0";$/;"	v	language:C	file:
+lfmt_overflow	.\src\format.c	/^static const struct lExcept lfmt_overflow = { "Formatting overflow" };$/;"	v	language:C	typeref:struct:lExcept	file:
 lfreechunks	.\src\arena.c	/^static struct lArena* lfreechunks;$/;"	v	language:C	typeref:struct:lArena	file:
 lfreecounts	.\src\arena.c	/^static int            lfreecounts;$/;"	v	language:C	file:
 lfreelist	.\src\mem_check.c	/^static struct lDescriptor lfreelist = {&lfreelist};$/;"	v	language:C	typeref:struct:lDescriptor	file:
@@ -399,6 +415,7 @@ name	.\test\test_arena.c	/^  char name[32];$/;"	m	language:C	struct:_TestArena	f
 name	.\test\test_memcheck.c	/^  char  name[32];$/;"	m	language:C	struct:_TestMemCheck	file:
 name	.\test\test_memory.c	/^  char name[32];$/;"	m	language:C	struct:_TestMemory	file:
 next	.\src\atom.c	/^  struct lAtom* next;$/;"	m	language:C	struct:lAtom	typeref:struct:lAtom::lAtom	file:
+next	.\src\format.c	/^  char* next;$/;"	m	language:C	struct:lFormatBuf	file:
 next	.\src\list.c	/^  struct lListNode* next;$/;"	m	language:C	struct:lListNode	typeref:struct:lListNode::lListNode	file:
 next	.\src\mem_check.c	/^  struct lDescriptor* next;$/;"	m	language:C	struct:lDescriptor	typeref:struct:lDescriptor::lDescriptor	file:
 next	.\src\ring.c	/^  struct lRingNode* next;$/;"	m	language:C	struct:lRingNode	typeref:struct:lRingNode::lRingNode	file:
@@ -409,6 +426,7 @@ next	.\src\table.c	/^  struct lTableNode* next;$/;"	m	language:C	struct:lTableNo
 node	.\src\list.c	/^  struct lListNode node;$/;"	m	language:C	struct:lList	typeref:struct:lList::lListNode	file:
 node	.\src\set.c	/^  struct lSetNode   node;$/;"	m	language:C	struct:lSet	typeref:struct:lSet::lSetNode	file:
 node	.\src\table.c	/^  struct lTableNode   node;$/;"	m	language:C	struct:lTable	typeref:struct:lTable::lTableNode	file:
+output_c	.\src\format.c	/^output_c(int c, void* arg) $/;"	f	language:C	file:	signature:(int c, void* arg)
 pad	.\src\arena.c	/^  char pad[MAXALIGN];$/;"	m	language:C	union:lAlign	file:
 pad	.\src\mem_check.c	/^  char    pad[MAXALIGN];$/;"	m	language:C	union:lAlign	file:
 prev	.\inc\except.h	/^  struct lExceptFrame* prev;$/;"	m	language:C++	struct:lExceptFrame	typeref:struct:lExceptFrame::lExceptFrame
@@ -533,6 +551,7 @@ set_union	.\inc\set.h	/^extern void* set_union(void* S, void* T);$/;"	p	language
 set_union	.\src\set.c	/^void* set_union(void* S, void* T)$/;"	f	language:C	signature:(void* S, void* T)
 sets	.\src\set.c	/^  struct lSetNode** sets;$/;"	m	language:C	struct:lSet	typeref:struct:lSet::lSetNode	file:
 size	.\src\bit.c	/^  int size;$/;"	m	language:C	struct:lBit	file:
+size	.\src\format.c	/^  int   size;$/;"	m	language:C	struct:lFormatBuf	file:
 size	.\src\list.c	/^  int              size;$/;"	m	language:C	struct:lList	file:
 size	.\src\mem_check.c	/^  long                size;$/;"	m	language:C	struct:lDescriptor	file:
 size	.\src\ring.c	/^  int               size;$/;"	m	language:C	struct:lRing	file:
