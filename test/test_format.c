@@ -26,30 +26,39 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef __TEST_HEADER_H__
-#define __TEST_HEADER_H__
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
+#include "../inc/assert.h"
+#include "../inc/config.h"
+#include "../inc/format.h"
 
-#if _WIN32 || _WIN64
-  #define __func__  __FUNCTION__
-#endif
+#include "test.h"
 
-extern void test_main(const char* cmd);
 
-extern void test_arith(void);
-extern void test_stack(void);
-extern void test_atom(void);
-extern void test_except(void);
-extern void test_memory(void);
-extern void test_memcheck(void);
-extern void test_arena(void);
-extern void test_list(void);
-extern void test_slist(void);
-extern void test_table(void);
-extern void test_set(void);
-extern void test_array(void);
-extern void test_sequence(void);
-extern void test_ring(void);
-extern void test_bit(void);
-extern void test_format(void);
 
-#endif  /* __TEST_HEADER_H__ */
+
+void test_format(void)
+{
+  fprintf(stdout, "call function : %s\n", __func__);
+
+  format_printf("test function - format_printf ===>\n");
+  format_fprintf(stdout, "test function - format_fprintf ===>\n");
+
+  srand((unsigned int)time(0));
+  format_fprintf(stdout, "\ntest function - format_sprintf ===>\n");
+  {
+    char buf[128];
+    int  v = rand() % 1000;
+    format_sprintf(buf, sizeof(buf), "the rand value is : %d\n", v);
+    fprintf(stdout, "\t%s", buf);
+  }
+
+  fprintf(stdout, "\ntest function - format_string ===>\n");
+  {
+    char* s = format_string("format_string test --- rand value = %d\n", rand() % 2000);
+    fprintf(stdout, "\t%s\n", s);
+    free(s);
+  }
+}

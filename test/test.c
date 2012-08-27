@@ -53,6 +53,7 @@ static void test_unknown(void)
           "  seq        display testcases of sequence\n"
           "  ring       display testcases of ring\n"
           "  bit        display testcases of bit\n"
+          "  format     display testcases of format\n"
          );
 }
 
@@ -82,6 +83,7 @@ static struct TestFunc g_sFuncs[] = {
   { "seq",     test_sequence  }, 
   { "ring",    test_ring      }, 
   { "bit",     test_bit       }, 
+  { "format",  test_format    }, 
 };
 
 

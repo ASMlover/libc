@@ -655,6 +655,8 @@ test_bit	.\test\test.h	/^extern void test_bit(void);$/;"	p	language:C++	signatur
 test_bit	.\test\test_bit.c	/^void test_bit(void)$/;"	f	language:C	signature:(void)
 test_except	.\test\test.h	/^extern void test_except(void);$/;"	p	language:C++	signature:(void)
 test_except	.\test\test_except.c	/^void test_except(void)$/;"	f	language:C	signature:(void)
+test_format	.\test\test.h	/^extern void test_format(void);$/;"	p	language:C++	signature:(void)
+test_format	.\test\test_format.c	/^void test_format(void)$/;"	f	language:C	signature:(void)
 test_list	.\test\test.h	/^extern void test_list(void);$/;"	p	language:C++	signature:(void)
 test_list	.\test\test_list.c	/^void test_list(void)$/;"	f	language:C	signature:(void)
 test_main	.\test\test.c	/^void test_main(const char* cmd)$/;"	f	language:C	signature:(const char* cmd)
