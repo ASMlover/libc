@@ -9,6 +9,7 @@ ARENA_ALLOC	.\inc\arena.h	44;"	d	language:C++
 ARENA_CALLOC	.\inc\arena.h	45;"	d	language:C++
 BITS_PER_DWORD	.\src\bit.c	45;"	d	language:C	file:
 CALLOC	.\inc\memory.h	42;"	d	language:C++
+CONVERT	.\src\string.c	41;"	d	language:C	file:
 COUNTOF	.\inc\config.h	36;"	d	language:C++
 ELSE	.\inc\except.h	108;"	d	language:C++
 ELSE	.\inc\except.h	74;"	d	language:C++
@@ -30,6 +31,7 @@ Error_Unknown	.\inc\error.h	/^  Error_Unknown         = 0, $/;"	e	language:C++	e
 FINALLY	.\inc\except.h	113;"	d	language:C++
 FINALLY	.\inc\except.h	79;"	d	language:C++
 FREE	.\inc\memory.h	45;"	d	language:C++
+INDEX	.\src\string.c	40;"	d	language:C	file:
 IS_CLOSE2ZERO	.\src\arith.c	33;"	d	language:C	file:
 LDESCRIPTORS	.\src\mem_check.c	54;"	d	language:C	file:
 LHASH	.\src\mem_check.c	53;"	d	language:C	file:
@@ -87,6 +89,7 @@ __SEQUENCE_HEADER_H__	.\inc\sequence.h	30;"	d	language:C++
 __SET_HEADER_H__	.\inc\set.h	30;"	d	language:C++
 __SLIST_HEADER_H__	.\inc\slist.h	30;"	d	language:C++
 __STACK_HEADER_H__	.\inc\stack.h	30;"	d	language:C++
+__STRING_HEADER_H__	.\inc\string.h	30;"	d	language:C++
 __TABLE_HEADER_H__	.\inc\table.h	30;"	d	language:C++
 __TEST_HEADER_H__	.\test\test.h	30;"	d	language:C++
 __func__	.\inc\error.h	33;"	d	language:C++
@@ -608,6 +611,48 @@ storage	.\src\sequence.c	/^  int    storage;$/;"	m	language:C	struct:lSequence	f
 storage	.\src\set.c	/^  int storage;$/;"	m	language:C	struct:lSet	file:
 storage	.\src\table.c	/^  int storage;$/;"	m	language:C	struct:lTable	file:
 str	.\src\atom.c	/^  char* str;$/;"	m	language:C	struct:lAtom	file:
+string_any	.\inc\string.h	/^extern int string_any(const char* s, int i, const char* set);$/;"	p	language:C++	signature:(const char* s, int i, const char* set)
+string_any	.\src\string.c	/^string_any(const char* s, int i, const char* set)$/;"	f	language:C	signature:(const char* s, int i, const char* set)
+string_cat	.\inc\string.h	/^extern char* string_cat(const char* s1, int i1, int j1, const char* s2, int i2, int j2);$/;"	p	language:C++	signature:(const char* s1, int i1, int j1, const char* s2, int i2, int j2)
+string_cat	.\src\string.c	/^string_cat(const char* s1, int i1, int j1, const char* s2, int i2, int j2)$/;"	f	language:C	signature:(const char* s1, int i1, int j1, const char* s2, int i2, int j2)
+string_chr	.\inc\string.h	/^extern int string_chr(const char* s, int i, int j, int c);$/;"	p	language:C++	signature:(const char* s, int i, int j, int c)
+string_chr	.\src\string.c	/^string_chr(const char* s, int i, int j, int c)$/;"	f	language:C	signature:(const char* s, int i, int j, int c)
+string_cmp	.\inc\string.h	/^extern int string_cmp(const char* s1, int i1, int j1, const char* s2, int i2, int j2);$/;"	p	language:C++	signature:(const char* s1, int i1, int j1, const char* s2, int i2, int j2)
+string_cmp	.\src\string.c	/^string_cmp(const char* s1, int i1, int j1, const char* s2, int i2, int j2)$/;"	f	language:C	signature:(const char* s1, int i1, int j1, const char* s2, int i2, int j2)
+string_dup	.\inc\string.h	/^extern char* string_dup(const char* s, int i, int j, int n);$/;"	p	language:C++	signature:(const char* s, int i, int j, int n)
+string_dup	.\src\string.c	/^string_dup(const char* s, int i, int j, int n)$/;"	f	language:C	signature:(const char* s, int i, int j, int n)
+string_find	.\inc\string.h	/^extern int string_find(const char* s, int i, int j, const char* search);$/;"	p	language:C++	signature:(const char* s, int i, int j, const char* search)
+string_find	.\src\string.c	/^string_find(const char* s, int i, int j, const char* search)$/;"	f	language:C	signature:(const char* s, int i, int j, const char* search)
+string_fmt	.\inc\string.h	/^extern void string_fmt(int code, va_list* app, $/;"	p	language:C++	signature:(int code, va_list* app, int (*visit)(int, void*), void* arg, unsigned char flags[], int width, int precision)
+string_fmt	.\src\string.c	/^string_fmt(int code, va_list* app, int (*visit)(int, void*), $/;"	f	language:C	signature:(int code, va_list* app, int (*visit)(int, void*), void* arg, unsigned char flags[], int width, int precision)
+string_len	.\inc\string.h	/^extern int string_len(const char* s, int i, int j);$/;"	p	language:C++	signature:(const char* s, int i, int j)
+string_len	.\src\string.c	/^string_len(const char* s, int i, int j)$/;"	f	language:C	signature:(const char* s, int i, int j)
+string_many	.\inc\string.h	/^extern int string_many(const char* s, int i, int j, const char* set);$/;"	p	language:C++	signature:(const char* s, int i, int j, const char* set)
+string_many	.\src\string.c	/^string_many(const char* s, int i, int j, const char* set)$/;"	f	language:C	signature:(const char* s, int i, int j, const char* set)
+string_map	.\inc\string.h	/^extern char* string_map(const char* s, int i, int j, const char* from, const char* to);$/;"	p	language:C++	signature:(const char* s, int i, int j, const char* from, const char* to)
+string_map	.\src\string.c	/^string_map(const char* s, int i, int j, const char* from, const char* to)$/;"	f	language:C	signature:(const char* s, int i, int j, const char* from, const char* to)
+string_match	.\inc\string.h	/^extern int string_match(const char* s, int i, int j, const char* match);$/;"	p	language:C++	signature:(const char* s, int i, int j, const char* match)
+string_match	.\src\string.c	/^string_match(const char* s, int i, int j, const char* match)$/;"	f	language:C	signature:(const char* s, int i, int j, const char* match)
+string_pos	.\inc\string.h	/^extern int string_pos(const char* s, int i);$/;"	p	language:C++	signature:(const char* s, int i)
+string_pos	.\src\string.c	/^string_pos(const char* s, int i)$/;"	f	language:C	signature:(const char* s, int i)
+string_rchr	.\inc\string.h	/^extern int string_rchr(const char* s, int i, int j, int c);$/;"	p	language:C++	signature:(const char* s, int i, int j, int c)
+string_rchr	.\src\string.c	/^string_rchr(const char* s, int i, int j, int c)$/;"	f	language:C	signature:(const char* s, int i, int j, int c)
+string_reverse	.\inc\string.h	/^extern char* string_reverse(const char* s, int i, int j);$/;"	p	language:C++	signature:(const char* s, int i, int j)
+string_reverse	.\src\string.c	/^string_reverse(const char* s, int i, int j)$/;"	f	language:C	signature:(const char* s, int i, int j)
+string_rfind	.\inc\string.h	/^extern int string_rfind(const char* s, int i, int j, const char* search);$/;"	p	language:C++	signature:(const char* s, int i, int j, const char* search)
+string_rfind	.\src\string.c	/^string_rfind(const char* s, int i, int j, const char* search)$/;"	f	language:C	signature:(const char* s, int i, int j, const char* search)
+string_rmany	.\inc\string.h	/^extern int string_rmany(const char* s, int i, int j, const char* set);$/;"	p	language:C++	signature:(const char* s, int i, int j, const char* set)
+string_rmany	.\src\string.c	/^string_rmany(const char* s, int i, int j, const char* set)$/;"	f	language:C	signature:(const char* s, int i, int j, const char* set)
+string_rmatch	.\inc\string.h	/^extern int string_rmatch(const char* s, int i, int j, const char* match);$/;"	p	language:C++	signature:(const char* s, int i, int j, const char* match)
+string_rmatch	.\src\string.c	/^string_rmatch(const char* s, int i, int j, const char* match)$/;"	f	language:C	signature:(const char* s, int i, int j, const char* match)
+string_rupto	.\inc\string.h	/^extern int string_rupto(const char* s, int i, int j, const char* set);$/;"	p	language:C++	signature:(const char* s, int i, int j, const char* set)
+string_rupto	.\src\string.c	/^string_rupto(const char* s, int i, int j, const char* set)$/;"	f	language:C	signature:(const char* s, int i, int j, const char* set)
+string_sub	.\inc\string.h	/^extern char* string_sub(const char* s, int i, int j);$/;"	p	language:C++	signature:(const char* s, int i, int j)
+string_sub	.\src\string.c	/^string_sub(const char* s, int i, int j)$/;"	f	language:C	signature:(const char* s, int i, int j)
+string_upto	.\inc\string.h	/^extern int string_upto(const char* s, int i, int j, const char* set);$/;"	p	language:C++	signature:(const char* s, int i, int j, const char* set)
+string_upto	.\src\string.c	/^string_upto(const char* s, int i, int j, const char* set)$/;"	f	language:C	signature:(const char* s, int i, int j, const char* set)
+string_vcat	.\inc\string.h	/^extern char* string_vcat(const char* fmt, ...);$/;"	p	language:C++	signature:(const char* fmt, ...)
+string_vcat	.\src\string.c	/^string_vcat(const char* fmt, ...)$/;"	f	language:C	signature:(const char* fmt, ...)
 table_begin	.\inc\table.h	/^extern lTableIter table_begin(void* T);$/;"	p	language:C++	signature:(void* T)
 table_begin	.\src\table.c	/^lTableIter table_begin(void* T)$/;"	f	language:C	signature:(void* T)
 table_clear	.\inc\table.h	/^extern void table_clear(void* T);$/;"	p	language:C++	signature:(void* T)
