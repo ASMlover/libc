@@ -51,5 +51,6 @@ extern void test_sequence(void);
 extern void test_ring(void);
 extern void test_bit(void);
 extern void test_format(void);
+extern void test_string(void);
 
 #endif  /* __TEST_HEADER_H__ */

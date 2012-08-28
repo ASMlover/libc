@@ -720,6 +720,8 @@ test_slist	.\test\test.h	/^extern void test_slist(void);$/;"	p	language:C++	sign
 test_slist	.\test\test_slist.c	/^void test_slist(void)$/;"	f	language:C	signature:(void)
 test_stack	.\test\test.h	/^extern void test_stack(void);$/;"	p	language:C++	signature:(void)
 test_stack	.\test\test_stack.c	/^void test_stack(void)$/;"	f	language:C	signature:(void)
+test_string	.\test\test.h	/^extern void test_string(void);$/;"	p	language:C++	signature:(void)
+test_string	.\test\test_string.c	/^test_string(void) $/;"	f	language:C	signature:(void)
 test_table	.\test\test.h	/^extern void test_table(void);$/;"	p	language:C++	signature:(void)
 test_table	.\test\test_table.c	/^void test_table(void)$/;"	f	language:C	signature:(void)
 test_unknown	.\test\test.c	/^static void test_unknown(void)$/;"	f	language:C	file:	signature:(void)
