@@ -39,6 +39,10 @@
 
 
 #define INDEX(i, len)   ((i) <= 0? (i) + (len) : (i) - 1)
+#define ISATEND(t, n)\
+  ((t)->str + (t)->len == g_current->avail && g_current->avail + (n) <= g_current->limit)
+#define EQUAL(t, i, j)\
+  (0 == memcmp(&(t)->str[i], (t)->str, (t)->len))
 
 
 
@@ -85,62 +89,252 @@ static const struct lText g_text_digits = {10, g_sets + '0'};
 static const struct lText g_text_null   = {0, g_sets};
 
 
+static struct lChunk  g_head = {NULL, NULL, NULL};
+static struct lChunk* g_current = &g_head;
+
+static char* 
+alloc(int len)
+{
+  assert(len >= 0);
+
+  if (g_current->avail + len > g_current->limit) {
+    g_current = g_current->next = ALLOC(sizeof(*g_current) + 10240 + len);
+    g_current->avail = (char*)(g_current + 1);
+    g_current->limit = g_current->avail + 10240 + len;
+    g_current->next  = NULL;
+  }
+  g_current->avail += len;
+  return (g_current->avail - len);
+}
+
+
+
+void 
+text_free(void** T)
+{
+  FREE(*T);
+}
+
+int 
+text_len(void* P)
+{
+  struct lText* T = (struct lText*)P;
+  assert(NULL != T);
+
+  return (T->len);
+}
+
+const char* 
+text_str(void* P)
+{
+  struct lText* T = (struct lText*)P;
+  assert(NULL != T);
+
+  return (T->str);
+}
+
 
 
 void* 
 text_set(const char* str)
 {
-  return NULL;
+  struct lText* text;
+  NEW0(text);
+
+  assert(NULL != str);
+  text->len = strlen(str);
+  text->str = memcpy(alloc(text->len), str, text->len);
+
+  return text;
 }
 
 char* 
-text_get(void* T, char* str, int len)
+text_get(void* P, char* str, int len)
 {
-  return NULL;
+  struct lText* T = (struct lText*)P;
+
+  assert(NULL !=T && T->len >= 0 && NULL != T->str);
+  if (NULL == str)
+    str = ALLOC(T->len + 1);
+  else 
+    assert(len >= T->len + 1);
+  memcpy(str, T->str, T->len);
+  str[T->len] = '\0';
+
+  return str;
 }
 
 void* 
 text_box(const char* str, int len)
 {
-  return NULL;
+  struct lText* T;
+  NEW0(T);
+
+  assert(NULL != str && len >= 0);
+  T->str = str;
+  T->len = len;
+
+  return T;
 }
 
 
 /**!< text operations */
 void* 
-text_sub(void* T, int i, int j)
+text_sub(void* P, int i, int j)
 {
-  return NULL;
+  struct lText* text;
+  struct lText* T = (struct lText*)P;
+  NEW0(text);
+
+  assert(NULL != T && T->len >= 0 && NULL != T->str);
+  i = INDEX(i, T->len);
+  j = INDEX(j, T->len);
+  if (i > j) {
+    int t = i;
+    i = j;
+    j = t;
+  }
+  assert(i >= 0 && j <= T->len);
+  text->len = j - i;
+  text->str = T->str + i;
+
+  return text;
 }
 
 int 
-text_pos(void* T, int i)
+text_pos(void* P, int i)
 {
-  return 0;
+  struct lText* T = (struct lText*)P;
+  assert(NULL != T && T->len >= 0 && NULL != T->str);
+  i = INDEX(i, T->len);
+  assert(i >= 0 && i <= T->len);
+
+  return (i + 1);
 }
 
 void* 
-text_cat(void* T1, void* T2)
+text_cat(void* P1, void* P2)
 {
-  return NULL;
+  struct lText* text;
+  struct lText* T1 = (struct lText*)P1;
+  struct lText* T2 = (struct lText*)P2;
+
+  assert(NULL != T1 && T1->len >= 0 && NULL != T1->str);
+  assert(NULL != T2 && T2->len >= 0 && NULL != T2->str);
+  if (0 == T1->len)
+    return T2;
+  if (0 == T2->len)
+    return T1;
+  if (T1->str + T1->len == T2->str) {
+    T1->len += T2->len;
+    return T1;
+  }
+
+  NEW0(text);
+  text->len = T1->len + T2->len;
+  if (ISATEND(T1, T2->len)) {
+    text->str = T1->str;
+    memcpy(alloc(T2->len), T2->str, T2->len);
+  } else {
+    char* p;
+    text->str = p = alloc(T1->len + T2->len);
+    memcpy(p, T1->str, T1->len);
+    memcpy(p + T1->len, T2->str, T2->len);
+  }
+
+  return text;
 }
 
 void* 
-text_dup(void* T, int len)
+text_dup(void* P, int n)
 {
-  return NULL;
+  char* p;
+  struct lText* text;
+  struct lText* T = (struct lText*)P;
+
+  assert(NULL != T && T->len >= 0 && NULL != T->str && n >= 0);
+  if (0 == n || 0 == T->len)
+    return (void*)&g_text_null;
+  if (1 == n)
+    return T;
+
+  NEW0(text);
+  text->len = n * T->len;
+  if (ISATEND(T, text->len - T->len)) {
+    text->str = T->str;
+    p = alloc(text->len - T->len);
+    --n;
+  } else 
+    text->str = p = alloc(text->len);
+
+  for ( ; n-- > 0; p += T->len)
+    memcpy(p, T->str, T->len);
+
+  return text;
 }
 
 void* 
-text_reverse(void* T)
+text_reverse(void* P)
 {
-  return NULL;
+  struct lText* T = (struct lText*)P;
+  assert(NULL != T && T->len >= 0 && NULL != T->str);
+  if (0 == T->len)
+    return (void*)&g_text_null;
+  else if (1 == T->len)
+    return T;
+  else {
+    struct lText* text;
+    char* p;
+    int i = T->len;
+
+    NEW0(text);
+    text->len = T->len;
+    text->str = p = alloc(T->len);
+    while (--i >= 0)
+      *p++ = T->str[i];
+
+    return text;
+  }
 }
 
 void* 
-text_map(void* T, const void* from, const void* to)
+text_map(void* P, const void* from_p, const void* to_p)
 {
-  return NULL;
+  static char map[256];
+  static int inited = 0;
+
+  struct lText* T = (struct lText*)P;
+  struct lText* from = (struct lText*)from_p;
+  struct lText* to   = (struct lText*)to_p;
+  assert(NULL != T && T->len >= 0 && NULL != T->str);
+  if (NULL != from && NULL != to) {
+    int k;
+    for (k = 0; k < (int)sizeof(map); ++k)
+      map[k] = k;
+    assert(from->len == to->len);
+    for (k = 0; k < from->len; ++k)
+      map[(unsigned char)from->str[k]] = to->str[k];
+    inited = 1;
+  } else {
+    assert(NULL == from && NULL == to);
+    assert(inited);
+  }
+
+  if (0 == T->len)
+    return (void*)&g_text_null;
+  else {
+    struct lText* text;
+    int i;
+    char* p;
+
+    NEW0(text);
+    text->len = T->len;
+    text->str = p = alloc(T->len);
+    for (i = 0; i < T->len; ++i)
+      *p++ = map[(unsigned char)T->str[i]];
+
+    return text;
+  }
 }
 
 

@@ -31,6 +31,10 @@
 
 #include <stdarg.h>
 
+extern void text_free(void** T);
+extern int text_len(void* T);
+extern const char* text_str(void* T);
+
 extern void* text_set(const char* str);
 extern char* text_get(void* T, char* str, int len);
 extern void* text_box(const char* str, int len);
@@ -38,7 +42,7 @@ extern void* text_box(const char* str, int len);
 extern void* text_sub(void* T, int i, int j);
 extern int text_pos(void* T, int i);
 extern void* text_cat(void* T1, void* T2);
-extern void* text_dup(void* T, int len);
+extern void* text_dup(void* T, int n);
 extern void* text_reverse(void* T);
 extern void* text_map(void* T, const void* from, const void* to);
 
