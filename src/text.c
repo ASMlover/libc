@@ -340,20 +340,66 @@ text_map(void* P, const void* from_p, const void* to_p)
 
 /**!< compare */
 int 
-text_cmp(void* T1, void* T2)
+text_cmp(void* P1, void* P2)
 {
+  struct lText* T1 = (struct lText*)P1;
+  struct lText* T2 = (struct lText*)P2;
+
+  assert(NULL != T1 && T1->len >= 0 && NULL != T1->str);
+  assert(NULL != T2 && T2->len >= 0 && NULL != T2->str);
+  if (T1->str == T2->str)
+    return (T1->len - T2->len);
+  else if (T1->len < T2->len) {
+    int cond = memcmp(T1->str, T2->str, T1->len);
+    return (0 == cond ? -1 : cond);
+  } else if (T1->len > T2->len) {
+    int cond = memcmp(T1->str, T2->str, T2->len);
+    return (0 == cond ? 1 : cond);
+  } else 
+    return memcmp(T1->str, T2->str, T1->len);
+}
+
+int 
+text_chr(void* P, int i, int j, int c)
+{
+  struct lText* T = (struct lText*)P;
+
+  assert(NULL != T && T->len >= 0 && NULL != T->str);
+  i = INDEX(i, T->len);
+  j = INDEX(j, T->len);
+  if (i > j) {
+    int t = i;
+    i = j;
+    j = t;
+  }
+  assert(i >= 0 && j <= T->len);
+  for ( ; i < j; ++i) {
+    if (c == T->str[i])
+      return (i + 1);
+  }
+
   return 0;
 }
 
 int 
-text_chr(void* T, int i, int j, int c)
+text_rchr(void* P, int i, int j, int c)
 {
-  return 0;
-}
+  struct lText* T = (struct lText*)P;
 
-int 
-text_rchr(void* T, int i, int j, int c)
-{
+  assert(NULL != T && T->len >= 0 && NULL != T->str);
+  i = INDEX(i, T->len);
+  j = INDEX(j, T->len);
+  if (i > j) {
+    int t = i;
+    i = j;
+    j = t;
+  }
+  assert(i >= 0 && j <= T->len);
+  while (j > i) {
+    if (c == T->str[--j])
+      return (j + 1);
+  }
+
   return 0;
 }
 
@@ -421,10 +467,30 @@ text_fmt(int code, va_list* app, int (*visit)(int, void*),
 void* 
 text_save(void)
 {
-  return NULL;
+  struct lTextSave* save;
+  NEW0(save);
+
+  save->current = g_current;
+  save->avail   = g_current->avail;
+  alloc(1);
+
+  return save;
 }
 
 void 
-text_restore(void* save)
+text_restore(void** p)
 {
+  struct lChunk* iter;
+  struct lChunk* next;
+
+  struct lTextSave** save = (struct lTextSave**)p;
+  assert(NULL != save && NULL != *save);
+  g_current = (*save)->current;
+  g_current->avail = (*save)->avail;
+  FREE(*save);
+  for (iter = g_current->next; NULL != iter; iter = next) {
+    next = iter->next;
+    FREE(iter);
+  }
+  g_current->next = NULL;
 }

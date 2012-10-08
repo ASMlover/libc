@@ -65,6 +65,6 @@ extern void text_fmt(int code, va_list* app,
   unsigned char flags[], int width, int precision);
 
 extern void* text_save(void);
-extern void text_restore(void* save);
+extern void text_restore(void** save);
 
 #endif  /* __TEXT_HEADER_H__ */
