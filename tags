@@ -15,6 +15,7 @@ ELSE	.\inc\except.h	108;"	d	language:C++
 ELSE	.\inc\except.h	74;"	d	language:C++
 END_TRY	.\inc\except.h	119;"	d	language:C++
 END_TRY	.\inc\except.h	85;"	d	language:C++
+EQUAL	.\src\text.c	44;"	d	language:C	file:
 ERROR_LEN	.\inc\config.h	38;"	d	language:C++
 EXCEPT	.\inc\except.h	103;"	d	language:C++
 EXCEPT	.\inc\except.h	69;"	d	language:C++
@@ -32,6 +33,8 @@ FINALLY	.\inc\except.h	113;"	d	language:C++
 FINALLY	.\inc\except.h	79;"	d	language:C++
 FREE	.\inc\memory.h	45;"	d	language:C++
 INDEX	.\src\string.c	40;"	d	language:C	file:
+INDEX	.\src\text.c	41;"	d	language:C	file:
+ISATEND	.\src\text.c	42;"	d	language:C	file:
 IS_CLOSE2ZERO	.\src\arith.c	33;"	d	language:C	file:
 LDESCRIPTORS	.\src\mem_check.c	54;"	d	language:C	file:
 LHASH	.\src\mem_check.c	53;"	d	language:C	file:
@@ -92,6 +95,7 @@ __STACK_HEADER_H__	.\inc\stack.h	30;"	d	language:C++
 __STRING_HEADER_H__	.\inc\string.h	30;"	d	language:C++
 __TABLE_HEADER_H__	.\inc\table.h	30;"	d	language:C++
 __TEST_HEADER_H__	.\test\test.h	30;"	d	language:C++
+__TEXT_HEADER_H__	.\inc\text.h	30;"	d	language:C++
 __func__	.\inc\error.h	33;"	d	language:C++
 __func__	.\test\test.h	33;"	d	language:C++
 _assert	.\src\except.c	/^    _CRTIMP void __cdecl _assert(const char*, const char*, unsigned int);$/;"	p	language:C	file:	signature:(const char*, const char*, unsigned int)
@@ -99,6 +103,7 @@ _error	.\inc\error.h	/^extern void _error(const char* file, const char* func, in
 _error	.\src\error.c	/^void _error(const char* file, const char* func, int line, int err_code)$/;"	f	language:C	signature:(const char* file, const char* func, int line, int err_code)
 _wassert	.\src\except.c	/^    _CRTIMP void __cdecl _wassert(const wchar_t*, const wchar_t*, unsigned int);$/;"	p	language:C	file:	signature:(const wchar_t*, const wchar_t*, unsigned int)
 align	.\src\arena.c	/^  union lAlign  align;$/;"	m	language:C	union:lHeader	typeref:union:lHeader::lAlign	file:
+alloc	.\src\text.c	/^alloc(int len)$/;"	f	language:C	file:	signature:(int len)
 append_c	.\src\format.c	/^append_c(int c, void* arg)$/;"	f	language:C	file:	signature:(int c, void* arg)
 arena	.\src\arena.c	/^  struct lArena arena;$/;"	m	language:C	union:lHeader	typeref:struct:lHeader::lArena	file:
 arena_alloc	.\inc\arena.h	/^extern void* arena_alloc(int arena, long bytes, const char* file, int line);$/;"	p	language:C++	signature:(int arena, long bytes, const char* file, int line)
@@ -182,6 +187,8 @@ atom_new	.\inc\atom.h	/^extern const char* atom_new(const char* str, int len);$/
 atom_new	.\src\atom.c	/^const char* atom_new(const char* str, int len)$/;"	f	language:C	signature:(const char* str, int len)
 atom_string	.\inc\atom.h	/^extern const char* atom_string(const char* str);$/;"	p	language:C++	signature:(const char* str)
 atom_string	.\src\atom.c	/^const char* atom_string(const char* str)$/;"	f	language:C	signature:(const char* str)
+avail	.\src\text.c	/^  char* avail;$/;"	m	language:C	struct:lChunk	file:
+avail	.\src\text.c	/^  char* avail;$/;"	m	language:C	struct:lTextSave	file:
 avail_beg	.\src\arena.c	/^  char* avail_beg;$/;"	m	language:C	struct:lArena	file:
 avail_end	.\src\arena.c	/^  char* avail_end;$/;"	m	language:C	struct:lArena	file:
 begin	.\src\array.c	/^  void** begin;$/;"	m	language:C	struct:lArray	file:
@@ -242,6 +249,7 @@ convert_s	.\src\format.c	/^convert_s(int code, va_list* app, int (*visit)(int, v
 convert_u	.\src\format.c	/^convert_u(int code, va_list* app, int (*visit)(int, void*), $/;"	f	language:C	file:	signature:(int code, va_list* app, int (*visit)(int, void*), void* arg, unsigned char flags[], int width, int precision)
 convert_x	.\src\format.c	/^convert_x(int code, va_list* app, int (*visit)(int, void*), $/;"	f	language:C	file:	signature:(int code, va_list* app, int (*visit)(int, void*), void* arg, unsigned char flags[], int width, int precision)
 count	.\src\stack.c	/^  int count;$/;"	m	language:C	struct:lStack	file:
+current	.\src\text.c	/^  struct lChunk* current;$/;"	m	language:C	struct:lTextSave	typeref:struct:lTextSave::lChunk	file:
 dalloc	.\src\mem_check.c	/^static struct lDescriptor* dalloc(void* ptr, long bytes, const char* file, int line)$/;"	f	language:C	file:	signature:(void* ptr, long bytes, const char* file, int line)
 data	.\src\list.c	/^  void*             data;$/;"	m	language:C	struct:lListNode	file:
 data	.\src\ring.c	/^  void* data;$/;"	m	language:C	struct:lRingNode	file:
@@ -291,10 +299,19 @@ format_vstring	.\inc\format.h	/^extern char* format_vstring(const char* fmt, va_
 format_vstring	.\src\format.c	/^format_vstring(const char* fmt, va_list ap)$/;"	f	language:C	signature:(const char* fmt, va_list ap)
 free	.\src\mem_check.c	/^  struct lDescriptor* free;$/;"	m	language:C	struct:lDescriptor	typeref:struct:lDescriptor::lDescriptor	file:
 func_callback	.\test\test.c	/^typedef void (*func_callback)(void);$/;"	t	language:C	file:
+g_current	.\src\text.c	/^static struct lChunk* g_current = &g_head;$/;"	v	language:C	typeref:struct:lChunk	file:
 g_errors	.\src\error.c	/^static const char* g_errors[] = {$/;"	v	language:C	file:
+g_head	.\src\text.c	/^static struct lChunk  g_head = {NULL, NULL, NULL};$/;"	v	language:C	typeref:struct:lChunk	file:
 g_sBuckets	.\src\atom.c	/^static struct lAtom* g_sBuckets[2048];$/;"	v	language:C	typeref:struct:lAtom	file:
 g_sFuncs	.\test\test.c	/^static struct TestFunc g_sFuncs[] = {$/;"	v	language:C	typeref:struct:TestFunc	file:
 g_sScatter	.\src\atom.c	/^static unsigned long g_sScatter[] = {$/;"	v	language:C	file:
+g_sets	.\src\text.c	/^static char g_sets[] = $/;"	v	language:C	file:
+g_text_ascii	.\src\text.c	/^static const struct lText g_text_ascii  = {127, g_sets};$/;"	v	language:C	typeref:struct:lText	file:
+g_text_digits	.\src\text.c	/^static const struct lText g_text_digits = {10, g_sets + '0'};$/;"	v	language:C	typeref:struct:lText	file:
+g_text_lcase	.\src\text.c	/^static const struct lText g_text_lcase  = {26, g_sets + 'a'};$/;"	v	language:C	typeref:struct:lText	file:
+g_text_null	.\src\text.c	/^static const struct lText g_text_null   = {0, g_sets};$/;"	v	language:C	typeref:struct:lText	file:
+g_text_sets	.\src\text.c	/^static const struct lText g_text_sets   = {256, g_sets};$/;"	v	language:C	typeref:struct:lText	file:
+g_text_ucase	.\src\text.c	/^static const struct lText g_text_ucase  = {26, g_sets + 'A'};$/;"	v	language:C	typeref:struct:lText	file:
 hash_value	.\src\set.c	/^  unsigned int (*hash_value)(const void*);$/;"	m	language:C	struct:lSet	file:
 hash_value	.\src\table.c	/^  unsigned int (*hash_value)(const void* key);$/;"	m	language:C	struct:lTable	file:
 hash_value_def	.\src\set.c	/^static unsigned hash_value_def(const void* x)$/;"	f	language:C	file:	signature:(const void* x)
@@ -316,6 +333,7 @@ lArray	.\src\array.c	/^struct lArray {$/;"	s	language:C	file:
 lArrayIter	.\inc\array.h	/^typedef void** lArrayIter;$/;"	t	language:C++
 lAtom	.\src\atom.c	/^struct lAtom {$/;"	s	language:C	file:
 lBit	.\src\bit.c	/^struct lBit {$/;"	s	language:C	file:
+lChunk	.\src\text.c	/^struct lChunk {$/;"	s	language:C	file:
 lDescriptor	.\src\mem_check.c	/^struct lDescriptor {$/;"	s	language:C	file:
 lExcept	.\inc\except.h	/^struct lExcept { const char* reason; };$/;"	s	language:C++
 lExceptFrame	.\inc\except.h	/^struct lExceptFrame {$/;"	s	language:C++
@@ -339,10 +357,13 @@ lStackNode	.\src\stack.c	/^struct lStackNode {$/;"	s	language:C	file:
 lTable	.\src\table.c	/^struct lTable {$/;"	s	language:C	file:
 lTableIter	.\inc\table.h	/^typedef void** lTableIter;$/;"	t	language:C++
 lTableNode	.\src\table.c	/^struct lTableNode {$/;"	s	language:C	file:
+lText	.\src\text.c	/^struct lText {$/;"	s	language:C	file:
+lTextSave	.\src\text.c	/^struct lTextSave {$/;"	s	language:C	file:
 larena_createfailed	.\src\arena.c	/^const struct lExcept larena_createfailed = { "Arena creation failed" };$/;"	v	language:C	typeref:struct:lExcept
 larena_failed	.\src\arena.c	/^const struct lExcept larena_failed       = { "Arena allocation failed" };$/;"	v	language:C	typeref:struct:lExcept
 lassert_failed	.\src\assert.c	/^const struct lExcept lassert_failed = { "Assertion Failed" };$/;"	v	language:C	typeref:struct:lExcept
 len	.\src\atom.c	/^  int   len;$/;"	m	language:C	struct:lAtom	file:
+len	.\src\text.c	/^  int len;$/;"	m	language:C	struct:lText	file:
 lexcept_index	.\src\except.c	/^int lexcept_index = -1;$/;"	v	language:C
 lexcept_stack	.\src\except.c	/^struct lExceptFrame* lexcept_stack = NULL;$/;"	v	language:C	typeref:struct:lExceptFrame
 lfmt_flags	.\src\format.c	/^static char* lfmt_flags = "-+ 0";$/;"	v	language:C	file:
@@ -350,6 +371,7 @@ lfmt_overflow	.\src\format.c	/^static const struct lExcept lfmt_overflow = { "Fo
 lfreechunks	.\src\arena.c	/^static struct lArena* lfreechunks;$/;"	v	language:C	typeref:struct:lArena	file:
 lfreecounts	.\src\arena.c	/^static int            lfreecounts;$/;"	v	language:C	file:
 lfreelist	.\src\mem_check.c	/^static struct lDescriptor lfreelist = {&lfreelist};$/;"	v	language:C	typeref:struct:lDescriptor	file:
+limit	.\src\text.c	/^  char* limit;$/;"	m	language:C	struct:lChunk	file:
 line	.\inc\except.h	/^  int                  line;$/;"	m	language:C++	struct:lExceptFrame
 line	.\src\mem_check.c	/^  int                 line;$/;"	m	language:C	struct:lDescriptor	file:
 list_back	.\inc\list.h	/^extern void* list_back(void* L);$/;"	p	language:C++	signature:(void* L)
@@ -426,6 +448,7 @@ next	.\src\set.c	/^  struct lSetNode* next;$/;"	m	language:C	struct:lSetNode	typ
 next	.\src\slist.c	/^  struct lSlistNode* next;$/;"	m	language:C	struct:lSlistNode	typeref:struct:lSlistNode::lSlistNode	file:
 next	.\src\stack.c	/^  struct lStackNode* next;$/;"	m	language:C	struct:lStackNode	typeref:struct:lStackNode::lStackNode	file:
 next	.\src\table.c	/^  struct lTableNode* next;$/;"	m	language:C	struct:lTableNode	typeref:struct:lTableNode::lTableNode	file:
+next	.\src\text.c	/^  struct lChunk* next;$/;"	m	language:C	struct:lChunk	typeref:struct:lChunk::lChunk	file:
 node	.\src\list.c	/^  struct lListNode node;$/;"	m	language:C	struct:lList	typeref:struct:lList::lListNode	file:
 node	.\src\set.c	/^  struct lSetNode   node;$/;"	m	language:C	struct:lSet	typeref:struct:lSet::lSetNode	file:
 node	.\src\table.c	/^  struct lTableNode   node;$/;"	m	language:C	struct:lTable	typeref:struct:lTable::lTableNode	file:
@@ -611,6 +634,7 @@ storage	.\src\sequence.c	/^  int    storage;$/;"	m	language:C	struct:lSequence	f
 storage	.\src\set.c	/^  int storage;$/;"	m	language:C	struct:lSet	file:
 storage	.\src\table.c	/^  int storage;$/;"	m	language:C	struct:lTable	file:
 str	.\src\atom.c	/^  char* str;$/;"	m	language:C	struct:lAtom	file:
+str	.\src\text.c	/^  const char* str;$/;"	m	language:C	struct:lText	file:
 string_any	.\inc\string.h	/^extern int string_any(const char* s, int i, const char* set);$/;"	p	language:C++	signature:(const char* s, int i, const char* set)
 string_any	.\src\string.c	/^string_any(const char* s, int i, const char* set)$/;"	f	language:C	signature:(const char* s, int i, const char* set)
 string_cat	.\inc\string.h	/^extern char* string_cat(const char* s1, int i1, int j1, const char* s2, int i2, int j2);$/;"	p	language:C++	signature:(const char* s1, int i1, int j1, const char* s2, int i2, int j2)
@@ -725,6 +749,60 @@ test_string	.\test\test_string.c	/^test_string(void) $/;"	f	language:C	signature
 test_table	.\test\test.h	/^extern void test_table(void);$/;"	p	language:C++	signature:(void)
 test_table	.\test\test_table.c	/^void test_table(void)$/;"	f	language:C	signature:(void)
 test_unknown	.\test\test.c	/^static void test_unknown(void)$/;"	f	language:C	file:	signature:(void)
+text_any	.\inc\text.h	/^extern int text_any(void* T, int i, void* set);$/;"	p	language:C++	signature:(void* T, int i, void* set)
+text_any	.\src\text.c	/^text_any(void* t, int i, void* set)$/;"	f	language:C	signature:(void* t, int i, void* set)
+text_box	.\inc\text.h	/^extern void* text_box(const char* str, int len);$/;"	p	language:C++	signature:(const char* str, int len)
+text_box	.\src\text.c	/^text_box(const char* str, int len)$/;"	f	language:C	signature:(const char* str, int len)
+text_cat	.\inc\text.h	/^extern void* text_cat(void* T1, void* T2);$/;"	p	language:C++	signature:(void* T1, void* T2)
+text_cat	.\src\text.c	/^text_cat(void* P1, void* P2)$/;"	f	language:C	signature:(void* P1, void* P2)
+text_chr	.\inc\text.h	/^extern int text_chr(void* T, int i, int j, int c);$/;"	p	language:C++	signature:(void* T, int i, int j, int c)
+text_chr	.\src\text.c	/^text_chr(void* P, int i, int j, int c)$/;"	f	language:C	signature:(void* P, int i, int j, int c)
+text_cmp	.\inc\text.h	/^extern int text_cmp(void* T1, void* T2);$/;"	p	language:C++	signature:(void* T1, void* T2)
+text_cmp	.\src\text.c	/^text_cmp(void* P1, void* P2)$/;"	f	language:C	signature:(void* P1, void* P2)
+text_dup	.\inc\text.h	/^extern void* text_dup(void* T, int n);$/;"	p	language:C++	signature:(void* T, int n)
+text_dup	.\src\text.c	/^text_dup(void* P, int n)$/;"	f	language:C	signature:(void* P, int n)
+text_find	.\inc\text.h	/^extern int text_find(void* T, int i, int j, void* s);$/;"	p	language:C++	signature:(void* T, int i, int j, void* s)
+text_find	.\src\text.c	/^text_find(void* t, int i, int j, void* s)$/;"	f	language:C	signature:(void* t, int i, int j, void* s)
+text_fmt	.\inc\text.h	/^extern void text_fmt(int code, va_list* app, $/;"	p	language:C++	signature:(int code, va_list* app, int (*visit)(int, void*), void* arg, unsigned char flags[], int width, int precision)
+text_fmt	.\src\text.c	/^text_fmt(int code, va_list* app, int (*visit)(int, void*), $/;"	f	language:C	signature:(int code, va_list* app, int (*visit)(int, void*), void* arg, unsigned char flags[], int width, int precision)
+text_free	.\inc\text.h	/^extern void text_free(void** T);$/;"	p	language:C++	signature:(void** T)
+text_free	.\src\text.c	/^text_free(void** T)$/;"	f	language:C	signature:(void** T)
+text_get	.\inc\text.h	/^extern char* text_get(void* T, char* str, int len);$/;"	p	language:C++	signature:(void* T, char* str, int len)
+text_get	.\src\text.c	/^text_get(void* P, char* str, int len)$/;"	f	language:C	signature:(void* P, char* str, int len)
+text_len	.\inc\text.h	/^extern int text_len(void* T);$/;"	p	language:C++	signature:(void* T)
+text_len	.\src\text.c	/^text_len(void* P)$/;"	f	language:C	signature:(void* P)
+text_many	.\inc\text.h	/^extern int text_many(void* T, int i, int j, void* set);$/;"	p	language:C++	signature:(void* T, int i, int j, void* set)
+text_many	.\src\text.c	/^text_many(void* t, int i, int j, void* set)$/;"	f	language:C	signature:(void* t, int i, int j, void* set)
+text_map	.\inc\text.h	/^extern void* text_map(void* T, const void* from, const void* to);$/;"	p	language:C++	signature:(void* T, const void* from, const void* to)
+text_map	.\src\text.c	/^text_map(void* P, const void* from_p, const void* to_p)$/;"	f	language:C	signature:(void* P, const void* from_p, const void* to_p)
+text_match	.\inc\text.h	/^extern int text_match(void* T, int i, int j, void* s);$/;"	p	language:C++	signature:(void* T, int i, int j, void* s)
+text_match	.\src\text.c	/^text_match(void* t, int i, int j, void* s)$/;"	f	language:C	signature:(void* t, int i, int j, void* s)
+text_pos	.\inc\text.h	/^extern int text_pos(void* T, int i);$/;"	p	language:C++	signature:(void* T, int i)
+text_pos	.\src\text.c	/^text_pos(void* P, int i)$/;"	f	language:C	signature:(void* P, int i)
+text_rchr	.\inc\text.h	/^extern int text_rchr(void* T, int i, int j, int c);$/;"	p	language:C++	signature:(void* T, int i, int j, int c)
+text_rchr	.\src\text.c	/^text_rchr(void* P, int i, int j, int c)$/;"	f	language:C	signature:(void* P, int i, int j, int c)
+text_restore	.\inc\text.h	/^extern void text_restore(void** save);$/;"	p	language:C++	signature:(void** save)
+text_restore	.\src\text.c	/^text_restore(void** p)$/;"	f	language:C	signature:(void** p)
+text_reverse	.\inc\text.h	/^extern void* text_reverse(void* T);$/;"	p	language:C++	signature:(void* T)
+text_reverse	.\src\text.c	/^text_reverse(void* P)$/;"	f	language:C	signature:(void* P)
+text_rfind	.\inc\text.h	/^extern int text_rfind(void* T, int i, int j, void* s);$/;"	p	language:C++	signature:(void* T, int i, int j, void* s)
+text_rfind	.\src\text.c	/^text_rfind(void* t, int i, int j, void* s)$/;"	f	language:C	signature:(void* t, int i, int j, void* s)
+text_rmany	.\inc\text.h	/^extern int text_rmany(void* T, int i, int j, void* set);$/;"	p	language:C++	signature:(void* T, int i, int j, void* set)
+text_rmany	.\src\text.c	/^text_rmany(void* t, int i, int j, void* set)$/;"	f	language:C	signature:(void* t, int i, int j, void* set)
+text_rmatch	.\inc\text.h	/^extern int text_rmatch(void* T, int i, int j, void* s);$/;"	p	language:C++	signature:(void* T, int i, int j, void* s)
+text_rmatch	.\src\text.c	/^text_rmatch(void* t, int i, int j, void* s)$/;"	f	language:C	signature:(void* t, int i, int j, void* s)
+text_rupto	.\inc\text.h	/^extern int text_rupto(void* T, int i, int j, void* set);$/;"	p	language:C++	signature:(void* T, int i, int j, void* set)
+text_rupto	.\src\text.c	/^text_rupto(void* P, int i, int j, void* S)$/;"	f	language:C	signature:(void* P, int i, int j, void* S)
+text_save	.\inc\text.h	/^extern void* text_save(void);$/;"	p	language:C++	signature:(void)
+text_save	.\src\text.c	/^text_save(void)$/;"	f	language:C	signature:(void)
+text_set	.\inc\text.h	/^extern void* text_set(const char* str);$/;"	p	language:C++	signature:(const char* str)
+text_set	.\src\text.c	/^text_set(const char* str)$/;"	f	language:C	signature:(const char* str)
+text_str	.\inc\text.h	/^extern const char* text_str(void* T);$/;"	p	language:C++	signature:(void* T)
+text_str	.\src\text.c	/^text_str(void* P)$/;"	f	language:C	signature:(void* P)
+text_sub	.\inc\text.h	/^extern void* text_sub(void* T, int i, int j);$/;"	p	language:C++	signature:(void* T, int i, int j)
+text_sub	.\src\text.c	/^text_sub(void* P, int i, int j)$/;"	f	language:C	signature:(void* P, int i, int j)
+text_upto	.\inc\text.h	/^extern int text_upto(void* T, int i, int j, void* set);$/;"	p	language:C++	signature:(void* T, int i, int j, void* set)
+text_upto	.\src\text.c	/^text_upto(void* P, int i, int j, void* S)$/;"	f	language:C	signature:(void* P, int i, int j, void* S)
 timestamp	.\src\set.c	/^  unsigned int timestamp;$/;"	m	language:C	struct:lSet	file:
 timestamp	.\src\table.c	/^  unsigned int timestamp;$/;"	m	language:C	struct:lTable	file:
 value	.\src\table.c	/^  void*              value;$/;"	m	language:C	struct:lTableNode	file:

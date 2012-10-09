@@ -404,56 +404,242 @@ text_rchr(void* P, int i, int j, int c)
 }
 
 int 
-text_upto(void* T, int i, int j, void* set)
+text_upto(void* P, int i, int j, void* S)
 {
+  struct lText* T = (struct lText*)P;
+  struct lText* set = (struct lText*)S;
+
+  assert(NULL != set && set->len >= 0 && NULL != set->str);
+  assert(NULL != T && T->len >= 0 && NULL != T->str);
+  i = INDEX(i, T->len);
+  j = INDEX(j, T->len);
+  if (i > j) {
+    int t = i;
+    i = j;
+    j = t;
+  }
+  assert(i >= 0 && j <= T->len);
+  for ( ; i < j; ++i) {
+    if (NULL != memchr(set->str, T->str[i], set->len))
+      return (i + 1);
+  }
+
   return 0;
 }
 
 int 
-text_rupto(void* T, int i, int j, void* set)
+text_rupto(void* P, int i, int j, void* S)
 {
+  struct lText* T = (struct lText*)P;
+  struct lText* set = (struct lText*)S;
+
+  assert(NULL != set && set->len >= 0 && NULL != set->str);
+  assert(NULL != T && T->len >= 0 && NULL != T->str);
+  i = INDEX(i, T->len);
+  j = INDEX(j, T->len);
+  if (i > j) {
+    int t = i;
+    i = j;
+    j = t;
+  }
+  assert(i >= 0 && j <= T->len);
+  while (j > i) {
+    if (NULL != memchr(set->str, T->str[--j], set->len))
+      return (j + 1);
+  }
+
   return 0;
 }
 
 int 
-text_any(void* T, int i, void* set)
+text_any(void* t, int i, void* set)
 {
+  struct lText* T = (struct lText*)t;
+  struct lText* S = (struct lText*)set;
+
+  assert(NULL != T && T->len >= 0 && NULL != T->str);
+  assert(NULL != S && S->len >= 0 && NULL != S->str);
+  i = INDEX(i, T->len);
+  assert(i >= 0 && i <= T->len);
+  if (i < T->len && (NULL != memchr(S->str, T->str[i], S->len)))
+    return (i + 2);
+
   return 0;
 }
 
 int 
-text_many(void* T, int i, int j, void* set)
+text_many(void* t, int i, int j, void* set)
 {
+  struct lText* T = (struct lText*)t;
+  struct lText* S = (struct lText*)set;
+
+  assert(NULL != T && T->len >= 0 && NULL != T->str);
+  assert(NULL != S && S->len >= 0 && NULL != S->str);
+  i = INDEX(i, T->len);
+  j = INDEX(j, T->len);
+  if (i > j) {
+    int t = i;
+    i = j;
+    j = t;
+  }
+  assert(i >= 0 && j <= T->len);
+
+  if (i < j && (NULL != memchr(S->str, T->str[i], S->len))) {
+    do {
+      ++i;
+    } while (i < j && (NULL != memchr(S->str, T->str[i], S->len)));
+    return (i + 1);
+  }
+
   return 0;
 }
 
 int 
-text_rmany(void* T, int i, int j, void* set)
+text_rmany(void* t, int i, int j, void* set)
 {
+  struct lText* T = (struct lText*)t;
+  struct lText* S = (struct lText*)set;
+
+  assert(NULL != T && T->len >= 0 && NULL != T->str);
+  assert(NULL != S && S->len >= 0 && NULL != S->str);
+  i = INDEX(i, T->len);
+  j = INDEX(j, T->len);
+  if (i > j) {
+    int t = i;
+    i = j;
+    j = t;
+  }
+  assert(i >= 0 && j <= T->len);
+
+  if (j > i && (NULL != memchr(S->str, T->str[j - 1], S->len))) {
+    do {
+      --j;
+    } while (j >= i && (NULL != memchr(S->str, T->str[j], S->len)));
+    return (j + 2);
+  }
+
   return 0;
 }
 
 int 
-text_find(void* T, int i, int j, void* s)
+text_find(void* t, int i, int j, void* s)
 {
+  struct lText* T = (struct lText*)t;
+  struct lText* S = (struct lText*)s;
+
+  assert(NULL != T && T->len >= 0 && NULL != T->str);
+  assert(NULL != S && S->len >= 0 && NULL != S->str);
+  i = INDEX(i, T->len);
+  j = INDEX(j, T->len);
+  if (i > j) {
+    int t = i;
+    i = j;
+    j = t;
+  }
+  assert(i >= 0 && j <= T->len);
+  if (0 == S->len) 
+    return (i + 1);
+  else if (1 == S->len) {
+    for ( ; i < j; ++i) {
+      if (T->str[i] == *S->str)
+        return (i + 1);
+    }
+  } else {
+    for ( ; i + S->len <= j; ++i) {
+      if (EQUAL(T, i, S))
+        return (i + 1);
+    }
+  }
+
   return 0;
 }
 
 int 
-text_rfind(void* T, int i, int j, void* s)
+text_rfind(void* t, int i, int j, void* s)
 {
+  struct lText* T = (struct lText*)t;
+  struct lText* S = (struct lText*)s;
+
+  assert(NULL != T && T->len >= 0 && NULL != T->str);
+  assert(NULL != S && S->len >= 0 && NULL != S->str);
+  i = INDEX(i, T->len);
+  j = INDEX(j, T->len);
+  if (i > j) {
+    int t = i;
+    i = j;
+    j = t;
+  }
+  assert(i >= 0 && j <= T->len);
+  if (0 == S->len)
+    return (j + 1);
+  else if (1 == S->len) {
+    while (j > i) {
+      if (T->str[--j] == *S->str)
+        return (j + 1);
+    }
+  } else {
+    for ( ; j - S->len >= i; --j) {
+      if (EQUAL(T, j - S->len, S))
+        return (j - S->len + 1);
+    }
+  }
+
   return 0;
 }
 
 int 
-text_match(void* T, int i, int j, void* s)
+text_match(void* t, int i, int j, void* s)
 {
+  struct lText* T = (struct lText*)t;
+  struct lText* S = (struct lText*)s;
+
+  assert(NULL != T && T->len >= 0 && NULL != T->str);
+  assert(NULL != S && S->len >= 0 && NULL != S->str);
+  i = INDEX(i, T->len);
+  j = INDEX(j, T->len);
+  if (i > j) {
+    int t = i;
+    i = j;
+    j = t;
+  }
+  assert(i >= 0 && j <= T->len);
+
+  if (0 == S->len)
+    return (i + 1);
+  else if (1 == S->len) {
+    if (i < j && S->str[i] == *S->str)
+      return (i + 2);
+  } else if (i + S->len <= j && EQUAL(T, i, S))
+    return (i + S->len + 1);
+
   return 0;
 }
 
 int 
-text_rmatch(void* T, int i, int j, void* s)
+text_rmatch(void* t, int i, int j, void* s)
 {
+  struct lText* T = (struct lText*)t;
+  struct lText* S = (struct lText*)s;
+
+  assert(NULL != T && T->len >= 0 && NULL != T->str);
+  assert(NULL != S && S->len >= 0 && NULL != S->str);
+  i = INDEX(i, T->len);
+  j = INDEX(j, T->len);
+  if (i > j) {
+    int t = i;
+    i = j;
+    j = t;
+  }
+  assert(i >= 0 && j <= T->len);
+
+  if (0 ==  S->len)
+    return (j + 1);
+  else if (1 == S->len) {
+    if (j > i && T->str[j - 1] == *S->str)
+      return j;
+  } else if (j - S->len >= i && EQUAL(T, j - S->len, S))
+    return (j - S->len + 1);
+
   return 0;
 }
 
@@ -461,6 +647,12 @@ void
 text_fmt(int code, va_list* app, int (*visit)(int, void*), 
   void* arg, unsigned char flags[], int width, int precision)
 {
+  struct lText* T;
+
+  assert(NULL != app && NULL != flags);
+  T = va_arg(*app, struct lText*);
+  assert(NULL != T && T->len >= 0 && NULL != T->str);
+  format_puts(T->str, T->len, visit, arg, flags, width, precision);
 }
 
 
