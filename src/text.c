@@ -96,6 +96,7 @@ static char*
 alloc(int len)
 {
   assert(len >= 0);
+  len += 1;
 
   if (g_current->avail + len > g_current->limit) {
     g_current = g_current->next = ALLOC(sizeof(*g_current) + 10240 + len);
