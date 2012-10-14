@@ -55,6 +55,7 @@ static void test_unknown(void)
           "  bit        display testcases of bit\n"
           "  format     display testcases of format\n"
           "  str        display testcases of string\n"
+          "  text       display testcases of text\n"
          );
 }
 
@@ -86,6 +87,7 @@ static struct TestFunc g_sFuncs[] = {
   { "bit",     test_bit       }, 
   { "format",  test_format    }, 
   { "str",     test_string    }, 
+  { "text",    test_text      }, 
 };
 
 

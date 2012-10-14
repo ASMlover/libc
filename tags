@@ -576,6 +576,7 @@ set_size	.\src\set.c	/^int set_size(void* S)$/;"	f	language:C	signature:(void* S
 set_union	.\inc\set.h	/^extern void* set_union(void* S, void* T);$/;"	p	language:C++	signature:(void* S, void* T)
 set_union	.\src\set.c	/^void* set_union(void* S, void* T)$/;"	f	language:C	signature:(void* S, void* T)
 sets	.\src\set.c	/^  struct lSetNode** sets;$/;"	m	language:C	struct:lSet	typeref:struct:lSet::lSetNode	file:
+show_text_object	.\test\test_text.c	/^show_text_object(const char* name, void* T) $/;"	f	language:C	file:	signature:(const char* name, void* T)
 size	.\src\bit.c	/^  int size;$/;"	m	language:C	struct:lBit	file:
 size	.\src\format.c	/^  int   size;$/;"	m	language:C	struct:lFormatBuf	file:
 size	.\src\list.c	/^  int              size;$/;"	m	language:C	struct:lList	file:
@@ -748,6 +749,8 @@ test_string	.\test\test.h	/^extern void test_string(void);$/;"	p	language:C++	si
 test_string	.\test\test_string.c	/^test_string(void) $/;"	f	language:C	signature:(void)
 test_table	.\test\test.h	/^extern void test_table(void);$/;"	p	language:C++	signature:(void)
 test_table	.\test\test_table.c	/^void test_table(void)$/;"	f	language:C	signature:(void)
+test_text	.\test\test.h	/^extern void test_text(void);$/;"	p	language:C++	signature:(void)
+test_text	.\test\test_text.c	/^test_text(void) $/;"	f	language:C	signature:(void)
 test_unknown	.\test\test.c	/^static void test_unknown(void)$/;"	f	language:C	file:	signature:(void)
 text_any	.\inc\text.h	/^extern int text_any(void* T, int i, void* set);$/;"	p	language:C++	signature:(void* T, int i, void* set)
 text_any	.\src\text.c	/^text_any(void* t, int i, void* set)$/;"	f	language:C	signature:(void* t, int i, void* set)
