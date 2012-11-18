@@ -7,6 +7,7 @@
 ALLOC	.\inc\memory.h	41;"	d	language:C++
 ARENA_ALLOC	.\inc\arena.h	44;"	d	language:C++
 ARENA_CALLOC	.\inc\arena.h	45;"	d	language:C++
+BASE	.\src\xp.c	7;"	d	language:C	file:
 BITS_PER_DWORD	.\src\bit.c	45;"	d	language:C	file:
 CALLOC	.\inc\memory.h	42;"	d	language:C++
 CONVERT	.\src\string.c	41;"	d	language:C	file:
@@ -96,6 +97,7 @@ __STRING_HEADER_H__	.\inc\string.h	30;"	d	language:C++
 __TABLE_HEADER_H__	.\inc\table.h	30;"	d	language:C++
 __TEST_HEADER_H__	.\test\test.h	30;"	d	language:C++
 __TEXT_HEADER_H__	.\inc\text.h	30;"	d	language:C++
+__XP_HEADER_H__	.\inc\xp.h	2;"	d	language:C++
 __func__	.\inc\error.h	33;"	d	language:C++
 __func__	.\test\test.h	33;"	d	language:C++
 _assert	.\src\except.c	/^    _CRTIMP void __cdecl _assert(const char*, const char*, unsigned int);$/;"	p	language:C	file:	signature:(const char*, const char*, unsigned int)
@@ -232,6 +234,7 @@ bit_size	.\inc\bit.h	/^extern int bit_size(void* B);$/;"	p	language:C++	signatur
 bit_size	.\src\bit.c	/^int bit_size(void* B)$/;"	f	language:C	signature:(void* B)
 bit_union	.\inc\bit.h	/^extern void* bit_union(void* B1, void* B2);$/;"	p	language:C++	signature:(void* B1, void* B2)
 bit_union	.\src\bit.c	/^void* bit_union(void* B1, void* B2)$/;"	f	language:C	signature:(void* B1, void* B2)
+byte_t	.\inc\xp.h	/^typedef unsigned char byte_t;$/;"	t	language:C++
 bytes	.\src\bit.c	/^  unsigned char* bytes;$/;"	m	language:C	struct:lBit	file:
 cb	.\test\test.c	/^  func_callback cb;$/;"	m	language:C	struct:TestFunc	file:
 cmd	.\test\test.c	/^  char* cmd;$/;"	m	language:C	struct:TestFunc	file:
@@ -810,3 +813,37 @@ timestamp	.\src\set.c	/^  unsigned int timestamp;$/;"	m	language:C	struct:lSet	f
 timestamp	.\src\table.c	/^  unsigned int timestamp;$/;"	m	language:C	struct:lTable	file:
 value	.\src\table.c	/^  void*              value;$/;"	m	language:C	struct:lTableNode	file:
 x	.\src\stack.c	/^  void* x;$/;"	m	language:C	struct:lStackNode	file:
+xp_add	.\inc\xp.h	/^extern int xp_add(int digits, byte_t* z, byte_t* x, byte_t* y, int carry);$/;"	p	language:C++	signature:(int digits, byte_t* z, byte_t* x, byte_t* y, int carry)
+xp_add	.\src\xp.c	/^xp_add(int digits, byte_t* z, byte_t* x, byte_t* y, int carry)$/;"	f	language:C	signature:(int digits, byte_t* z, byte_t* x, byte_t* y, int carry)
+xp_cmp	.\inc\xp.h	/^extern int xp_cmp(int n, byte_t* x, byte_t* y);$/;"	p	language:C++	signature:(int n, byte_t* x, byte_t* y)
+xp_cmp	.\src\xp.c	/^xp_cmp(int n, byte_t* x, byte_t* y)$/;"	f	language:C	signature:(int n, byte_t* x, byte_t* y)
+xp_diff	.\inc\xp.h	/^extern int xp_diff(int n, byte_t* z, byte_t* x, int y);$/;"	p	language:C++	signature:(int n, byte_t* z, byte_t* x, int y)
+xp_diff	.\src\xp.c	/^xp_diff(int n, byte_t* z, byte_t* x, int y)$/;"	f	language:C	signature:(int n, byte_t* z, byte_t* x, int y)
+xp_div	.\inc\xp.h	/^extern int xp_div(int n, byte_t* q, byte_t* x, int m, byte_t* y, byte_t* r, byte_t* temp);$/;"	p	language:C++	signature:(int n, byte_t* q, byte_t* x, int m, byte_t* y, byte_t* r, byte_t* temp)
+xp_div	.\src\xp.c	/^xp_div(int n, byte_t* q, byte_t* x, int m, byte_t* y, byte_t* r, byte_t* temp)$/;"	f	language:C	signature:(int n, byte_t* q, byte_t* x, int m, byte_t* y, byte_t* r, byte_t* temp)
+xp_fromint	.\inc\xp.h	/^extern unsigned long xp_fromint(int n, byte_t* z, unsigned long u);$/;"	p	language:C++	signature:(int n, byte_t* z, unsigned long u)
+xp_fromint	.\src\xp.c	/^xp_fromint(int n, byte_t* z, unsigned long u)$/;"	f	language:C	signature:(int n, byte_t* z, unsigned long u)
+xp_fromstr	.\inc\xp.h	/^extern int xp_fromstr(int n, byte_t* z, const char* str, int base, char** end);$/;"	p	language:C++	signature:(int n, byte_t* z, const char* str, int base, char** end)
+xp_fromstr	.\src\xp.c	/^xp_fromstr(int n, byte_t* z, const char* str, int base, char** end)$/;"	f	language:C	signature:(int n, byte_t* z, const char* str, int base, char** end)
+xp_length	.\inc\xp.h	/^extern int xp_length(int n, byte_t* x);$/;"	p	language:C++	signature:(int n, byte_t* x)
+xp_length	.\src\xp.c	/^xp_length(int n, byte_t* x)$/;"	f	language:C	signature:(int n, byte_t* x)
+xp_lshift	.\inc\xp.h	/^extern void xp_lshift(int n, byte_t* z, int m, byte_t* x, int s, int fill);$/;"	p	language:C++	signature:(int n, byte_t* z, int m, byte_t* x, int s, int fill)
+xp_lshift	.\src\xp.c	/^xp_lshift(int n, byte_t* z, int m, byte_t* x, int s, int fill)$/;"	f	language:C	signature:(int n, byte_t* z, int m, byte_t* x, int s, int fill)
+xp_mul	.\inc\xp.h	/^extern int xp_mul(byte_t* z, int n, byte_t* x, int m, byte_t* y);$/;"	p	language:C++	signature:(byte_t* z, int n, byte_t* x, int m, byte_t* y)
+xp_mul	.\src\xp.c	/^xp_mul(byte_t* z, int n, byte_t* x, int m, byte_t* y)$/;"	f	language:C	signature:(byte_t* z, int n, byte_t* x, int m, byte_t* y)
+xp_neg	.\inc\xp.h	/^extern int xp_neg(int n, byte_t* z, byte_t* x, int carry);$/;"	p	language:C++	signature:(int n, byte_t* z, byte_t* x, int carry)
+xp_neg	.\src\xp.c	/^xp_neg(int n, byte_t* z, byte_t* x, int carry)$/;"	f	language:C	signature:(int n, byte_t* z, byte_t* x, int carry)
+xp_product	.\inc\xp.h	/^extern int xp_product(int n, byte_t* z, byte_t* x, int y);$/;"	p	language:C++	signature:(int n, byte_t* z, byte_t* x, int y)
+xp_product	.\src\xp.c	/^xp_product(int n, byte_t* z, byte_t* x, int y)$/;"	f	language:C	signature:(int n, byte_t* z, byte_t* x, int y)
+xp_quotient	.\inc\xp.h	/^extern int xp_quotient(int n, byte_t* z, byte_t* x, int y);$/;"	p	language:C++	signature:(int n, byte_t* z, byte_t* x, int y)
+xp_quotient	.\src\xp.c	/^xp_quotient(int n, byte_t* z, byte_t* x, int y)$/;"	f	language:C	signature:(int n, byte_t* z, byte_t* x, int y)
+xp_rshift	.\inc\xp.h	/^extern void xp_rshift(int n, byte_t* z, int m, byte_t* x, int s, int fill);$/;"	p	language:C++	signature:(int n, byte_t* z, int m, byte_t* x, int s, int fill)
+xp_rshift	.\src\xp.c	/^xp_rshift(int n, byte_t* z, int m, byte_t* x, int s, int fill)$/;"	f	language:C	signature:(int n, byte_t* z, int m, byte_t* x, int s, int fill)
+xp_sub	.\inc\xp.h	/^extern int xp_sub(int digits, byte_t* z, byte_t* x, byte_t* y, int borrow);$/;"	p	language:C++	signature:(int digits, byte_t* z, byte_t* x, byte_t* y, int borrow)
+xp_sub	.\src\xp.c	/^xp_sub(int digits, byte_t* z, byte_t* x, byte_t* y, int borrow)$/;"	f	language:C	signature:(int digits, byte_t* z, byte_t* x, byte_t* y, int borrow)
+xp_sum	.\inc\xp.h	/^extern int xp_sum(int n, byte_t* z, byte_t* x, int y);$/;"	p	language:C++	signature:(int n, byte_t* z, byte_t* x, int y)
+xp_sum	.\src\xp.c	/^xp_sum(int n, byte_t* z, byte_t* x, int y)$/;"	f	language:C	signature:(int n, byte_t* z, byte_t* x, int y)
+xp_toint	.\inc\xp.h	/^extern unsigned long xp_toint(int n, byte_t* x);$/;"	p	language:C++	signature:(int n, byte_t* x)
+xp_toint	.\src\xp.c	/^xp_toint(int n, byte_t* x)$/;"	f	language:C	signature:(int n, byte_t* x)
+xp_tostr	.\inc\xp.h	/^extern char* xp_tostr(char* str, int size, int base, int n, byte_t* x);$/;"	p	language:C++	signature:(char* str, int size, int base, int n, byte_t* x)
+xp_tostr	.\src\xp.c	/^xp_tostr(char* str, int size, int base, int n, byte_t* x)$/;"	f	language:C	signature:(char* str, int size, int base, int n, byte_t* x)

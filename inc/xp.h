@@ -1,7 +1,7 @@
 #ifndef __XP_HEADER_H__
 #define __XP_HEADER_H__
 
-typedef unsigned char* byte_t;
+typedef unsigned char byte_t;
 
 extern int xp_add(int digits, byte_t* z, byte_t* x, byte_t* y, int carry);
 extern int xp_sub(int digits, byte_t* z, byte_t* x, byte_t* y, int borrow);
