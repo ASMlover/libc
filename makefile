@@ -1,4 +1,4 @@
-BIN 	= libc.exe
+BIN 	= libc
 CC 		= gcc
 CFLAGS = -g -O2 -Wall
 OBJS 	= main.o\
@@ -20,7 +20,7 @@ OBJS 	= main.o\
 RM 		= rm
 
 $(BIN): $(OBJS)
-	$(CC) $^ -o $@
+	$(CC) -o $@ $^
 
 clean:
-	$(RM) *.o ./src/*.o ./test/*.o $(BIN)
+	$(RM) $(OBJS) $(BIN)
