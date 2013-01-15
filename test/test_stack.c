@@ -37,7 +37,7 @@
 
 void test_stack(void)
 {
-  void* S; 
+  stack_t S; 
   int i;
 
   fprintf(stdout, "call function : %s\n", __func__);
