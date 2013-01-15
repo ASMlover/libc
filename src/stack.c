@@ -35,21 +35,21 @@
 #include "../inc/stack.h"
 
 
-struct lStackNode {
-  void* x;
-  struct lStackNode* next;
-};
-struct lStack {
-  struct lStackNode* head;
+typedef struct stack_node_s {
+  struct stack_node_s* next;
+  element_t x;
+} *stack_node_t;
+
+struct stack_s {
   int count;
+  stack_node_t head;
 };
 
-static void stack_clear(struct lStack* self)
+static void 
+stack_clear(stack_t self)
 {
-  struct lStackNode* t;
-  struct lStackNode* n;
-  for (t = self->head; NULL != t; t = n)
-  {
+  stack_node_t t, n;
+  for (t = self->head; NULL != t; t = n) {
     n = t->next;
     FREE(t);
   }
@@ -57,50 +57,52 @@ static void stack_clear(struct lStack* self)
 }
 
 
-void* stack_create(void)
+stack_t 
+stack_create(void)
 {
-  struct lStack* self;
-  size_t size = sizeof(struct lStack);
+  stack_t self = (stack_t)CALLOC(sizeof(*self), sizeof(char));
 
-  self = (struct lStack*)CALLOC(size, sizeof(char));
-  return (void*)self;
+  return self;
 }
 
-void stack_release(void** S)
+void 
+stack_release(stack_t* S)
 {
   assert(NULL != *S);
-  stack_clear((struct lStack*)*S);
+  stack_clear(*S);
   FREE(*S);
 }
 
-int stack_empty(void* S)
+int 
+stack_empty(stack_t S)
 {
-  return (NULL != S ? (0 == ((struct lStack*)S)->count) : ERROR_LEN);
+  return (NULL != S ? (0 == S->head) : ERROR_LEN);
 }
 
-void stack_push(void* S, void* x)
+void 
+stack_push(stack_t S, element_t x)
 {
-  struct lStackNode* t;
-  size_t size = sizeof(struct lStackNode);
+  stack_node_t t;
 
   assert(NULL != S);
-  t = (struct lStackNode*)CALLOC(size, sizeof(char));
+  t = (stack_node_t)ALLOC(sizeof(*t));
   t->x = x;
-  t->next = ((struct lStack*)S)->head;
-  ((struct lStack*)S)->head = t;
-  ++((struct lStack*)S)->count;
+  t->next = S->head;
+  S->head = t;
+  ++S->count;
 }
 
-void* stack_pop(void* S)
+element_t 
+stack_pop(stack_t S)
 {
-  void* x;
-  struct lStackNode* t;
+  element_t x;
+  stack_node_t t;
 
   assert(0 != S);
-  assert(((struct lStack*)S)->count > 0);
-  t = ((struct lStack*)S)->head;
-  ((struct lStack*)S)->head = t->next;
-  --((struct lStack*)S)->count;
+  assert(S->count > 0);
+  t = S->head;
+  S->head = t->next;
+  --S->count;
   x = t->x;
   FREE(t);
 

@@ -29,10 +29,13 @@
 #ifndef __STACK_HEADER_H__
 #define __STACK_HEADER_H__
 
-extern void* stack_create(void);
-extern void stack_release(void** S);
-extern int stack_empty(void* S);
-extern void stack_push(void* S, void* x);
-extern void* stack_pop(void* S);
+typedef struct stack_s* stack_t;
+typedef void* element_t;
+
+extern stack_t stack_create(void);
+extern void stack_release(stack_t* S);
+extern int stack_empty(stack_t S);
+extern void stack_push(stack_t S, element_t x);
+extern element_t stack_pop(stack_t S);
 
 #endif  /* __STACK_HEADER_H__ */
