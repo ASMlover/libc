@@ -219,8 +219,7 @@ list_for_each(list_t L, void (*visit)(element_t, void*), void* arg)
     return;
   beg = L->node.next;
   end = &L->node;
-  while (beg != end)
-  {
+  while (beg != end) {
     node = beg;
     beg  = beg->next;
     if (NULL != visit)
