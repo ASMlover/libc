@@ -35,21 +35,22 @@
 #include "../inc/list.h"
 
 
-struct lListNode {
-  void*             data;
-  struct lListNode* prev;
-  struct lListNode* next;
+typedef struct list_node_s {
+  element_t data;
+  struct list_node_s* prev;
+  struct list_node_s* next;
+} *list_node_t;
+
+struct list_s {
+  int size;
+  struct list_node_s node;
 };
 
-struct lList {
-  struct lListNode node;
-  int              size;
-};
 
-
-static inline struct lListNode* list_new_node(void* x)
+static inline 
+list_node_t list_new_node(element_t x)
 {
-  struct lListNode* node;
+  list_node_t node;
   NEW0(node);
 
   if (NULL != node)
@@ -59,153 +60,169 @@ static inline struct lListNode* list_new_node(void* x)
 
 
 
-void* list_create(void)
-{
-  struct lList* self;
 
+list_t 
+list_create(void)
+{
+  list_t self;
   NEW0(self);
-  if (NULL != self)
-  {
+
+  if (NULL != self) {
     self->node.prev = &self->node;
     self->node.next = &self->node;
   }
 
-  return (void*)self;
+  return self;
 }
 
-void list_release(void** L)
+void 
+list_release(list_t* L)
 {
   list_clear(*L, NULL);
   FREE(*L);
 }
 
-int list_size(void* L)
+int 
+list_size(list_t L)
 {
-  return (NULL != L ? ((struct lList*)L)->size : ERROR_LEN);
+  return (NULL != L ? L->size : ERROR_LEN);
 }
 
-int list_empty(void* L)
+int 
+list_empty(list_t L)
 {
-  return (list_begin(L) == list_end(L));
+  assert(NULL != L);
+  return (L->node.next == &L->node);
 }
 
-void list_clear(void* L, void (*destroy)(void*))
+void 
+list_clear(list_t L, void (*destroy)(void*))
 {
-  lListIter it = list_begin(L);
-  lListIter node;
-  void*     data;
+  list_node_t it, node;
+  element_t   data;
 
-  if (NULL == L || NULL == it)
+  if (NULL == L)
     return;
-  while (it != list_end(L))
-  {
+
+  it = L->node.next;
+  while (it != &L->node) {
     node = it;
-    it   = list_iter_next(it);
-    data = list_erase(L, node);
+    it   = it->next;
+    data = list_erase(L, (list_iter_t)node);
     if (NULL != destroy)
       destroy(data);
   }
-  ((struct lList*)L)->size = 0;
 }
 
-int list_push_back(void* L, void* x)
+int 
+list_push_back(list_t L, element_t x)
 {
   return list_insert(L, list_end(L), x);
 }
 
-int list_push_front(void* L, void* x)
+int 
+list_push_front(list_t L, element_t x)
 {
   return list_insert(L, list_begin(L), x);
 }
 
-int list_insert(void* L, lListIter pos, void* x)
+int 
+list_insert(list_t L, list_iter_t pos, element_t x)
 {
-  struct lListNode* node = list_new_node(x);
+  list_node_t node = list_new_node(x);
 
   if (NULL == L || NULL == pos || NULL == node)
     return RESULT_FAIL;
-  node->prev = ((struct lListNode*)pos)->prev;
-  node->next = ((struct lListNode*)pos);
-  ((struct lListNode*)pos)->prev->next = node;
-  ((struct lListNode*)pos)->prev = node;
-  ++((struct lList*)L)->size;
+  node->prev = ((list_node_t)pos)->prev;
+  node->next = ((list_node_t)pos);
+  ((list_node_t)pos)->prev->next = node;
+  ((list_node_t)pos)->prev = node;
+  ++L->size;
 
   return RESULT_OK;
 }
 
-void* list_pop_back(void* L)
+element_t 
+list_pop_back(list_t L)
 {
-  struct lListNode* node = (struct lListNode*)list_end(L);
+  list_node_t node = (list_node_t)list_end(L);
   if (NULL != node)
     node = node->prev;
-  return list_erase(L, (lListIter)node);
+  return list_erase(L, (list_iter_t)node);
 }
 
-void* list_pop_front(void* L)
+element_t 
+list_pop_front(list_t L)
 {
   return list_erase(L, list_begin(L));
 }
 
-void* list_erase(void* L, lListIter pos)
+element_t 
+list_erase(list_t L, list_iter_t pos)
 {
-  struct lListNode* prev;
-  struct lListNode* next;
-  void*  erase_data;
+  list_node_t prev, next;
+  element_t erase_data;
 
   if (NULL == L || NULL == pos)
     return NULL;
-  prev = ((struct lListNode*)pos)->prev;
-  next = ((struct lListNode*)pos)->next;
+  prev = ((list_node_t)pos)->prev;
+  next = ((list_node_t)pos)->next;
   prev->next = next;
   next->prev = prev;
-  erase_data = ((struct lListNode*)pos)->data;
+  erase_data = ((list_node_t)pos)->data;
   FREE(pos);
-  --((struct lList*)L)->size;
+  --L->size;
 
   return erase_data;
 }
 
-lListIter list_begin(void* L)
+list_iter_t 
+list_begin(list_t L)
 {
-  return (NULL != L ? (lListIter)(((struct lList*)L)->node.next) : NULL);
+  return (NULL != L ? (list_iter_t)L->node.next : NULL);
 }
 
-lListIter list_end(void* L)
+list_iter_t 
+list_end(list_t L)
 {
-  return (NULL != L ? (lListIter)(&((struct lList*)L)->node) : NULL);
+  return (NULL != L ? (list_iter_t)&L->node : NULL);
 }
 
-lListIter list_iter_next(lListIter iter)
+list_iter_t 
+list_iter_next(list_iter_t iter)
 {
-  return (NULL != iter ? (lListIter)(((struct lListNode*)iter)->next) : NULL);
+  return (NULL != iter ? (list_iter_t)((list_node_t)iter)->next : NULL);
 }
 
-void* list_front(void* L)
+element_t 
+list_front(list_t L)
 {
-  struct lListNode* node = (struct lListNode*)list_begin(L);
+  list_node_t node = (list_node_t)list_begin(L);
   return (NULL != node ? node->data : NULL);
 }
 
-void* list_back(void* L)
+element_t 
+list_back(list_t L)
 {
-  struct lListNode* node = (struct lListNode*)list_end(L);
+  list_node_t node = (list_node_t)list_end(L);
   if (NULL != node)
     node = node->prev;
   return (NULL != node ? node->data : NULL);
 }
 
-void list_for_each(void* L, void (*visit)(void*, void*), void* arg)
+void 
+list_for_each(list_t L, void (*visit)(element_t, void*), void* arg)
 {
-  lListIter beg = list_begin(L);
-  lListIter end = list_end(L);
-  struct lListNode* node;
+  list_node_t beg, end, node;
 
-  if (NULL == L || NULL == beg)
+  if (NULL == L)
     return;
+  beg = L->node.next;
+  end = &L->node;
   while (beg != end)
   {
-    node = (struct lListNode*)beg;
-    beg  = list_iter_next(beg);
+    node = beg;
+    beg  = beg->next;
     if (NULL != visit)
       visit(node->data, arg);
   }

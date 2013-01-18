@@ -29,13 +29,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "../inc/config.h"
 #include "../inc/stack.h"
 #include "../inc/memory.h"
 
 #include "test.h"
 
 
-void test_stack(void)
+void 
+test_stack(void)
 {
   stack_t S; 
   int i;

@@ -46,5 +46,6 @@ enum EXISTS_TYPE {
   EXISTS_YES  = 1, 
 };
 
+typedef void* element_t;
 
 #endif  /* __CONFIG_HEADER_H__ */

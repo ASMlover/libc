@@ -30,6 +30,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include "../inc/config.h"
 #include "../inc/assert.h"
 #include "../inc/memory.h"
 #include "../inc/list.h"
@@ -37,7 +38,8 @@
 #include "test.h"
 
 
-static void list_object_show(void* L)
+static void 
+list_object_show(list_t L)
 {
   fprintf(stdout, 
     "\t__list__ : __object__ 0x%p = {\n"
@@ -52,9 +54,10 @@ static void list_object_show(void* L)
     list_front(L), list_back(L), list_begin(L), list_end(L));
 }
 
-static void list_object_show_elements_double(void* L)
+static void 
+list_object_show_elements_double(list_t L)
 {
-  lListIter beg = list_begin(L), end = list_end(L);
+  list_iter_t beg = list_begin(L), end = list_end(L);
   int i;
 
   for (i = 0 ; beg != end; ++i, beg = list_iter_next(beg))
@@ -62,28 +65,32 @@ static void list_object_show_elements_double(void* L)
       i, *beg, *((double*)*beg));
 }
 
-static void list_element_show_double(void* x, void* arg)
+static void 
+list_element_show_double(element_t x, void* arg)
 {
   {arg = arg;}
   fprintf(stdout, "\tlist object element => {element=>0x%p, value=>%.3f}\n", x, *(double*)x);
 }
 
-static void list_element_destroy_double(void* x, void* arg)
+static void 
+list_element_destroy_double(element_t x, void* arg)
 {
   {arg = arg;}
   fprintf(stdout, "\tthe destroyed element {element=>0x%p, value=>%.3f}\n", x, *(double*)x);
   free(x);
 }
 
-static void list_element_destroy(void* x)
+static void 
+list_element_destroy(element_t x)
 {
   list_element_destroy_double(x, NULL);
 }
 
 
-void test_list(void)
+void 
+test_list(void)
 {
-  void* L;
+  list_t L;
 
   fprintf(stdout, "call function : %s\n", __func__);
 

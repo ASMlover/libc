@@ -30,7 +30,6 @@
 #define __STACK_HEADER_H__
 
 typedef struct stack_s* stack_t;
-typedef void* element_t;
 
 extern stack_t stack_create(void);
 extern void stack_release(stack_t* S);
