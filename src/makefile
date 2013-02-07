@@ -4,7 +4,7 @@ CC	= gcc
 AR	= ar
 CFLAGS 	= -g -O2 -Wall
 LDFLAGS	= -L$(LIB_DIR) -llibc
-LIBC_OBJS	= error.o arith.o stack.o atom.o except.o assert.o memory.o\
+LIBC_OBJS = error.o arith.o stack.o atom.o except.o assert.o memory.o\
 	mem_check.o arena.o list.o slist.o table.o set.o array.o sequence.o\
 	ring.o bit.o format.o string.o text.o xp.o
 RM	= rm 
