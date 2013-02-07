@@ -1,14 +1,17 @@
 all:
-	make -C ../../ 
+	make -C ../../src/
+	make -C ../../src/ install
+	make -C ../../test/
 
-rebuild:
-	make -C ../../ rebuild 
+rebuild: clean all
 
 install:
-	make -C ../../ install 
+	make -C ../../test/ install 
 
 uninstall:
-	make -C ../../ uninstall 
+	make -C ../../src/ uninstall
+	make -C ../../test/ uninstall 
 
 clean:
-	make -C ../../ clean
+	make -C ../../src/ clean
+	make -C ../../test/ clean

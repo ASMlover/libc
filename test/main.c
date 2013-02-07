@@ -27,7 +27,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 #include <stdio.h>
-#include "./test/test.h"
+#include "test.h"
 
 int 
 main(int argc, char* argv[], char* envp[])

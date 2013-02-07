@@ -1,19 +1,24 @@
 all:
-	chdir ..\..
-	nmake -f makefile.win 
+	chdir ..\..\src
+	nmake -f makefile.win
+	nmake -f makefile.win install
+	chdir ..\test
+	nmake -f makefile.win
 
-rebuild:
-	chdir ..\..
-	nmake -f makefile.win rebuild
+rebuild: clean all
 
 install:
-	chdir ..\..
+	chdir ..\..\test
 	nmake -f makefile.win install
 
 uninstall:
-	chdir ..\..
+	chdir ..\..\src
+	nmake -f makefile.win uninstall 
+	chdir ..\test
 	nmake -f makefile.win uninstall 
 
 clean:
-	chdir ..\..
+	chdir ..\..\src
+	nmake -f makefile.win clean
+	chdir ..\test
 	nmake -f makefile.win clean

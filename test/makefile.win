@@ -1,0 +1,56 @@
+BIN_OUT	= libc-test.exe
+BIN_DIR	= ..\bin
+LIB_DIR	= ..\lib
+CC	= cl -c -nologo 
+LINK 	= link -nologo
+MT 	= mt -nologo
+CFLAGS 	= -O2 -W3 -MD -GS -Zi -Fd"vc.pdb" -DNDEBUG\
+					-D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_WARNINGS
+LDFLAGS	= -DEBUG -PDB:$(BIN_OUT).pdb -manifest\
+					-manifestfile:$(BIN_OUT).manifest -manifestuac:no\
+					-LIBPATH:$(LIB_DIR) libc.lib
+TEST_SRCS	= main.c\
+						\
+						test.c test_arith.c test_stack.c test_atom.c test_except.c\
+						test_memory.c test_memcheck.c test_arena.c test_list.c\
+						test_slist.c test_table.c test_set.c test_array.c\
+						test_sequence.c test_ring.c test_bit.c test_format.c\
+						test_string.c test_text.c
+TEST_OBJS	= main.obj\
+						\
+						test.obj test_arith.obj test_stack.obj test_atom.obj\
+						test_except.obj test_memory.obj test_memcheck.obj\
+						test_arena.obj test_list.obj test_slist.obj test_table.obj\
+						test_set.obj test_array.obj test_sequence.obj test_ring.obj\
+						test_bit.obj test_format.obj test_string.obj test_text.obj
+RM	= del 
+MD	= mkdir
+RD	= rd /S /Q
+CP 	= copy
+
+
+all: bin
+
+bin: $(BIN_OUT)
+
+rebuild: clean all
+
+install:
+	if not exist $(BIN_DIR) $(MD) $(BIN_DIR)
+	$(CP) $(BIN_OUT) $(BIN_DIR)
+
+uninstall:
+	$(RD) $(BIN_DIR) 
+
+clean:
+	$(RM) $(TEST_OBJS) $(BIN_OUT) *.pdb *.manifest *.ilk
+
+
+
+
+$(BIN_OUT): $(TEST_OBJS)
+	$(LINK) -out:$(BIN_OUT) $(TEST_OBJS) $(LDFLAGS)
+	$(MT) -manifest $(BIN_OUT).manifest -outputresource:$(BIN_OUT);1
+
+$(TEST_OBJS): $(TEST_SRCS)
+	$(CC) $(CFLAGS) $(TEST_SRCS)

@@ -1,0 +1,44 @@
+LIB_OUT	= libc.lib
+LIB_DIR	= ..\lib
+CC	= cl -c -nologo 
+LINK 	= link -nologo
+AR	= lib -nologo
+CFLAGS 	= -O2 -W3 -MD -GS -Zi -Fd"vc.pdb" -DNDEBUG\
+					-D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_WARNINGS
+LIBC_SRCS	= error.c arith.c stack.c atom.c except.c assert.c memory.c\
+						mem_check.c arena.c list.c slist.c table.c set.c array.c\
+						sequence.c ring.c bit.c format.c string.c text.c xp.c
+LIBC_OBJS	= error.obj arith.obj stack.obj atom.obj except.obj assert.obj\
+						memory.obj mem_check.obj arena.obj list.obj slist.obj\
+						table.obj set.obj array.obj sequence.obj ring.obj bit.obj\
+						format.obj string.obj text.obj xp.obj
+RM	= del 
+MD	= mkdir
+RD	= rd /S /Q
+CP 	= copy
+
+
+all: lib
+
+lib: $(LIB_OUT)
+
+rebuild: clean all
+
+install:
+	if not exist $(LIB_DIR) $(MD) $(LIB_DIR)
+	$(CP) $(LIB_OUT) $(LIB_DIR)
+
+uninstall:
+	$(RD) $(LIB_DIR)
+
+clean:
+	$(RM) $(LIBC_OBJS) $(LIB_OUT) *.pdb
+
+
+
+
+$(LIB_OUT): $(LIBC_OBJS)
+	$(AR) -out:$(LIB_OUT) $(LIBC_OBJS)
+
+$(LIBC_OBJS): $(LIBC_SRCS)
+	$(CC) $(CFLAGS) $(LIBC_SRCS)
