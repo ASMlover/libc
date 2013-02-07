@@ -1,0 +1,90 @@
+BIN_OUT	= libc-test.exe
+BIN_DIR	= bin
+LIB_OUT	= libc.lib
+LIB_DIR	= lib
+CC	= cl -c -nologo 
+LINK 	= link -nologo
+AR	= lib -nologo
+MT 	= mt -nologo
+CFLAGS 	= -O2 -W3 -MD -GS -Zi -Fd"vc.pdb" -DNDEBUG\
+					-D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_WARNINGS
+LDFLAGS	= -DEBUG -PDB:$(BIN_OUT).pdb -manifest\
+					-manifestfile:$(BIN_OUT).manifest -manifestuac:no\
+					-LIBPATH:$(LIB_DIR) $(LIB_OUT)
+LIBC_SRCS	= ./src/error.c ./src/arith.c ./src/stack.c ./src/atom.c\
+						./src/except.c ./src/assert.c ./src/memory.c ./src/mem_check.c\
+						./src/arena.c ./src/list.c ./src/slist.c ./src/table.c\
+						./src/set.c ./src/array.c ./src/sequence.c ./src/ring.c\
+						./src/bit.c ./src/format.c ./src/string.c ./src/text.c\
+						./src/xp.c
+LIBC_OBJS	= error.obj arith.obj stack.obj atom.obj except.obj assert.obj\
+						memory.obj mem_check.obj arena.obj list.obj slist.obj\
+						table.obj set.obj array.obj sequence.obj ring.obj bit.obj\
+						format.obj string.obj text.obj xp.obj
+TEST_SRCS	= main.c\
+						\
+						./test/test.c ./test/test_arith.c ./test/test_stack.c\
+						./test/test_atom.c ./test/test_except.c ./test/test_memory.c\
+						./test/test_memcheck.c ./test/test_arena.c ./test/test_list.c\
+						./test/test_slist.c ./test/test_table.c ./test/test_set.c\
+						./test/test_array.c ./test/test_sequence.c ./test/test_ring.c\
+						./test/test_bit.c ./test/test_format.c ./test/test_string.c\
+						./test/test_text.c
+TEST_OBJS	= main.obj\
+						\
+						test.obj test_arith.obj test_stack.obj test_atom.obj\
+						test_except.obj test_memory.obj test_memcheck.obj\
+						test_arena.obj test_list.obj test_slist.obj test_table.obj\
+						test_set.obj test_array.obj test_sequence.obj test_ring.obj\
+						test_bit.obj test_format.obj test_string.obj test_text.obj
+RM	= del 
+MD	= mkdir
+RD	= rd /S /Q
+CP 	= copy
+
+
+all: lib install-lib $(BIN_OUT) 
+
+lib: $(LIB_OUT)
+
+rebuild: clean all
+
+install:
+	if not exist $(BIN_DIR) $(MD) $(BIN_DIR)
+	$(CP) $(BIN_OUT) $(BIN_DIR)
+
+install-lib:
+	if not exist $(LIB_DIR) $(MD) $(LIB_DIR)
+	$(CP) $(LIB_OUT) $(LIB_DIR)
+
+uninstall: uninstall-bin uninstall-lib
+
+uninstall-bin:
+	$(RD) $(BIN_DIR) 
+
+uninstall-lib:
+	$(RD) $(LIB_DIR)
+
+clean: clean-bin clean-lib
+
+clean-bin:
+	$(RM) $(TEST_OBJS) $(BIN_OUT) *.pdb *.manifest *.ilk
+
+clean-lib:
+	$(RM) $(LIBC_OBJS) $(LIB_OUT) *.pdb
+
+
+
+
+$(BIN_OUT): $(TEST_OBJS)
+	$(LINK) -out:$(BIN_OUT) $(TEST_OBJS) $(LDFLAGS)
+	$(MT) -manifest $(BIN_OUT).manifest -outputresource:$(BIN_OUT);1
+
+$(LIB_OUT): $(LIBC_OBJS)
+	$(AR) -out:$(LIB_OUT) $(LIBC_OBJS)
+
+$(LIBC_OBJS): $(LIBC_SRCS)
+	$(CC) $(CFLAGS) $(LIBC_SRCS)
+
+$(TEST_OBJS): $(TEST_SRCS)
+	$(CC) $(CFLAGS) $(TEST_SRCS)
