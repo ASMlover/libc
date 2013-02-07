@@ -40,7 +40,7 @@ install:
 	$(CP) $(BIN_OUT) $(BIN_DIR)
 
 uninstall:
-	$(RD) $(BIN_DIR) 
+	if exist $(BIN_DIR) $(RD) $(BIN_DIR) 
 
 clean:
 	$(RM) $(TEST_OBJS) $(BIN_OUT) *.pdb *.manifest *.ilk
