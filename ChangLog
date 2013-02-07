@@ -1,0 +1,26 @@
+2013/02/07  ASMlover  <asmlover@126.com>
+----------------------------------------
+  * Finished first version.
+  * Added arena module.
+  * Added arith module.
+  * Added array module.
+  * Added assert module.
+  * Added atom module.
+  * Added bit module.
+  * Added error module.
+  * Added except module.
+  * Added format module.
+  * Added double list module.
+  * Added memory module.
+  * Added ring module.
+  * Added sequence module.
+  * Added set module.
+  * Added single list module.
+  * Added stack module.
+  * Added string module.
+  * Added table module.
+  * Added text module.
+
+2012/07/03  ASMlover  <asmlover@126.com>
+----------------------------------------
+  * Starts woring on libc.
