@@ -8,4 +8,13 @@ README for libc
   ------------
   It's a library for C (Purpose to practice).
 
+* Building libc
+  -------------
+  Linux
+    $ cd build/gcc 
+    $ make
+  Windows
+    \> cd build\msvc 
+    \> nmake
+
 (end of README)
