@@ -1,7 +1,11 @@
 BIN_OUT	= libc-test
 BIN_DIR	= bin 
-CC 			= gcc
+LIB_OUT	= liblibc.a
+LIB_DIR	= lib
+CC	= gcc
+AR	= ar
 CFLAGS 	= -g -O2 -Wall
+LDFLAGS	= -L$(LIB_DIR) -llibc
 LIBC_OBJS	= ./src/error.o ./src/arith.o ./src/stack.o ./src/atom.o\
 						./src/except.o ./src/assert.o ./src/memory.o ./src/mem_check.o\
 						./src/arena.o ./src/list.o ./src/slist.o ./src/table.o\
@@ -23,24 +27,44 @@ RD	= rm -rf
 CP 	= cp 
 
 
-all: $(BIN_OUT)
+all: lib install-lib $(BIN_OUT) 
 
-rebuild: clean $(BIN_OUT)
+lib: $(LIB_OUT)
+
+rebuild: clean all
 
 install:
 	$(MD) $(BIN_DIR)
 	$(CP) $(BIN_OUT) $(BIN_DIR)
 
-uninstall:
+install-lib:
+	$(MD) $(LIB_DIR)
+	$(CP) $(LIB_OUT) $(LIB_DIR)
+
+uninstall: uninstall-bin uninstall-lib
+
+uninstall-bin:
 	$(RD) $(BIN_DIR) 
 
-clean:
-	$(RM) $(LIBC_OBJS) $(TEST_OBJS) $(BIN_OUT) 
+uninstall-lib:
+	$(RD) $(LIB_DIR)
+
+clean: clean-bin clean-lib
+
+clean-bin:
+	$(RM) $(TEST_OBJS) $(BIN_OUT) 
+
+clean-lib:
+	$(RM) $(LIBC_OBJS) $(LIB_OUT)
 
 
 
-$(BIN_OUT): $(TEST_OBJS) $(LIBC_OBJS)
-	$(CC) -o $@ $^ 
+
+$(BIN_OUT): $(TEST_OBJS)
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+$(LIB_OUT): $(LIBC_OBJS)
+	$(AR) -cru $@ $^
 
 $(LIBC_OBJS): %.o: %.c
 	$(CC) -o $*.o -c $(CFLAGS) $^
