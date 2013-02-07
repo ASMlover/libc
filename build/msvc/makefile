@@ -21,4 +21,5 @@ clean:
 	chdir ..\..\src
 	nmake -f makefile.win clean
 	chdir ..\test
-	nmake -f makefile.win clean
+	nmake -f makefile.win clean 
+	chdir ..\build\msvc
