@@ -34,6 +34,16 @@
 
 #define BASE  (1 << 8)
 
+static char s_map[] = {
+  0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 
+  36, 36, 36, 36, 36, 36, 36, 
+  10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 
+  23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 
+  36, 36, 36, 36, 36, 36, 
+  10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 
+  23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 
+};
+
 
 
 int 
@@ -179,11 +189,43 @@ xp_cmp(int n, byte_t* x, byte_t* y)
 void 
 xp_lshift(int n, byte_t* z, int m, byte_t* x, int s, int fill)
 {
+  int i, j = n - 1;
+
+  fill = fill ? 0xFF : 0;
+  if (n > m)
+    i = m - 1;
+  else 
+    i = n - s / 8 - 1;
+  for ( ; j >= m + s / 8; --j)
+    z[j] = 0;
+  for ( ; i >= 0; --i, --j) 
+    z[j] = x[i];
+  for ( ; j >= 0; --j) 
+    z[j] = fill;
+
+  s %= 8;
+  if (s > 0) {
+    xp_product(n, z, z, 1 << s);
+    z[0] |= fill >> (8 - s);
+  }
 }
 
 void 
 xp_rshift(int n, byte_t* z, int m, byte_t* x, int s, int fill)
 {
+  int i, j = 0;
+
+  fill = fill ? 0xFF : 0;
+  for (i = s / 8; i < m && j < n; ++i, ++j)
+    z[j] = x[i];
+  for ( ; j < n; ++j)
+    z[j] = fill;
+
+  s %= 8;
+  if (s > 0) {
+    xp_quotient(n, z, z, 1 << s);
+    z[n - 1] |= fill << (8 - s);
+  }
 }
 
 int 
@@ -226,11 +268,56 @@ xp_toint(int n, byte_t* x)
 int 
 xp_fromstr(int n, byte_t* z, const char* str, int base, char** end)
 {
-  return 0;
+  const char* p = str;
+  assert(NULL != p);
+  assert(base >= 2 && base <= 36);
+
+  while (*p && isspace(*p))
+    ++p;
+  if ((*p && isalnum(*p) && s_map[*p - '0'] < base)) {
+    int carry = 0;
+    for ( ; (*p && isalnum(*p) && s_map[*p - '0'] < base); ++p) {
+      carry = xp_product(n, z, z, base);
+      if (0 != carry)
+        break;
+      xp_sum(n, z, z, s_map[*p - '0']);
+    }
+
+    if (NULL != end) 
+      *end = (char*)p;
+    return carry;
+  }
+  else {
+    if (NULL != end)
+      *end = (char*)str;
+
+    return 0;
+  }
 }
 
 char* 
 xp_tostr(char* str, int size, int base, int n, byte_t* x)
 {
-  return NULL;
+  int i = 0, j;
+
+  assert(NULL != str);
+  assert(base >= 2 && base <= 36);
+  do {
+    int r = xp_quotient(n, x, x, base);
+    assert(i < size);
+    str[i++] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"[r];
+
+    while (n > 1 && 0 == x[n - 1])
+      --n;
+  } while (n > 1 || 0 != x[0]);
+  assert(i < size);
+
+  str[i] = '\0';
+  for (j = 0; j < --i; ++j) {
+    char c = str[j];
+    str[j] = str[i];
+    str[i] = c;
+  }
+
+  return str;
 }
