@@ -46,7 +46,7 @@ struct stack_s {
 };
 
 static void 
-stack_clear(stack_t self)
+stack_clear(stack_t* self)
 {
   stack_node_t t, n;
   for (t = self->head; NULL != t; t = n) {
@@ -57,16 +57,16 @@ stack_clear(stack_t self)
 }
 
 
-stack_t 
+stack_t* 
 stack_create(void)
 {
-  stack_t self = (stack_t)CALLOC(sizeof(*self), sizeof(char));
+  stack_t* self = (stack_t*)CALLOC(sizeof(*self), sizeof(char));
 
   return self;
 }
 
 void 
-stack_release(stack_t* S)
+stack_release(stack_t** S)
 {
   assert(NULL != *S);
   stack_clear(*S);
@@ -74,13 +74,13 @@ stack_release(stack_t* S)
 }
 
 int 
-stack_empty(stack_t S)
+stack_empty(stack_t* S)
 {
   return (NULL != S ? (0 == S->head) : ERROR_LEN);
 }
 
 void 
-stack_push(stack_t S, element_t x)
+stack_push(stack_t* S, element_t x)
 {
   stack_node_t t;
 
@@ -93,7 +93,7 @@ stack_push(stack_t S, element_t x)
 }
 
 element_t 
-stack_pop(stack_t S)
+stack_pop(stack_t* S)
 {
   element_t x;
   stack_node_t t;

@@ -39,7 +39,7 @@
 void 
 test_stack(void)
 {
-  stack_t S; 
+  stack_t* S; 
   int i;
 
   fprintf(stdout, "call function : %s\n", __func__);
@@ -51,24 +51,28 @@ test_stack(void)
   else
     fprintf(stdout, "\tcreate new stack object success, S = 0x%p\n", S);
 
-  fprintf(stdout, "\ntest function stack_empty/stack_push/stack_pop ===>\n");
-  fprintf(stdout, "\tnow the stack %s empty\n", stack_empty(S) ? "is" : "is not");
+  fprintf(stdout, 
+      "\ntest function stack_empty/stack_push/stack_pop ===>\n");
+  fprintf(stdout, 
+      "\tnow the stack %s empty\n", stack_empty(S) ? "is" : "is not");
   srand((unsigned int)time(0));
-  for (i = 0; i < 10; ++i)
-  {
+  for (i = 0; i < 10; ++i) {
     double* d = (double*)ALLOC(sizeof(double));
     *d = rand() % 1000 * 8.012;
     stack_push(S, d);
     fprintf(stdout, "\t\tpush data [0x%p][%lf]\n", d, *d);
   }
-  fprintf(stdout, "\tafter push 10 elements, stack %s empty\n", stack_empty(S) ? "is" : "is not");
-  while (!stack_empty(S))
-  {
+  fprintf(stdout, 
+      "\tafter push 10 elements, stack %s empty\n", 
+      stack_empty(S) ? "is" : "is not");
+  while (!stack_empty(S)) {
     double* d = stack_pop(S);
     fprintf(stdout, "\t\tpop data [0x%p][%lf]\n", d, *d);
     FREE(d);
   }
-  fprintf(stdout, "\tafter pop elements, stack %s empty\n", stack_empty(S) ? "is" : "is not");
+  fprintf(stdout, 
+      "\tafter pop elements, stack %s empty\n", 
+      stack_empty(S) ? "is" : "is not");
 
   stack_release(&S);
   fprintf(stdout, "\nafter call function stack_free, S = 0x%p\n", (void*)S);
